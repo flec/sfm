@@ -1,0 +1,1 @@
+use this directory for building from cmake
