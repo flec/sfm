@@ -4,7 +4,7 @@
 
 #pragma once
 
-class ICameraMatrixFinder
+class CameraMatrixFinder
 {
 public:
 

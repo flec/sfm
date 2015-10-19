@@ -1,12 +1,5 @@
-#include <stdio.h>
-#include <iostream>
-#include <string>
-
-using namespace std;
-
-/** @function main */
 #ifdef USE_GUI
-#include "mainwindow.h"
+#include "ui/mainwindow/mainwindow.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
@@ -15,10 +8,14 @@ int main(int argc, char *argv[])
   MainWindow w;
   w.show();
 
-
   return a.exec();
 }
 #else
+#include <string>
+#include <stdio.h>
+#include <iostream>
+
+using namespace std;
 int main(int argc, char** argv)
 {
     cout << "Welcome to SFM" << endl;

@@ -4,7 +4,7 @@
 
 #pragma once
 
-class ITriangualtor
+class Triangualtor
 {
 public:
 

@@ -4,7 +4,7 @@
 
 #pragma once
 
-class IFeatureMatcher
+class FeatureMatcher
 {
 public:
 

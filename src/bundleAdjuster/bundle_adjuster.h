@@ -4,7 +4,7 @@
 
 #pragma once
 
-class IBundleAdjuster
+class BundleAdjuster
 {
 public:
 

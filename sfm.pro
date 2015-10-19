@@ -12,8 +12,8 @@ TARGET = sfm
 TEMPLATE = app
 
 
-SOURCES += src/gui/mainwindow/mainwindow.cpp
+SOURCES += src/ui/mainwindow/mainwindow.cpp
 
-HEADERS  += src/gui/mainwindow/mainwindow.h
+HEADERS  += src/ui/mainwindow/mainwindow.h
 
-FORMS    += src/gui/mainwindow/mainwindow.ui
+FORMS    += src/ui/mainwindow/mainwindow.ui

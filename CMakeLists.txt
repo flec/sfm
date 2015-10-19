@@ -6,6 +6,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 # libraries to link in the end
 set(LINK_LIBRARIES "")
 
+# include current directory
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
 ########### options ###############
 SET(USE_GUI TRUE CACHE BOOL "Build with CLI and GUI?")
 ########### END options ###########
@@ -28,7 +31,6 @@ IF(USE_GUI)
 
   set(CMAKE_AUTOMOC ON)
   set(CMAKE_AUTOUIC ON)
-  set(CMAKE_INCLUDE_CURRENT_DIR ON)
 ENDIF(USE_GUI)
 ########### END Qt 5 ##############
 
@@ -39,16 +41,7 @@ add_executable(sfm ${SOURCE_FILES})
 
 
 ########### headers ###############
-file(GLOB_RECURSE HEADERS "src/*.h")
-
-set (INCLUDE_DIRS "")
-foreach (_headerFile ${HEADERS})
-    get_filename_component(_dir ${_headerFile} PATH)
-    list (APPEND INCLUDE_DIRS ${_dir})
-endforeach()
-list(REMOVE_DUPLICATES INCLUDE_DIRS)
-
-include_directories(${INCLUDE_DIRS})
+include_directories(src)
 ########### END headers ###########
 
 
