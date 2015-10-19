@@ -7,4 +7,4 @@
 using namespace std;
 using namespace cv;
 
-vector<Mat> loadImageFromDir(string dirName);
+vector<Mat> loadImagesFromDir(string dirName);
