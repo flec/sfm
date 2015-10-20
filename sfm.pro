@@ -12,8 +12,13 @@ TARGET = sfm
 TEMPLATE = app
 
 
-SOURCES += src/ui/mainwindow/mainwindow.cpp
+SOURCES += src/ui/mainwindow/mainwindow.cpp \
+    src/ui/mainwindow/featuredetectiontab.cpp \
+    src/ui/widgets/cvimagewidget.h
 
-HEADERS  += src/ui/mainwindow/mainwindow.h
+HEADERS  += src/ui/mainwindow/mainwindow.h \
+    src/ui/mainwindow/featuredetectiontab.h
 
-FORMS    += src/ui/mainwindow/mainwindow.ui
+
+FORMS    += src/ui/mainwindow/mainwindow.ui \
+    src/ui/mainwindow/featuredetectiontab.ui

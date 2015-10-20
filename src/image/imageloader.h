@@ -8,12 +8,13 @@
 
 #include "image.h"
 #include <string>
+#include <memory>
 
 using namespace std;
 
 class ImageLoader {
 public:
-  static vector<Image> loadImagesFromDir(string const& dirName);
+  static vector<shared_ptr<Image>> loadImagesFromDir(string const& dirName);
 };
 
 

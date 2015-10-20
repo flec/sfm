@@ -12,24 +12,26 @@ using namespace std;
 
 struct Image {
 private:
-    Mat mat_color;
-    Mat mat_grey;
-    string file_name;
-    string file_path;
+  Mat mat_color;
+  Mat mat_grey;
+  string file_name;
+  string file_path;
+
+  Image() { };
+
 public:
-    Image(string const& file_path);
 
-    Image(string const& file_path, bool const only_grey);
+  Image(string const &file_path, bool const load_color = true);
 
-    ~Image();
+  ~Image();
 
-    Mat get_mat_color() const { return mat_color.data ? mat_color : mat_grey; }
+  Mat* get_mat_color() { return (mat_color.data != NULL) ? &mat_color : &mat_grey; }
 
-    Mat get_mat_grey() const { return mat_grey; }
+  Mat* get_mat_grey() { return &mat_grey; }
 
-    string get_file_name() const { return file_name; }
+  string get_file_name() const { return file_name; }
 
-    string get_file_path() const { return file_path; }
+  string get_file_path() const { return file_path; }
 };
 
 

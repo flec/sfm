@@ -4,21 +4,31 @@
 
 #include <dirent.h>
 #include <stdexcept>
+#include <stdio.h>
+#include <iostream>
 #include "imageloader.h"
+#include "imageloadexception.h"
 
-vector<Image> ImageLoader::loadImagesFromDir(string const &dirName) {
+using namespace std;
+
+vector<shared_ptr<Image>> ImageLoader::loadImagesFromDir(string const &dirName) {
   DIR *dir;
   struct dirent *ent;
   if ((dir = opendir(dirName.c_str())) != NULL) {
-    vector<Image> images;
+    vector<shared_ptr<Image>> images;
     while ((ent = readdir(dir)) != NULL) {
-      printf("Loading image %s\n", ent->d_name);
-      Image *image = new Image(ent->d_name);
-      images.push_back(*image);
+      try {
+        shared_ptr<Image>image (new Image(dirName + ent->d_name));
+        images.push_back(image);
+      } catch (const ImageLoadException& e) {
+#ifdef DEBUG
+        printf("Caugth exception %s\n", e.what());
+#endif
+      }
     }
     closedir(dir);
+    return images;
   } else {
-    string msg = "ImageLoader::loadImagesFromDir: cannot open directory " + dirName;
-    throw std::runtime_error(msg);
+    throw ImageLoadException("ImageLoader::loadImagesFromDir(): cannot open directory  " + dirName);
   }
 }

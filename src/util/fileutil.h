@@ -18,6 +18,7 @@ const char FILE_SEPARATOR= '\\';
 class FileUtil {
 public:
   static string getPathName(const string &s);
+  static string getFileName(const string &s);
 };
 
 

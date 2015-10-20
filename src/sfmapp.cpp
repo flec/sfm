@@ -12,3 +12,7 @@ void SFMApp::detectFeatures() {
 SFMApp::SFMApp(string const &images_dir) {
   images = ImageLoader::loadImagesFromDir(images_dir);
 }
+
+void SFMApp::unloadImages() {
+  images.clear();
+}

@@ -6,20 +6,40 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>877</width>
-    <height>604</height>
+    <width>939</width>
+    <height>485</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="FeatureDetectionTab" name="featureDetectionTab">
+         <attribute name="title">
+          <string>Feature Detection</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout"/>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>877</width>
+     <width>939</width>
      <height>29</height>
     </rect>
    </property>
@@ -28,6 +48,7 @@
      <string>File</string>
     </property>
     <addaction name="actionLoad_images"/>
+    <addaction name="actionUnload_Images"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -44,9 +65,28 @@
    <property name="text">
     <string>Load images</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionUnload_Images">
+   <property name="text">
+    <string>Unload Images</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+U</string>
+   </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>FeatureDetectionTab</class>
+   <extends>QWidget</extends>
+   <header>featuredetectiontab.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
