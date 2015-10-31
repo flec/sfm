@@ -27,6 +27,7 @@ SET(USE_GUI TRUE CACHE BOOL "Build with CLI and GUI?")
 
 
 ########### OpenCV ################
+set(OpenCV_STATIC OFF)
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 list(APPEND LINK_LIBRARIES ${OpenCV_LIBS})
