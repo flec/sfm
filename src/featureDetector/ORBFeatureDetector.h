@@ -8,15 +8,14 @@
 #include <opencv2/features2d.hpp>
 #include "featuredetectorinterface.h"
 
-class ORBFeatureDetector : FeatureDetectorInterface {
-
-  ORBFeatureDetector();
-
-  void detectFeatures(const _InputArray &image, vector<KeyPoint> &keypoints, const _OutputArray &descriptors,
-                      bool useProvidedKeypoints = false);
-
+class ORBFeatureDetector : public FeatureDetectorInterface {
 private:
   Ptr<ORB> orb;
+
+public:
+  ORBFeatureDetector();
+
+  void detectFeatures(vector<shared_ptr<Image>> &images, bool useProvidedKeypoints = false);
 };
 
 

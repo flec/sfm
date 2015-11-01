@@ -5,6 +5,7 @@
 #include <memory>
 #include <QtWidgets/qlistwidget.h>
 #include "image/image.h"
+#include "sfmapp.h"
 #include "ui/widgets/cvimagewidget.h"
 
 namespace Ui {
@@ -14,26 +15,31 @@ namespace Ui {
 class FeatureDetectionTab : public QWidget {
 Q_OBJECT
 
+private:
+  Ui::FeatureDetectionTab *ui;
+  QListWidget *imagesListWidget;
+  int currentImageIndex = -1;
+  CVImageWidget* cvImageWidget;
+  SFMApp *sfmapp;
+
 public:
   explicit FeatureDetectionTab(QWidget *parent = 0);
 
   ~FeatureDetectionTab();
 
-public slots:
+  void updateImages();
 
-  void updateImages(vector<shared_ptr < Image>> *images);
+private:
+  void updateImage();
+
 
 private slots:
 
-  void on_imagesListWidget_itemActivated(QListWidgetItem *item);
-
   void on_detectFeatures_clicked();
 
-private:
-  Ui::FeatureDetectionTab *ui;
-  QListWidget *imagesListWidget;
-  vector<shared_ptr < Image>> *images;
-  CVImageWidget* cvImageWidget;
+  void on_imagesListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+
+
 };
 
 #endif // FEATUREDETECTIONTAB_H

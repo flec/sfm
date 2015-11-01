@@ -6,10 +6,12 @@
 #include "ORBFeatureDetector.h"
 
 
-void ORBFeatureDetector::detectFeatures(InputArray image, CV_OUT vector<KeyPoint> &keypoints, OutputArray descriptors,
-                                        bool useProvidedKeypoints) {
-  orb->detectAndCompute(image, noArray(), keypoints, descriptors, useProvidedKeypoints);
+
+ORBFeatureDetector::ORBFeatureDetector() : orb(ORB::create(40)) {
 }
 
-ORBFeatureDetector::ORBFeatureDetector() : orb(ORB::create()) {
+void ORBFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, bool useProvidedKeypoints) {
+  for (auto image: images) {
+    orb->detectAndCompute(*image->get_mat_grey(), noArray(), *image->get_keypoints(), *image->get_descriptors(), useProvidedKeypoints);
+  }
 }

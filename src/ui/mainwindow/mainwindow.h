@@ -12,6 +12,12 @@ namespace Ui {
 class MainWindow : public QMainWindow {
 Q_OBJECT
 
+private:
+  SFMApp *sfmapp;
+  FeatureDetectionTab *featureDetectionTab;
+  FeatureDetectionTab *featureMatchingTab;
+  Ui::MainWindow *ui;
+
 public:
   explicit MainWindow(QWidget *parent = 0);
 
@@ -23,11 +29,6 @@ private slots:
 
   void on_actionUnload_Images_triggered();
 
-
-private:
-  SFMApp *sfmapp;
-  FeatureDetectionTab *featureDetectionTab;
-  Ui::MainWindow *ui;
 };
 
 #endif // MAINWINDOW_H

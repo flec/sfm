@@ -28,6 +28,11 @@
          </attribute>
          <layout class="QGridLayout" name="gridLayout"/>
         </widget>
+        <widget class="FeatureMatchingTab" name="featureMatchingTab">
+         <attribute name="title">
+          <string>Feature Matching</string>
+         </attribute>
+        </widget>
        </widget>
       </item>
      </layout>
@@ -84,6 +89,12 @@
    <class>FeatureDetectionTab</class>
    <extends>QWidget</extends>
    <header>featuredetectiontab.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>FeatureMatchingTab</class>
+   <extends>QWidget</extends>
+   <header>featurematchingtab.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

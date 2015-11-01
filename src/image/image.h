@@ -12,15 +12,18 @@ using namespace std;
 
 struct Image {
 private:
+  vector<KeyPoint> keypoints;
+
   Mat mat_color;
   Mat mat_grey;
+
   string file_name;
   string file_path;
 
   Image() { };
 
 public:
-
+  Mat descriptors;
   Image(string const &file_path, bool const load_color = true);
 
   ~Image();
@@ -32,6 +35,10 @@ public:
   string get_file_name() const { return file_name; }
 
   string get_file_path() const { return file_path; }
+
+  vector<KeyPoint> *get_keypoints() { return &keypoints; }
+
+  Mat* get_descriptors() { return &descriptors; }
 };
 
 
