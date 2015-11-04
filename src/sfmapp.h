@@ -8,10 +8,10 @@
 #include "image/image.h"
 #include <memory>
 #include <image/matches/featurematches.h>
-#include <featureDetector/featuredetectorinterface.h>
-#include <featureMatcher/featurematcherinterface.h>
-#include <featureDetector/ORBFeatureDetector.h>
-#include <featureMatcher/FlannFeatureMatcher.h>
+#include "featureDetector/featuredetector.h"
+#include "featureMatcher/featurematcher.h"
+#include "featureDetector/orbfeaturedetector.h"
+#include "featureMatcher/flannfeaturematcher.h"
 
 using namespace std;
 
@@ -19,8 +19,8 @@ class SFMApp {
 private:
   static SFMApp* instance;
 
-  FeatureDetectorInterface* featureDetector = new ORBFeatureDetector();
-  FeatureMatcherInterface* featureMatcher = new FlannFeatureMatcher();
+  FeatureDetecter* featureDetector = new ORBFeatureDetector();
+  FeatureMatcher* featureMatcher = new FlannFeatureMatcher();
 
   SFMApp() {};
 

@@ -3,11 +3,11 @@
 //
 
 
-#include "ORBFeatureDetector.h"
+#include "orbfeaturedetector.h"
 
 
 
-ORBFeatureDetector::ORBFeatureDetector() : orb(ORB::create(40)) {
+ORBFeatureDetector::ORBFeatureDetector() : orb(ORB::create(FeatureDetecter::max_features)) {
 }
 
 void ORBFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, bool useProvidedKeypoints) {

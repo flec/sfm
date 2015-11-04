@@ -18,9 +18,11 @@ void SFMApp::detectFeatures() {
 }
 
 void SFMApp::matchFeatures() {
-  for (int i = 0; i < images.size(); i++) {
-    for (int j = i + 1; j < images.size(); j++) {
+  featureMatches.clear();
+  for (unsigned int i = 0; i < images.size(); i++) {
+    for (unsigned int j = i + 1; j < images.size(); j++) {
       featureMatches.push_back(featureMatcher->matchFeatures(images.at(i), images.at(j)));
+      featureMatcher->filterMatches(featureMatches.back());
     }
   }
 }

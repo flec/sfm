@@ -6,11 +6,12 @@
 #define SFM_ORBFEATUREDETECTOR_H
 
 #include <opencv2/features2d.hpp>
-#include "featuredetectorinterface.h"
+#include "featuredetector.h"
 
-class ORBFeatureDetector : public FeatureDetectorInterface {
+class ORBFeatureDetector : public FeatureDetecter {
 private:
   Ptr<ORB> orb;
+
 
 public:
   ORBFeatureDetector();

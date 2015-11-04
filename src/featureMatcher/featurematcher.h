@@ -2,6 +2,9 @@
 * Interface for feature matcher
 */
 
+#ifndef SFM_FEATUREMATCHER_H
+#define SFM_FEATUREMATCHER_H
+
 #pragma once
 
 #include <opencv2/core/cvdef.h>
@@ -9,13 +12,18 @@
 #include "image/matches/featurematches.h"
 #include "image/image.h"
 #include <memory>
+#include <iostream>
 
 using namespace std;
 using namespace cv;
 
-class FeatureMatcherInterface
-{
+class FeatureMatcher {
 public:
   virtual shared_ptr<FeatureMatches> matchFeatures(shared_ptr<Image> &image, shared_ptr<Image> &image2) = 0;
 
+  void filterMatches(shared_ptr<FeatureMatches> &matches, double min_dist_factor = 3);
+
 };
+
+
+#endif //SFM_FEATUREMATCHER_H

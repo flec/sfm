@@ -2,6 +2,9 @@
 * Interface for feature detector
 */
 
+#ifndef SFM_FEATUREDETECTOR_H
+#define SFM_FEATUREDETECTOR_H
+
 #pragma once
 
 #include <opencv2/core/cvdef.h>
@@ -12,8 +15,13 @@
 using namespace cv;
 using namespace std;
 
-class FeatureDetectorInterface {
+class FeatureDetecter {
 public:
+  const static int max_features=100;
+
   virtual void detectFeatures(vector<shared_ptr<Image>> &images, bool useProvidedKeypoints = false) = 0;
 
 };
+
+#endif //SFM_FEATUREDETECTOR_H
+
