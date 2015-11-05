@@ -7,7 +7,9 @@
 
 #include "image/image.h"
 #include <memory>
-#include <image/matches/featurematches.h>
+#include <cameraMatrixFinder/cameramatrixfinder.h>
+#include <cameraMatrixFinder/RANSACCameraMatrixFinder.h>
+#include "image/pair/imagepair.h"
 #include "featureDetector/featuredetector.h"
 #include "featureMatcher/featurematcher.h"
 #include "featureDetector/orbfeaturedetector.h"
@@ -21,6 +23,7 @@ private:
 
   FeatureDetecter* featureDetector = new ORBFeatureDetector();
   FeatureMatcher* featureMatcher = new FlannFeatureMatcher();
+  CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();
 
   SFMApp() {};
 
@@ -33,11 +36,13 @@ public:
 
   vector<shared_ptr<Image>> images;
 
-  vector<shared_ptr<FeatureMatches>> featureMatches;
+  vector<shared_ptr<ImagePair>> image_pairs;
 
   void detectFeatures();
 
   void matchFeatures();
+
+  void findMatrices();
 
   void loadImages(string const &images_dir);
 

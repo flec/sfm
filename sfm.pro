@@ -15,13 +15,16 @@ TEMPLATE = app
 SOURCES += src/ui/mainwindow/mainwindow.cpp \
     src/ui/mainwindow/featuredetectiontab.cpp \
     src/ui/widgets/cvimagewidget.h \
-    src/ui/mainwindow/featurematchingtab.cpp
+    src/ui/mainwindow/featurematchingtab.cpp \
+    src/ui/mainwindow/matrixfindingtab.cpp
 
 HEADERS  += src/ui/mainwindow/mainwindow.h \
     src/ui/mainwindow/featuredetectiontab.h \
-    src/ui/mainwindow/featurematchingtab.h
+    src/ui/mainwindow/featurematchingtab.h \
+    src/ui/mainwindow/matrixfindingtab.h
 
 
 FORMS    += src/ui/mainwindow/mainwindow.ui \
     src/ui/mainwindow/featuredetectiontab.ui \
-    src/ui/mainwindow/featurematchingtab.ui
+    src/ui/mainwindow/featurematchingtab.ui \
+    src/ui/mainwindow/matrixfindingtab.ui

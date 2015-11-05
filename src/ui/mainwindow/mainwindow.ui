@@ -33,6 +33,11 @@
           <string>Feature Matching</string>
          </attribute>
         </widget>
+        <widget class="MatrixFindingTab" name="tab">
+         <attribute name="title">
+          <string>Matrix Finding</string>
+         </attribute>
+        </widget>
        </widget>
       </item>
      </layout>
@@ -45,7 +50,7 @@
      <x>0</x>
      <y>0</y>
      <width>939</width>
-     <height>29</height>
+     <height>35</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -95,6 +100,12 @@
    <class>FeatureMatchingTab</class>
    <extends>QWidget</extends>
    <header>featurematchingtab.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MatrixFindingTab</class>
+   <extends>QWidget</extends>
+   <header>matrixfindingtab.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

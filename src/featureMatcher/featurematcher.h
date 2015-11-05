@@ -9,7 +9,7 @@
 
 #include <opencv2/core/cvdef.h>
 #include "opencv2/core/core.hpp"
-#include "image/matches/featurematches.h"
+#include "image/pair/imagepair.h"
 #include "image/image.h"
 #include <memory>
 #include <iostream>
@@ -19,9 +19,9 @@ using namespace cv;
 
 class FeatureMatcher {
 public:
-  virtual shared_ptr<FeatureMatches> matchFeatures(shared_ptr<Image> &image, shared_ptr<Image> &image2) = 0;
+  virtual shared_ptr<ImagePair> matchFeatures(shared_ptr<Image> &image, shared_ptr<Image> &image2) = 0;
 
-  void filterMatches(shared_ptr<FeatureMatches> &matches, double min_dist_factor = 3);
+  void filterMatches(shared_ptr<ImagePair> &image_pair, double min_dist_factor = 3);
 
 };
 
