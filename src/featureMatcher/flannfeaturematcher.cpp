@@ -2,7 +2,7 @@
 // Created by joschi on 30.10.15.
 //
 
-#include "FlannFeatureMatcher.h"
+#include "flannfeaturematcher.h"
 
 shared_ptr<FeatureMatches> FlannFeatureMatcher::matchFeatures(shared_ptr<Image> &image1, shared_ptr<Image> &image2){
   shared_ptr<FeatureMatches> matches(new FeatureMatches());
