@@ -14,8 +14,6 @@ Q_OBJECT
 
 private:
   SFMApp *sfmapp;
-  FeatureDetectionTab *featureDetectionTab;
-  FeatureDetectionTab *featureMatchingTab;
   Ui::MainWindow *ui;
 
 public:
@@ -26,8 +24,11 @@ public:
 private slots:
   void on_actionLoad_images_triggered();
 
-
   void on_actionUnload_Images_triggered();
+
+signals:
+  void imagesUpdated();
+  void matchesUpdated();
 
 };
 

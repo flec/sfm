@@ -17,9 +17,7 @@ Q_OBJECT
 
 private:
   Ui::FeatureDetectionTab *ui;
-  QListWidget *imagesListWidget;
   int currentImageIndex = -1;
-  CVImageWidget* cvImageWidget;
   SFMApp *sfmapp;
 
 public:
@@ -27,7 +25,6 @@ public:
 
   ~FeatureDetectionTab();
 
-  void updateImages();
 
 private:
   void updateImage();
@@ -39,6 +36,9 @@ private slots:
 
   void on_imagesListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
+public slots:
+
+  void updateImages();
 
 };
 

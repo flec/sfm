@@ -21,9 +21,13 @@ class SFMApp {
 private:
   static SFMApp* instance;
 
-  FeatureDetecter* featureDetector = new ORBFeatureDetector();
-  FeatureMatcher* featureMatcher = new FlannFeatureMatcher();
+  FeatureDetecter*feature_detector = new ORBFeatureDetector();
+  FeatureMatcher*feature_matcher = new FlannFeatureMatcher();
   CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();
+
+  shared_ptr<ImagePair> initial_image_pair; // starting image pair
+
+  Mat intrinsic_camera_parameters;
 
   SFMApp() {};
 
@@ -42,11 +46,15 @@ public:
 
   void matchFeatures();
 
-  void findMatrices();
+  void findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat& intristic_camera_paramaters);
 
   void loadImages(string const &images_dir);
 
   void unloadImages();
+
+  void set_intrinsic_camera_parameters(Mat &intrinsic_camera_parameters){
+    this->intrinsic_camera_parameters = intrinsic_camera_parameters;
+  }
 };
 
 

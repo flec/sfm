@@ -5,23 +5,27 @@
 #include <src/sfmapp.h>
 
 namespace Ui {
-class MatrixFindingTab;
+  class MatrixFindingTab;
 }
 
-class MatrixFindingTab : public QWidget
-{
-    Q_OBJECT
+class MatrixFindingTab : public QWidget {
+Q_OBJECT
 
 private:
   Ui::MatrixFindingTab *ui;
   SFMApp *sfmapp;
 
 public:
-    explicit MatrixFindingTab(QWidget *parent = 0);
-    ~MatrixFindingTab();
+  explicit MatrixFindingTab(QWidget *parent = 0);
+
+  ~MatrixFindingTab();
 
 private slots:
-    void on_findMatrices_clicked();
+
+  void on_findInitialMatrices_clicked();
+
+public slots:
+  void updateMatches();
 
 };
 

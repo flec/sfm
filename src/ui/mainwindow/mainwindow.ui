@@ -33,7 +33,7 @@
           <string>Feature Matching</string>
          </attribute>
         </widget>
-        <widget class="MatrixFindingTab" name="tab">
+        <widget class="MatrixFindingTab" name="matrixFindingTab">
          <attribute name="title">
           <string>Matrix Finding</string>
          </attribute>

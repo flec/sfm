@@ -10,8 +10,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     sfmapp(SFMApp::getInstance()) {
   ui->setupUi(this);
-  featureDetectionTab = this->findChild<FeatureDetectionTab *>("featureDetectionTab");
-  featureMatchingTab = this->findChild<FeatureDetectionTab *>("featureMatchingTab");
+
+
+  connect(this, SIGNAL(imagesUpdated()), ui->featureDetectionTab, SLOT(updateImages()));
+  connect(ui->featureMatchingTab, SIGNAL(matchesUpdated()), ui->matrixFindingTab, SLOT(updateMatches()));
 }
 
 MainWindow::~MainWindow() {
@@ -26,11 +28,10 @@ void MainWindow::on_actionLoad_images_triggered() {
 #else
   sfmapp->loadImages("/tmp/images/");
 #endif
-
-  featureDetectionTab->updateImages();
+  emit imagesUpdated();
 }
 
 void MainWindow::on_actionUnload_Images_triggered() {
   sfmapp->unloadImages();
-  featureDetectionTab->updateImages();
+  emit imagesUpdated();
 }

@@ -6,9 +6,6 @@ FeatureMatchingTab::FeatureMatchingTab(QWidget *parent) :
     ui(new Ui::FeatureMatchingTab),
     sfmapp(SFMApp::getInstance()) {
   ui->setupUi(this);
-
-  matchesListWidget = this->findChild<QListWidget *>("matchesListWidget");
-  cvImageWidget = this->findChild<CVImageWidget *>("cvImageWidget");
 }
 
 FeatureMatchingTab::~FeatureMatchingTab() {
@@ -16,10 +13,11 @@ FeatureMatchingTab::~FeatureMatchingTab() {
 }
 
 void FeatureMatchingTab::updateMatches() {
-  matchesListWidget->clear();
+  ui->matchesListWidget->clear();
   for (auto &featureMatch : sfmapp->image_pairs)
-    matchesListWidget->addItem(
+    ui->matchesListWidget->addItem(
         QString((featureMatch->image1->get_file_name() + " <-> " + featureMatch->image2->get_file_name()).c_str()));
+  emit matchesUpdated();
 }
 
 void FeatureMatchingTab::updateImage() {
@@ -32,9 +30,9 @@ void FeatureMatchingTab::updateImage() {
       Mat picture;
       drawMatches(*image1->get_mat_color(), *image1->get_keypoints(), *image2->get_mat_color(),
                   *image2->get_keypoints(), matches->matches, picture);
-      cvImageWidget->showImage(picture);
+      ui->cvImageWidget->showImage(picture);
     } else
-      cvImageWidget->showImage(*image1->get_mat_grey());
+      ui->cvImageWidget->showImage(*image1->get_mat_grey());
   }
 }
 
@@ -43,11 +41,11 @@ void FeatureMatchingTab::on_matchFeatures_clicked() {
   sfmapp->matchFeatures();
   updateMatches();
   currentMatchIndex = 0;
-  matchesListWidget->setCurrentRow(currentMatchIndex);
+  ui->matchesListWidget->setCurrentRow(currentMatchIndex);
   updateImage();
 }
 
 void FeatureMatchingTab::on_matchesListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous) {
-  currentMatchIndex = matchesListWidget->row(current);
+  currentMatchIndex = ui->matchesListWidget->row(current);
   updateImage();
 }

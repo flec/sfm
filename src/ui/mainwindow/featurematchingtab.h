@@ -16,9 +16,7 @@ class FeatureMatchingTab : public QWidget
 
 private:
   Ui::FeatureMatchingTab *ui;
-  QListWidget *matchesListWidget;
   int currentMatchIndex = -1;
-  CVImageWidget* cvImageWidget;
   SFMApp *sfmapp;
 
 public:
@@ -34,6 +32,9 @@ private slots:
 
 private:
   void updateImage();
+
+signals:
+  void matchesUpdated();
 
 };
 

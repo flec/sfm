@@ -22,24 +22,24 @@ void SFMApp::unloadImages() {
 }
 
 void SFMApp::detectFeatures() {
-  featureDetector->detectFeatures(images);
+  feature_detector->detectFeatures(images);
 }
 
 void SFMApp::matchFeatures() {
   image_pairs.clear();
   for (unsigned int i = 0; i < images.size(); i++) {
     for (unsigned int j = i + 1; j < images.size(); j++) {
-      image_pairs.push_back(featureMatcher->matchFeatures(images.at(i), images.at(j)));
-      featureMatcher->filterMatches(image_pairs.back());
+      image_pairs.push_back(feature_matcher->matchFeatures(images.at(i), images.at(j)));
+      feature_matcher->filterMatches(image_pairs.back());
     }
   }
 }
 
 
-void SFMApp::findMatrices() {
-  for(auto image_pair : image_pairs) {
-    cameraMatrixFinder->findCameraMatrix(image_pair);
-  }
+void SFMApp::findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat& intristic_camera_paramaters) {
+  this->initial_image_pair = initial_image_pair;
+  this->intrinsic_camera_parameters = intristic_camera_paramaters;
+  cameraMatrixFinder->findCameraMatrix(initial_image_pair, intristic_camera_paramaters);
 }
 
 
