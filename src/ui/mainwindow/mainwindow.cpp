@@ -24,7 +24,8 @@ void MainWindow::on_actionLoad_images_triggered() {
 #ifdef _WIN32
   QString images_dir = QFileDialog::getExistingDirectory(this, tr("Choose images directory"), "",
                                                          QFileDialog::ShowDirsOnly);
-  sfmapp->loadImages(images_dir.toStdString());
+  QByteArray path = images_dir.toLocal8Bit();
+  sfmapp->loadImages(std::string(path.constData(), path.length()) + "/");
 #else
   sfmapp->loadImages("/tmp/images/");
 #endif
