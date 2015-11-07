@@ -13,6 +13,7 @@ using namespace cv;
 class UIUtil {
 public:
   static Mat get_mat_from_qtable(QTableWidget &table);
+  static void insert_mat_in_qtable(Mat &mat, QTableWidget &table);
 };
 
 

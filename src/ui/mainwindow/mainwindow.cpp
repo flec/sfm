@@ -13,7 +13,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
   connect(this, SIGNAL(imagesUpdated()), ui->featureDetectionTab, SLOT(updateImages()));
-  connect(ui->featureMatchingTab, SIGNAL(matchesUpdated()), ui->matrixFindingTab, SLOT(updateMatches()));
+  connect(this, SIGNAL(imagePairsUpdated()), ui->matrixFindingTab, SLOT(updateImagePairs()));
+  connect(this, SIGNAL(imagePairsUpdated()), ui->featureMatchingTab, SLOT(updateImagePairs()));
+
+  connect(ui->featureMatchingTab, SIGNAL(imagePairsUpdated()), ui->matrixFindingTab, SLOT(updateImagePairs()));
+
 }
 
 MainWindow::~MainWindow() {
@@ -33,6 +37,7 @@ void MainWindow::on_actionLoad_images_triggered() {
 }
 
 void MainWindow::on_actionUnload_Images_triggered() {
-  sfmapp->unloadImages();
+  sfmapp->unload();
   emit imagesUpdated();
+  emit imagePairsUpdated();
 }

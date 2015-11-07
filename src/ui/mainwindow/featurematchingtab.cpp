@@ -12,12 +12,12 @@ FeatureMatchingTab::~FeatureMatchingTab() {
   delete ui;
 }
 
-void FeatureMatchingTab::updateMatches() {
+void FeatureMatchingTab::updateImagePairs() {
   ui->matchesListWidget->clear();
   for (auto &featureMatch : sfmapp->image_pairs)
     ui->matchesListWidget->addItem(
         QString((featureMatch->image1->get_file_name() + " <-> " + featureMatch->image2->get_file_name()).c_str()));
-  emit matchesUpdated();
+  emit imagePairsUpdated();
 }
 
 void FeatureMatchingTab::updateImage() {
@@ -39,7 +39,7 @@ void FeatureMatchingTab::updateImage() {
 
 void FeatureMatchingTab::on_matchFeatures_clicked() {
   sfmapp->matchFeatures();
-  updateMatches();
+  updateImagePairs();
   currentMatchIndex = 0;
   ui->matchesListWidget->setCurrentRow(currentMatchIndex);
   updateImage();

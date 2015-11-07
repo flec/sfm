@@ -17,11 +17,11 @@ void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pai
     points_img2.push_back(image_pair->image2->get_keypoints()->at(match.trainIdx).pt);
   }
 
-  *image_pair->fundamental = findFundamentalMat(points_img1, points_img2, FM_RANSAC, 0.1, 0.99);
-  *image_pair->essential = intristic_camera_paramaters.t() * (*image_pair->fundamental) * intristic_camera_paramaters;
+  image_pair->fundamental = findFundamentalMat(points_img1, points_img2, FM_RANSAC, 0.1, 0.99);
+  image_pair->essential = intristic_camera_paramaters.t() * image_pair->fundamental * intristic_camera_paramaters;
 
   // Extract transaltion and rotation
-  SVD svd(*image_pair->essential,SVD::MODIFY_A);
+  SVD svd(image_pair->essential,SVD::MODIFY_A);
   Mat svd_u = svd.u;
   Mat svd_vt = svd.vt;
   Mat svd_w = svd.w;
@@ -29,6 +29,6 @@ void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pai
             1,0,0,
             0,0,1);
 
-  *image_pair->rotation = svd_u * Mat(W) * svd_vt;
-  *image_pair->translation = svd_u.col(2);
+  image_pair->rotation = svd_u * Mat(W) * svd_vt;
+  image_pair->translation = svd_u.col(2);
 }

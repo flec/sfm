@@ -7,12 +7,11 @@
 #include <sfmapp.h>
 
 namespace Ui {
-class FeatureMatchingTab;
+  class FeatureMatchingTab;
 }
 
-class FeatureMatchingTab : public QWidget
-{
-    Q_OBJECT
+class FeatureMatchingTab : public QWidget {
+Q_OBJECT
 
 private:
   Ui::FeatureMatchingTab *ui;
@@ -20,12 +19,12 @@ private:
   SFMApp *sfmapp;
 
 public:
-    explicit FeatureMatchingTab(QWidget *parent = 0);
-    ~FeatureMatchingTab();
+  explicit FeatureMatchingTab(QWidget *parent = 0);
 
-  void updateMatches();
+  ~FeatureMatchingTab();
 
 private slots:
+
   void on_matchFeatures_clicked();
 
   void on_matchesListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
@@ -33,8 +32,13 @@ private slots:
 private:
   void updateImage();
 
+public slots:
+
+  void updateImagePairs();
+
 signals:
-  void matchesUpdated();
+
+  void imagePairsUpdated();
 
 };
 

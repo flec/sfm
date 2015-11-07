@@ -5,20 +5,22 @@
 #include <image/imageloader.h>
 #include "sfmapp.h"
 
-SFMApp* SFMApp::getInstance() {
-  if(!instance)
+SFMApp *SFMApp::getInstance() {
+  if (!instance)
     instance = new SFMApp();
   return instance;
 }
 
-SFMApp* SFMApp::instance = 0;
+SFMApp *SFMApp::instance = 0;
 
 void SFMApp::loadImages(string const &images_dir) {
   images = ImageLoader::loadImagesFromDir(images_dir);
 }
 
-void SFMApp::unloadImages() {
+void SFMApp::unload() {
   images.clear();
+  image_pairs.clear();
+  initial_image_pair = NULL;
 }
 
 void SFMApp::detectFeatures() {
@@ -36,7 +38,7 @@ void SFMApp::matchFeatures() {
 }
 
 
-void SFMApp::findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat& intristic_camera_paramaters) {
+void SFMApp::findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat &intristic_camera_paramaters) {
   this->initial_image_pair = initial_image_pair;
   this->intrinsic_camera_parameters = intristic_camera_paramaters;
   cameraMatrixFinder->findCameraMatrix(initial_image_pair, intristic_camera_paramaters);

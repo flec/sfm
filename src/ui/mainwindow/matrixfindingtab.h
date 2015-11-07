@@ -25,7 +25,7 @@ private slots:
   void on_findInitialMatrices_clicked();
 
 public slots:
-  void updateMatches();
+  void updateImagePairs();
 
 };
 

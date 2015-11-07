@@ -12,7 +12,7 @@ Image::Image(string const &file_path, bool const load_color) {
 #ifdef DEBUG
   printf("Loading image %s\n", file_path.c_str());
 #endif
-  this->file_path = file_path;
+  this->file_path = FileUtil::getPathName(file_path);
   this->file_name = FileUtil::getFileName(file_path);
 
   this->mat_grey = imread(file_path, IMREAD_GRAYSCALE);

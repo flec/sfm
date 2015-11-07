@@ -28,7 +28,7 @@ private slots:
 
 signals:
   void imagesUpdated();
-  void matchesUpdated();
+  void imagePairsUpdated();
 
 };
 
