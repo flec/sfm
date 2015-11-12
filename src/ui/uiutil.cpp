@@ -24,7 +24,7 @@ void UIUtil::insert_mat_in_qtable(Mat &mat, QTableWidget &table) {
     for (int col = 0; col < mat.size().width; col++) {
       if (table.item(row, col) == 0)
         table.setItem(row, col, new QTableWidgetItem());
-      table.item(row, col)->setText(QString::number(mat.at<double>(row, col)));
+      table.item(row, col)->setText(QString::number(mat.at<double>(row, col), 'g', 15));
     }
   }
 }

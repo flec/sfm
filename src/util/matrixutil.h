@@ -6,7 +6,9 @@
 #define SFM_MATRIXUTIL_H
 
 #include "opencv2/core/core.hpp"
+#include <iostream>
 using namespace cv;
+using namespace std;
 
 class MatrixUtil {
 public:

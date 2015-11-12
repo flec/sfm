@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <opencv2/calib3d.hpp>
-#include "RANSACCameraMatrixFinder.h"
+#include "ransaccameramatrixfinder.h"
 
 void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pair, Mat& intristic_camera_paramaters){
   vector<Point2f> points_img1;
@@ -17,7 +17,7 @@ void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pai
     points_img2.push_back(image_pair->image2->get_keypoints()->at(match.trainIdx).pt);
   }
 
-  image_pair->fundamental = findFundamentalMat(points_img1, points_img2, FM_RANSAC, 0.1, 0.99);
+  image_pair->fundamental = findFundamentalMat(points_img1, points_img2, FM_RANSAC, 2, 0.9999);
   image_pair->essential = intristic_camera_paramaters.t() * image_pair->fundamental * intristic_camera_paramaters;
 
   // Extract transaltion and rotation

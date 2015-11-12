@@ -8,7 +8,7 @@
 #include "image/image.h"
 #include <memory>
 #include <cameraMatrixFinder/cameramatrixfinder.h>
-#include <cameraMatrixFinder/RANSACCameraMatrixFinder.h>
+#include "cameraMatrixFinder/ransaccameramatrixfinder.h"
 #include <featureDetector/kazefeaturedetector.h>
 #include "image/pair/imagepair.h"
 #include "featureDetector/featuredetector.h"
