@@ -7,11 +7,13 @@
 
 
 
-KAZEFeatureDetector::KAZEFeatureDetector() : kaze(KAZE::create(FeatureDetecter::max_features)) {
+KAZEFeatureDetector::KAZEFeatureDetector() : kaze(KAZE::create()) {
 }
 
 void KAZEFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, bool useProvidedKeypoints) {
   for (auto image: images) {
+    image->get_keypoints()->clear();
+    image->get_descriptors()->release();
     kaze->detectAndCompute(*image->get_mat_grey(), noArray(), *image->get_keypoints(), *image->get_descriptors(), useProvidedKeypoints);
   }
 }

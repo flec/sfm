@@ -2,8 +2,8 @@
 // Created by joschi on 20.10.15.
 //
 
-#ifndef SFM_ORBFEATUREDETECTOR_H
-#define SFM_ORBFEATUREDETECTOR_H
+#ifndef SFM_KAZEFEATUREDETECTOR_H
+#define SFM_KAZEFEATUREDETECTOR_H
 
 #include <opencv2/features2d.hpp>
 #include "featuredetector.h"
@@ -19,4 +19,4 @@ public:
 };
 
 
-#endif //SFM_ORBFEATUREDETECTOR_H
+#endif //SFM_KAZEFEATUREDETECTOR_H

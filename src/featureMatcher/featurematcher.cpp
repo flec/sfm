@@ -25,7 +25,7 @@ void FeatureMatcher::filterMatches(shared_ptr<ImagePair> &image_pair, double min
   }
 
 #ifdef DEBUG
-  printf("Filtered out %d bad pair.\n", matches_before- image_pair->matches.size());
+  printf("Filtered out %d bad pairs.\n", matches_before- image_pair->matches.size());
 #endif
 
 }

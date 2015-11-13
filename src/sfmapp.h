@@ -10,10 +10,10 @@
 #include <cameraMatrixFinder/cameramatrixfinder.h>
 #include "cameraMatrixFinder/ransaccameramatrixfinder.h"
 #include <featureDetector/kazefeaturedetector.h>
+#include <featureDetector/orbfeaturedetector.h>
 #include "image/pair/imagepair.h"
 #include "featureDetector/featuredetector.h"
 #include "featureMatcher/featurematcher.h"
-#include "featureDetector/orbfeaturedetector.h"
 #include "featureMatcher/flannfeaturematcher.h"
 
 using namespace std;
@@ -22,7 +22,7 @@ class SFMApp {
 private:
   static SFMApp* instance;
 
-  FeatureDetecter*feature_detector = new KAZEFeatureDetector();
+  FeatureDetecter* feature_detector = new ORBFeatureDetector();
   FeatureMatcher*feature_matcher = new FlannFeatureMatcher();
   CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();
 
