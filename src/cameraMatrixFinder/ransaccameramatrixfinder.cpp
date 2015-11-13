@@ -7,12 +7,11 @@
 #include "ransaccameramatrixfinder.h"
 #include <math.h>
 
-void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pair, Mat& intristic_camera_paramaters){
+void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pair, Mat &intristic_camera_paramaters) {
   vector<Point2f> points_img1;
   vector<Point2f> points_img2;
 
-  for(auto match:image_pair->matches)
-  {
+  for (auto match:image_pair->matches) {
     //-- Get the keypoints from the good matches
     points_img1.push_back(image_pair->image1->get_keypoints()->at(match.queryIdx).pt);
     points_img2.push_back(image_pair->image2->get_keypoints()->at(match.trainIdx).pt);
@@ -22,19 +21,26 @@ void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pai
   Mat inliners;
 
   image_pair->fundamental = findFundamentalMat(points_img1, points_img2, CV_FM_RANSAC, 2, 0.999, inliners);
-  image_pair->essential = intristic_camera_paramaters.t() * image_pair->fundamental * intristic_camera_paramaters;
+  image_pair->essential = intristic_camera_paramaters.t() * image_pair->fundamental *
+                          intristic_camera_paramaters;  // or use: findEssentialMat
 
-  // Extract transaltion and rotation
-  SVD svd(image_pair->essential,SVD::MODIFY_A);
-  Mat svd_u = svd.u;
-  Mat svd_vt = svd.vt;
-  Mat svd_w = svd.w;
-  Matx33d W(0,-1,0,//HZ 9.13
-            1,0,0,
-            0,0,1);
+  Point2d camera_center(intristic_camera_paramaters.at<double>(0, 2), intristic_camera_paramaters.at<double>(1, 2));
 
-  image_pair->rotation = svd_u * Mat(W).t() * svd_vt;
-  image_pair->translation = svd_u.col(2);
+  recoverPose(image_pair->essential, points_img1, points_img2, image_pair->rotation, image_pair->translation,
+              intristic_camera_paramaters.at<double>(0, 0), camera_center);
+
+
+//  image_pair->rotation = svd_u * Mat(W).t() * svd_vt; // Mat(W).t()  and Mat(W) interchangable (see http://isit.u-clermont1.fr/~ab/Classes/DIKU-3DCV2/Handouts/Lecture16.pdf)
+//  if (fabsf(determinant(image_pair->rotation)) - 1.0 > 1e-07) {
+//    cerr << "det(R) != +-1.0, this is not a rotation matrix" << endl;
+//    image_pair->rotation = svd_u * Mat(W).t() * svd_vt;
+//    if (fabsf(determinant(image_pair->rotation)) - 1.0 > 1e-07) {
+//      cerr << "det(R) != +-1.0, this is not a rotation matrix" << endl;
+//    }
+//  }
+
+
+
 
 //  Mat F = findFundamentalMat(points_img1, points_img2, CV_FM_8POINT, 2, 0.9999, inliners);
 //  Mat_<double> E = intristic_camera_paramaters.t() * F * intristic_camera_paramaters;

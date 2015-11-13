@@ -25,7 +25,7 @@ class SFMApp {
 private:
   static SFMApp* instance;
 
-  FeatureDetecter* feature_detector = new ORBFeatureDetector(); // init feature detector
+  FeatureDetecter* feature_detector = new KAZEFeatureDetector(); // init feature detector
   FeatureMatcher*feature_matcher = new FlannFeatureMatcher(); // init feature matcher
   CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();  // camera matrix finder for initial matirx
 
