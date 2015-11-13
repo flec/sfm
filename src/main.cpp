@@ -3,6 +3,9 @@
 #include "ui/mainwindow/mainwindow.h"
 #include <QApplication>
 
+/*
+ * This is the main function, which starts QT
+ */
 int main(int argc, char *argv[]) {
 
   QApplication a(argc, argv);

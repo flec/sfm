@@ -18,17 +18,20 @@
 
 using namespace std;
 
+/*
+ * This class provides the overall logic and is either triggered by the GUI or the CLI
+ */
 class SFMApp {
 private:
   static SFMApp* instance;
 
-  FeatureDetecter* feature_detector = new ORBFeatureDetector();
-  FeatureMatcher*feature_matcher = new FlannFeatureMatcher();
-  CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();
+  FeatureDetecter* feature_detector = new ORBFeatureDetector(); // init feature detector
+  FeatureMatcher*feature_matcher = new FlannFeatureMatcher(); // init feature matcher
+  CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();  // camera matrix finder for initial matirx
 
-  shared_ptr<ImagePair> initial_image_pair; // starting image pair
+  shared_ptr<ImagePair> initial_image_pair; // initial image pair
 
-  Mat intrinsic_camera_parameters;
+  Mat intrinsic_camera_parameters;  // intrinsic camera parameters
 
   SFMApp() {};
 
@@ -39,18 +42,26 @@ private:
 public:
   static SFMApp* getInstance();
 
+  // Images that have been loaded by 'loadImages()'
   vector<shared_ptr<Image>> images;
 
+  // Pairs of images with the corresponding matches
   vector<shared_ptr<ImagePair>> image_pairs;
 
+  // Detect features of the loaded images
   void detectFeatures();
 
+  // Match the features between the loaded images. Each image is matched against each other image.
+  // The resulting image pairs are stored in 'image_pairs'
   void matchFeatures();
 
+  // Find the initial matrices of an image pair.
   void findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat& intristic_camera_paramaters);
 
+  // Load images from a directory into 'images'
   void loadImages(string const &images_dir);
 
+  // Unload everything
   void unload();
 
   void set_intrinsic_camera_parameters(Mat &intrinsic_camera_parameters){
