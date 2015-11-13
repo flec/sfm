@@ -18,27 +18,21 @@ void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pai
   }
 
 
+  // Mask with inliners
   Mat inliners;
 
-  image_pair->fundamental = findFundamentalMat(points_img1, points_img2, CV_FM_RANSAC, 2, 0.999, inliners);
+  // find the fundamental matrix
+  image_pair->fundamental = findFundamentalMat(points_img1, points_img2, CV_FM_RANSAC, 2, 0.9999, inliners);
+
+  // compute the essential matrix - this could also be done by using the function findEssentialMat
   image_pair->essential = intristic_camera_paramaters.t() * image_pair->fundamental *
-                          intristic_camera_paramaters;  // or use: findEssentialMat
+                          intristic_camera_paramaters;
 
   Point2d camera_center(intristic_camera_paramaters.at<double>(0, 2), intristic_camera_paramaters.at<double>(1, 2));
 
+  // get rotation and translation matrix - cheirality check is done inside this function
   recoverPose(image_pair->essential, points_img1, points_img2, image_pair->rotation, image_pair->translation,
-              intristic_camera_paramaters.at<double>(0, 0), camera_center);
-
-
-//  image_pair->rotation = svd_u * Mat(W).t() * svd_vt; // Mat(W).t()  and Mat(W) interchangable (see http://isit.u-clermont1.fr/~ab/Classes/DIKU-3DCV2/Handouts/Lecture16.pdf)
-//  if (fabsf(determinant(image_pair->rotation)) - 1.0 > 1e-07) {
-//    cerr << "det(R) != +-1.0, this is not a rotation matrix" << endl;
-//    image_pair->rotation = svd_u * Mat(W).t() * svd_vt;
-//    if (fabsf(determinant(image_pair->rotation)) - 1.0 > 1e-07) {
-//      cerr << "det(R) != +-1.0, this is not a rotation matrix" << endl;
-//    }
-//  }
-
+              intristic_camera_paramaters.at<double>(0, 0), camera_center, inliners);
 
 
 
