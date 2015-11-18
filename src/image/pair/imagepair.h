@@ -21,6 +21,13 @@ public:
   Mat_<double> translation;
   Mat_<double> fundamental;
   Mat_<double> essential;
+
+  // Projection matrices
+  Mat_<double> projection_img1;
+  Mat_<double> projection_img2;
+  // Rectified rotation matrices
+  Mat_<double> rotation_rect_img1;
+  Mat_<double> rotation_rect_img2;
 };
 
 

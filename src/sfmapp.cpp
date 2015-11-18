@@ -42,6 +42,7 @@ void SFMApp::findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat 
   this->initial_image_pair = initial_image_pair;
   this->intrinsic_camera_parameters = intristic_camera_paramaters;
   cameraMatrixFinder->findCameraMatrix(initial_image_pair, intristic_camera_paramaters);
+  projectionMatrixFinder->findProjectionMatrix(initial_image_pair, intristic_camera_paramaters);
 }
 
 
