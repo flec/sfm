@@ -3,7 +3,8 @@
 
 TriangulationTab::TriangulationTab(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::TriangulationTab) {
+    ui(new Ui::TriangulationTab),
+    sfmapp(SFMApp::getInstance()) {
   ui->setupUi(this);
 }
 
@@ -12,5 +13,5 @@ TriangulationTab::~TriangulationTab() {
 }
 
 void TriangulationTab::on_runTriangulation_clicked() {
-
+  sfmapp->triangulateInitialPoints();
 }

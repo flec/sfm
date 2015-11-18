@@ -46,3 +46,13 @@ void SFMApp::findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat 
 }
 
 
+void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
+  Mat points3Dh;
+  triangulator->findPoints3D(image_pair, points3Dh);
+}
+
+void SFMApp::triangulateInitialPoints() {
+  this->triangulatePoints(this->initial_image_pair);
+}
+
+

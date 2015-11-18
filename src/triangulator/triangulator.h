@@ -4,10 +4,14 @@
 
 #pragma once
 
-class Triangualtor
+#include <memory>
+#include "image/pair/imagepair.h"
+
+// Triangulates 2D points to obtain 3D points
+class Triangulator
 {
 public:
-
-private:
+  // computes homogenous 3D points for an image pair
+  virtual void findPoints3D(shared_ptr<ImagePair> &image_pair, Mat &points3Dh) = 0;
 
 };
