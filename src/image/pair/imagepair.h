@@ -2,8 +2,8 @@
 // Created by joschi on 30.10.15.
 //
 
-#ifndef SFM_FEATUREMATCH_H
-#define SFM_FEATUREMATCH_H
+#ifndef SFM_IMAGEPAIR_H
+#define SFM_IMAGEPAIR_H
 
 #include <memory>
 #include <vector>
@@ -24,4 +24,4 @@ public:
 };
 
 
-#endif //SFM_FEATUREMATCH_H
+#endif //SFM_IMAGEPAIR_H
