@@ -3,12 +3,14 @@
 
 TriangulationTab::TriangulationTab(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::TriangulationTab)
-{
-    ui->setupUi(this);
+    ui(new Ui::TriangulationTab) {
+  ui->setupUi(this);
 }
 
-TriangulationTab::~TriangulationTab()
-{
-    delete ui;
+TriangulationTab::~TriangulationTab() {
+  delete ui;
+}
+
+void TriangulationTab::on_runTriangulation_clicked() {
+
 }

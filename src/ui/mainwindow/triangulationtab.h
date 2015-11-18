@@ -15,6 +15,9 @@ public:
     explicit TriangulationTab(QWidget *parent = 0);
     ~TriangulationTab();
 
+private slots:
+    void on_runTriangulation_clicked();
+
 private:
     Ui::TriangulationTab *ui;
 };
