@@ -11,7 +11,7 @@
 #include "cameraMatrixFinder/ransaccameramatrixfinder.h"
 #include <featureDetector/kazefeaturedetector.h>
 #include <featureDetector/orbfeaturedetector.h>
-#include "projectionMatrixFinder/projectionmatrixfinder.h"
+#include "projectionMatrixFinder/cvprojectionmatrixfinder.h"
 #include "image/pair/imagepair.h"
 #include "featureDetector/featuredetector.h"
 #include "featureMatcher/featurematcher.h"
@@ -30,7 +30,7 @@ private:
   FeatureDetecter* feature_detector = new KAZEFeatureDetector(); // init feature detector
   FeatureMatcher*feature_matcher = new FlannFeatureMatcher(); // init feature matcher
   CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();  // camera matrix finder for initial matirx
-  ProjectionMatrixFinder *projectionMatrixFinder = new ProjectionMatrixFinder(); // projection matrix finder
+  ProjectionMatrixFinder *projectionMatrixFinder = new CvProjectionMatrixFinder(); // projection matrix finder
   Triangulator *triangulator = new BaseTriangulator();
 
   shared_ptr<ImagePair> initial_image_pair; // initial image pair

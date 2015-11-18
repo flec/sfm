@@ -2,10 +2,10 @@
 // Created by marco on 18.11.15.
 //
 
-#include "projectionmatrixfinder.h"
+#include "cvprojectionmatrixfinder.h"
 #include <opencv2/calib3d.hpp>
 
-void ProjectionMatrixFinder::findProjectionMatrix(shared_ptr <ImagePair> &image_pair, Mat &intristic_camera_paramaters) {
+void CvProjectionMatrixFinder::findProjectionMatrix(shared_ptr <ImagePair> &image_pair, Mat &intristic_camera_paramaters) {
 
   Mat D1, D2;
   Mat Q;
