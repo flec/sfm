@@ -17,6 +17,17 @@ void BaseTriangulator::findPoints3D(shared_ptr <ImagePair> &image_pair, Mat &poi
   triangulatePoints(image_pair->projection_img1, image_pair->projection_img2,
                     points1, points2, points3Dh);
 
+  /*
+
+  // Since it's homogenous (x, y, z, w) coord, divide by w to get (x, y, z, 1)
+  vector<MatExpr> splitted = {
+      points3Dh.row(0) / points3Dh.row(3),
+      points3Dh.row(1) / points3Dh.row(3),
+      points3Dh.row(2) / points3Dh.row(3)
+  };
+
+  merge( splitted, points3Dh );
+  */
 }
 
 void BaseTriangulator::getMatchedPoints(shared_ptr<ImagePair> &image_pair, vector<Point2f> *points1, vector<Point2f> *points2) {
