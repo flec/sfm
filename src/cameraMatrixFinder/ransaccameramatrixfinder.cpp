@@ -11,8 +11,8 @@ void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pai
   vector<Point2f> points_img1;
   vector<Point2f> points_img2;
 
+  // get keypoints from good matches
   for (auto match:image_pair->matches) {
-    //-- Get the keypoints from the good matches
     points_img1.push_back(image_pair->image1->get_keypoints()->at(match.queryIdx).pt);
     points_img2.push_back(image_pair->image2->get_keypoints()->at(match.trainIdx).pt);
   }
@@ -31,6 +31,8 @@ void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pai
   Point2d camera_center(intristic_camera_paramaters.at<double>(0, 2), intristic_camera_paramaters.at<double>(1, 2));
 
   // get rotation and translation matrix - cheirality check is done inside this function
+  // computing the rot and trans matrix could also be done by using SVD, but then the cheirality needs to be done
+  // by "hand"
   recoverPose(image_pair->essential, points_img1, points_img2, image_pair->rotation, image_pair->translation,
               intristic_camera_paramaters.at<double>(0, 0), camera_center, inliners);
 
