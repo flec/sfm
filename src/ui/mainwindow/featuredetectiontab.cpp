@@ -1,5 +1,6 @@
 #include <src/image/image.h>
 #include <sfmapp.h>
+#include <src/ui/widgets/cvimagedialog.h>
 #include "featuredetectiontab.h"
 #include "ui_featuredetectiontab.h"
 

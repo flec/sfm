@@ -3,6 +3,7 @@
 #include <QtWidgets/qlistview.h>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "ui/widgets/cvimagedialog.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
