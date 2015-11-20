@@ -11,6 +11,7 @@
 #include "cameraMatrixFinder/ransaccameramatrixfinder.h"
 #include <featureDetector/kazefeaturedetector.h>
 #include <featureDetector/orbfeaturedetector.h>
+#include <featureDetector/siftfeaturedetector.h>
 #include "projectionMatrixFinder/cvprojectionmatrixfinder.h"
 #include "image/pair/imagepair.h"
 #include "featureDetector/featuredetector.h"
