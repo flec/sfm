@@ -2,6 +2,7 @@
 // Created by marco on 19.11.15.
 //
 
+#include <iomanip>
 #include "plyutil.h"
 
 void PlyUtil::write(const string &fileName, const Mat &points3Dh) {
@@ -24,10 +25,11 @@ void PlyUtil::write(const string &fileName, const Mat &points3Dh) {
   //file << "property list uchar int vertex_index" << endl;
   file << "end_header" << endl;
 
+  file << fixed << setprecision(8);
 
   for (int c = 0; c < points3Dh.cols; c++) {
     for (int r = 0; r < 3; r++) {
-      file << points3Dh.at<double>(c, r) << " ";
+      file << points3Dh.at<double>(r, c) << " ";
     }
     file << endl;
   }
