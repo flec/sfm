@@ -30,7 +30,8 @@ void MatrixFindingTab::on_findInitialMatrices_clicked() {
     UIUtil::insert_mat_in_qtable(image_pair->translation, *ui->translationMatrix);
     UIUtil::insert_mat_in_qtable(image_pair->projection_img1, *ui->prjMatrix1);
     UIUtil::insert_mat_in_qtable(image_pair->projection_img2, *ui->prjMatrix2);
-    showRectifiedImage(image_pair);
+
+    //showRectifiedImage(image_pair);
   }
 }
 
