@@ -9,10 +9,9 @@ void PlyUtil::write(const string &fileName, const Mat &points3Dh) {
 
   ofstream file(fileName.c_str());
 
-  if ( !file )
-  {
+  if (!file) {
     cerr << "Error opening output file: " << fileName << "!" << endl;
-    exit( 1 );
+    exit(1);
   }
 
   file << "ply" << endl;
@@ -29,7 +28,7 @@ void PlyUtil::write(const string &fileName, const Mat &points3Dh) {
 
   for (int c = 0; c < points3Dh.cols; c++) {
     for (int r = 0; r < 3; r++) {
-      file << points3Dh.at<double>(r, c) << " ";
+      file << points3Dh.at<float>(r, c) << " ";
     }
     file << endl;
   }
