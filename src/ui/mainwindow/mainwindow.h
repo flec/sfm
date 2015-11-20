@@ -26,6 +26,8 @@ private slots:
 
   void on_actionUnload_Images_triggered();
 
+  void on_actionTest_it_all_triggered();
+
 signals:
   void imagesUpdated();
   void imagePairsUpdated();

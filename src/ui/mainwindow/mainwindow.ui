@@ -55,7 +55,7 @@
      <x>0</x>
      <y>0</y>
      <width>939</width>
-     <height>27</height>
+     <height>35</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -64,6 +64,8 @@
     </property>
     <addaction name="actionLoad_images"/>
     <addaction name="actionUnload_Images"/>
+    <addaction name="separator"/>
+    <addaction name="actionTest_it_all"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -90,6 +92,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+U</string>
+   </property>
+  </action>
+  <action name="actionTest_it_all">
+   <property name="text">
+    <string>Test it all</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
    </property>
   </action>
  </widget>

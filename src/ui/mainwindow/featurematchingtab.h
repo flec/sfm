@@ -25,14 +25,14 @@ public:
 
 private slots:
 
-  void on_matchFeatures_clicked();
-
   void on_matchesListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
 private:
   void updateImage();
 
 public slots:
+
+  void on_matchFeatures_clicked();
 
   void updateImagePairs();
 

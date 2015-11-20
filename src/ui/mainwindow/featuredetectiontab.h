@@ -32,11 +32,11 @@ private:
 
 private slots:
 
-  void on_detectFeatures_clicked();
-
   void on_imagesListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
 public slots:
+
+  void on_detectFeatures_clicked();
 
   void updateImages();
 

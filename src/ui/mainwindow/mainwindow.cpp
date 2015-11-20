@@ -41,3 +41,12 @@ void MainWindow::on_actionUnload_Images_triggered() {
   emit imagesUpdated();
   emit imagePairsUpdated();
 }
+
+void MainWindow::on_actionTest_it_all_triggered() {
+  this->on_actionLoad_images_triggered();
+  ui->featureDetectionTab->on_detectFeatures_clicked();
+  ui->featureMatchingTab->on_matchFeatures_clicked();
+  ui->matrixFindingTab->on_findInitialMatrices_clicked();
+  ui->triangulationTab->on_runTriangulation_clicked();
+  ui->tabWidget->setCurrentIndex(2);
+}

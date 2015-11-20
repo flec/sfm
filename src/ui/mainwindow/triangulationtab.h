@@ -16,7 +16,7 @@ public:
 
   ~TriangulationTab();
 
-private slots:
+public slots:
 
   void on_runTriangulation_clicked();
 

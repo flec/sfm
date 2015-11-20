@@ -22,9 +22,10 @@ public:
 
 private slots:
 
+public slots:
+
   void on_findInitialMatrices_clicked();
 
-public slots:
   void updateImagePairs();
 
 };
