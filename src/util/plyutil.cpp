@@ -16,7 +16,7 @@ void PlyUtil::write(const string &fileName, const Mat &points3Dh) {
 
   file << "ply" << endl;
   file << "format ascii 1.0" << endl;
-  file << "element vertex " << points3Dh.rows << endl;
+  file << "element vertex " << points3Dh.cols << endl;
   file << "property float x" << endl;
   file << "property float y" << endl;
   file << "property float z" << endl;
