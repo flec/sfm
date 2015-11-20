@@ -31,7 +31,7 @@ void MainWindow::on_actionLoad_images_triggered() {
   QByteArray path = images_dir.toLocal8Bit();
   sfmapp->loadImages(std::string(path.constData(), path.length()) + "/");
 #else
-  sfmapp->loadImages("/tmp/images/");
+  sfmapp->loadImages("/var/images/");
 #endif
   emit imagesUpdated();
 }

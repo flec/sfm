@@ -42,6 +42,17 @@ void SFMApp::findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat 
   this->initial_image_pair = initial_image_pair;
   this->intrinsic_camera_parameters = intristic_camera_paramaters;
   cameraMatrixFinder->findCameraMatrix(initial_image_pair, intristic_camera_paramaters);
+  projectionMatrixFinder->findProjectionMatrix(initial_image_pair, intristic_camera_paramaters);
+}
+
+
+void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
+  Mat points3Dh;
+  triangulator->findPoints3D(image_pair, points3Dh);
+}
+
+void SFMApp::triangulateInitialPoints() {
+  this->triangulatePoints(this->initial_image_pair);
 }
 
 

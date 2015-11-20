@@ -2,8 +2,8 @@
 // Created by joschi on 30.10.15.
 //
 
-#ifndef SFM_FEATUREMATCH_H
-#define SFM_FEATUREMATCH_H
+#ifndef SFM_IMAGEPAIR_H
+#define SFM_IMAGEPAIR_H
 
 #include <memory>
 #include <vector>
@@ -21,7 +21,14 @@ public:
   Mat_<double> translation;
   Mat_<double> fundamental;
   Mat_<double> essential;
+
+  // Projection matrices
+  Mat_<double> projection_img1;
+  Mat_<double> projection_img2;
+  // Rectified rotation matrices
+  Mat_<double> rotation_rect_img1;
+  Mat_<double> rotation_rect_img2;
 };
 
 
-#endif //SFM_FEATUREMATCH_H
+#endif //SFM_IMAGEPAIR_H

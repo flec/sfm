@@ -11,10 +11,12 @@
 #include "cameraMatrixFinder/ransaccameramatrixfinder.h"
 #include <featureDetector/kazefeaturedetector.h>
 #include <featureDetector/orbfeaturedetector.h>
+#include "projectionMatrixFinder/cvprojectionmatrixfinder.h"
 #include "image/pair/imagepair.h"
 #include "featureDetector/featuredetector.h"
 #include "featureMatcher/featurematcher.h"
 #include "featureMatcher/flannfeaturematcher.h"
+#include "triangulator/basetriangulator.h"
 
 using namespace std;
 
@@ -28,6 +30,8 @@ private:
   FeatureDetecter* feature_detector = new KAZEFeatureDetector(); // init feature detector
   FeatureMatcher*feature_matcher = new FlannFeatureMatcher(); // init feature matcher
   CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();  // camera matrix finder for initial matirx
+  ProjectionMatrixFinder *projectionMatrixFinder = new CvProjectionMatrixFinder(); // projection matrix finder
+  Triangulator *triangulator = new BaseTriangulator();
 
   shared_ptr<ImagePair> initial_image_pair; // initial image pair
 
@@ -67,6 +71,12 @@ public:
   void set_intrinsic_camera_parameters(Mat &intrinsic_camera_parameters){
     this->intrinsic_camera_parameters = intrinsic_camera_parameters;
   }
+
+  // Triangulates the points of the initial image pair
+  void triangulateInitialPoints();
+
+  // Triangulates points of an image pair
+  void triangulatePoints(shared_ptr<ImagePair> image_pair);
 };
 
 

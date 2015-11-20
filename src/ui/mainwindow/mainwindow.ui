@@ -38,6 +38,11 @@
           <string>Matrix Finding</string>
          </attribute>
         </widget>
+        <widget class="TriangulationTab" name="triangulationTab">
+         <attribute name="title">
+          <string>Triangulation</string>
+         </attribute>
+        </widget>
        </widget>
       </item>
      </layout>
@@ -50,7 +55,7 @@
      <x>0</x>
      <y>0</y>
      <width>939</width>
-     <height>35</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -106,6 +111,12 @@
    <class>MatrixFindingTab</class>
    <extends>QWidget</extends>
    <header>matrixfindingtab.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TriangulationTab</class>
+   <extends>QWidget</extends>
+   <header>triangulationtab.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
