@@ -50,4 +50,5 @@ void MainWindow::on_actionTest_it_all_triggered() {
   ui->matrixFindingTab->on_findInitialMatrices_clicked();
   ui->triangulationTab->on_runTriangulation_clicked();
   ui->tabWidget->setCurrentIndex(2);
+  system("meshlab /tmp/test.ply &");
 }
