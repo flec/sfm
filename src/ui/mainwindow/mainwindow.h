@@ -13,8 +13,8 @@ class MainWindow : public QMainWindow {
 Q_OBJECT
 
 private:
-  SFMApp *sfmapp;
   Ui::MainWindow *ui;
+  SFMApp *sfmapp;
 
 public:
   explicit MainWindow(QWidget *parent = 0);

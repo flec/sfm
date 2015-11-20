@@ -5,7 +5,9 @@
 #include "featurematcher.h"
 
 void FeatureMatcher::filterMatches(shared_ptr<ImagePair> &image_pair, double min_dist_factor) {
+#ifdef DEBUG
   signed int matches_before = image_pair->matches.size();
+#endif
   double min_dist = DBL_MAX;
   double max_dist = 0;
 
@@ -25,7 +27,7 @@ void FeatureMatcher::filterMatches(shared_ptr<ImagePair> &image_pair, double min
   }
 
 #ifdef DEBUG
-  printf("Filtered out %d bad pairs.\n", matches_before- image_pair->matches.size());
+  printf("Filtered out %d bad pairs.\n", matches_before - image_pair->matches.size());
 #endif
 
 }

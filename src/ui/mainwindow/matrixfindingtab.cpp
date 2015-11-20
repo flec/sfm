@@ -17,7 +17,8 @@ MatrixFindingTab::~MatrixFindingTab() {
 }
 
 void MatrixFindingTab::on_findInitialMatrices_clicked() {
-  if (ui->matchesListWidget->currentRow() >= 0 && ui->matchesListWidget->currentRow() < sfmapp->image_pairs.size()) {
+  if (ui->matchesListWidget->currentRow() >= 0 &&
+      (unsigned) ui->matchesListWidget->currentRow() < sfmapp->image_pairs.size()) {
     Mat intrinsic_matrix = UIUtil::get_mat_from_qtable(*ui->intrinsicMatrix);
 
     shared_ptr<ImagePair> image_pair = sfmapp->image_pairs.at(ui->matchesListWidget->currentRow());
@@ -62,8 +63,12 @@ void MatrixFindingTab::showRectifiedImage(shared_ptr<ImagePair> &image_pair) {
   Mat D2 = Mat::zeros(1, 4, CV_64F);
   Mat map1x, map1y, map2x, map2y;
   Mat imgU1, imgU2;
-  initUndistortRectifyMap(*sfmapp->intrinsic_camera_parameters(), D1, image_pair->rotation_rect_img1, image_pair->projection_img1, image_pair->image1->get_mat_grey()->size(), CV_32FC1, map1x, map1y);
-  initUndistortRectifyMap(*sfmapp->intrinsic_camera_parameters(), D2, image_pair->rotation_rect_img2, image_pair->projection_img2, image_pair->image2->get_mat_grey()->size(), CV_32FC1, map2x, map2y);
+  initUndistortRectifyMap(*sfmapp->intrinsic_camera_parameters(), D1, image_pair->rotation_rect_img1,
+                          image_pair->projection_img1, image_pair->image1->get_mat_grey()->size(), CV_32FC1, map1x,
+                          map1y);
+  initUndistortRectifyMap(*sfmapp->intrinsic_camera_parameters(), D2, image_pair->rotation_rect_img2,
+                          image_pair->projection_img2, image_pair->image2->get_mat_grey()->size(), CV_32FC1, map2x,
+                          map2y);
 
   remap(*image_pair->image1->get_mat_color(), imgU1, map1x, map1y, INTER_LINEAR, BORDER_CONSTANT, Scalar());
   remap(*image_pair->image2->get_mat_color(), imgU2, map2x, map2y, INTER_LINEAR, BORDER_CONSTANT, Scalar());

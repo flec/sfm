@@ -17,7 +17,7 @@ using namespace std;
 
 class FeatureDetecter {
 public:
-  const static int max_features=300;
+  const static int max_features=5000;
 
   virtual void detectFeatures(vector<shared_ptr<Image>> &images, bool useProvidedKeypoints = false) = 0;
 

@@ -6,6 +6,7 @@
 #include <opencv2/calib3d.hpp>
 #include "ransaccameramatrixfinder.h"
 #include <math.h>
+#include <opencv2/highgui.hpp>
 
 void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pair, Mat &intristic_camera_paramaters) {
   vector<Point2f> points_img1;
@@ -35,6 +36,16 @@ void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pai
   // by "hand"
   recoverPose(image_pair->essential, points_img1, points_img2, image_pair->rotation, image_pair->translation,
               intristic_camera_paramaters.at<double>(0, 0), camera_center, inliners);
+
+
+  Mat picture;
+  drawMatches(*image_pair->image1->get_mat_color(), *image_pair->image1->get_keypoints(), *image_pair->image2->get_mat_color(),
+    *image_pair->image2->get_keypoints(), image_pair->matches, picture,Scalar::all(-1),Scalar::all(-1),inliners);
+  imshow("Matches after RANSAC", picture);
+
+
+
+
 
 
 

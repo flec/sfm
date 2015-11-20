@@ -7,7 +7,7 @@
 
 
 
-KAZEFeatureDetector::KAZEFeatureDetector() : kaze(KAZE::create()) {
+KAZEFeatureDetector::KAZEFeatureDetector() : kaze(KAZE::create(false,false, 0.000001f,6,6)) {
 }
 
 void KAZEFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, bool useProvidedKeypoints) {
