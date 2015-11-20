@@ -35,7 +35,7 @@ private:
 
   shared_ptr<ImagePair> initial_image_pair; // initial image pair
 
-  Mat intrinsic_camera_parameters;  // intrinsic camera parameters
+  Mat intrinsic_camera_parameters_;  // intrinsic camera parameters
 
   SFMApp() {};
 
@@ -68,8 +68,8 @@ public:
   // Unload everything
   void unload();
 
-  void set_intrinsic_camera_parameters(Mat &intrinsic_camera_parameters){
-    this->intrinsic_camera_parameters = intrinsic_camera_parameters;
+  Mat* intrinsic_camera_parameters(){
+    return &intrinsic_camera_parameters_;
   }
 
   // Triangulates the points of the initial image pair

@@ -28,6 +28,9 @@ public slots:
 
   void updateImagePairs();
 
+private:
+  void showRectifiedImage(shared_ptr<ImagePair> &image_pair);
+
 };
 
 #endif // MATRIXFINDINGTAB_H
