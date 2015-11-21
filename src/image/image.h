@@ -12,7 +12,7 @@
 using namespace cv;
 using namespace std;
 
-struct Image {
+class Image {
 private:
   vector<KeyPoint> keypoints;
 
