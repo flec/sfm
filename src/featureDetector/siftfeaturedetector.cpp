@@ -6,7 +6,7 @@
 
 
 
-SIFTFeatureDetector::SIFTFeatureDetector() : sift(SIFT::create(FeatureDetecter::max_features)) {
+SIFTFeatureDetector::SIFTFeatureDetector() : sift(SIFT::create(FeatureDetecter::max_features,3,0.004,10)) {
 }
 
 void SIFTFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, bool useProvidedKeypoints) {

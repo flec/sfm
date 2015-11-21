@@ -5,9 +5,8 @@
 #ifndef SFM_SIFTFEATUREDETECTOR_H
 #define SFM_SIFTFEATUREDETECTOR_H
 #include "featuredetector.h"
-#include "opencv2/xfeatures2d.hpp"
+#include <opencv2/xfeatures2d.hpp>
 
-using namespace cv;
 using namespace xfeatures2d;
 
 class SIFTFeatureDetector : public FeatureDetecter {

@@ -12,6 +12,7 @@
 #include <featureDetector/kazefeaturedetector.h>
 #include <featureDetector/orbfeaturedetector.h>
 #include <featureDetector/siftfeaturedetector.h>
+#include <featureDetector/briskfeaturedetector.h>
 #include "projectionMatrixFinder/basicprojectionmatrixfinder.h"
 #include "image/pair/imagepair.h"
 #include "featureDetector/featuredetector.h"
@@ -28,7 +29,7 @@ class SFMApp {
 private:
   static SFMApp* instance;
 
-  FeatureDetecter* feature_detector = new KAZEFeatureDetector(); // init feature detector
+  FeatureDetecter* feature_detector = new SIFTFeatureDetector(); // init feature detector
   FeatureMatcher*feature_matcher = new FlannFeatureMatcher(); // init feature matcher
   CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();  // camera matrix finder for initial matirx
   ProjectionMatrixFinder *projectionMatrixFinder = new BasicProjectionMatrixFinder(); // projection matrix finder
