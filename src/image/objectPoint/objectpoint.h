@@ -5,11 +5,8 @@
 #ifndef SFM_OBJECTPOINT_H
 #define SFM_OBJECTPOINT_H
 
-#include <memory>
-#include <vector>
-#include <map>
-#include <image/image.h>
-#include <opencv2/core/mat.hpp>
+
+#include <opencv2/core/types.hpp>
 
 using namespace std;
 using namespace cv;
