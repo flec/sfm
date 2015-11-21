@@ -6,6 +6,8 @@
 #define SFM_IMAGE_H
 
 #include <opencv2/core/mat.hpp>
+#include <map>
+#include "objectPoint/objectpoint.h"
 
 using namespace cv;
 using namespace std;
@@ -19,6 +21,9 @@ private:
 
   string file_name;
   string file_path;
+
+  // map with keypoint index and opject point
+  map<int, ObjectPoint > objectPoints;
 
   Image() { };
 
@@ -39,6 +44,10 @@ public:
   vector<KeyPoint> *get_keypoints() { return &keypoints; }
 
   Mat* get_descriptors() { return &descriptors; }
+
+  map<int, ObjectPoint>* getObjectPoints() { return &objectPoints; };
+
+  void addObjectPoint(int keypointIndex, ObjectPoint point);
 };
 
 

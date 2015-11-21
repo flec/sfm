@@ -29,4 +29,8 @@ Image::~Image() {
 #endif
 }
 
+void Image::addObjectPoint(int keypointIndex, ObjectPoint point) {
+  this->objectPoints[keypointIndex] = point;
+}
+
 
