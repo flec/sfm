@@ -2,10 +2,13 @@
 // Created by joschi on 07.11.15.
 //
 
-#if 0
 #ifndef SFM_SIFTFEATUREDETECTOR_H
 #define SFM_SIFTFEATUREDETECTOR_H
 #include "featuredetector.h"
+#include "opencv2/xfeatures2d.hpp"
+
+using namespace cv;
+using namespace xfeatures2d;
 
 class SIFTFeatureDetector : public FeatureDetecter {
 private:
@@ -21,4 +24,3 @@ public:
 
 
 #endif //SFM_SIFTFEATUREDETECTOR_H
-#endif
