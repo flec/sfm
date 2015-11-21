@@ -7,6 +7,11 @@
 
 
 #include <opencv2/core/types.hpp>
+#include <utility>
+#include <memory>
+
+// forward declaration
+class Image;
 
 using namespace std;
 using namespace cv;
@@ -14,9 +19,12 @@ using namespace cv;
 // Represents a point of the 3D object
 class ObjectPoint {
 private:
-
+  // vector of references (using vector instead of map to avoid key conflicts and two vectors instead of pair because of forward declaration)
+  vector<int> refKeypoints;
+  vector<shared_ptr<Image>> refImages;
 public:
   Point3f coordinates;
+  void addReference(int keypointIndex, shared_ptr<Image> image);
 };
 
 #endif //SFM_OBJECTPOINT_H
