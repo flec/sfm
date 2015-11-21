@@ -5,7 +5,6 @@
 #include <iostream>
 #include <opencv2/calib3d.hpp>
 #include "ransaccameramatrixfinder.h"
-#include <math.h>
 #include <opencv2/highgui.hpp>
 
 void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pair, Mat &intristic_camera_paramaters) {
@@ -13,11 +12,7 @@ void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pai
   vector<Point2f> points_img2;
 
   // get keypoints from good matches
-  for (auto match:image_pair->matches) {
-    points_img1.push_back(image_pair->image1->get_keypoints()->at(match.queryIdx).pt);
-    points_img2.push_back(image_pair->image2->get_keypoints()->at(match.trainIdx).pt);
-  }
-
+  image_pair->getMatches(points_img1, points_img2);
 
   // Mask with inliners
   Mat inliners;

@@ -8,10 +8,11 @@
 #include <memory>
 #include <vector>
 #include <image/image.h>
+#include <map>
 
 using namespace std;
 
-struct ImagePair {
+class ImagePair {
 public:
   shared_ptr<Image> image1;
   shared_ptr<Image> image2;
@@ -28,6 +29,11 @@ public:
   // Rectified rotation matrices
   Mat_<double> rotation_rect_img1;
   Mat_<double> rotation_rect_img2;
+
+  void getMatches(vector<Point2f> &points1, vector<Point2f> &points2);
+private:
+  vector<Point2f> matches1;
+  vector<Point2f> matches2;
 };
 
 
