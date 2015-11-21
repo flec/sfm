@@ -2,8 +2,8 @@
 // Created by marco on 18.11.15.
 //
 
-#ifndef SFM_POINT3D_H
-#define SFM_POINT3D_H
+#ifndef SFM_OBJECTPOINT_H
+#define SFM_OBJECTPOINT_H
 
 #include <memory>
 #include <vector>
@@ -22,4 +22,4 @@ public:
   Point3f coordinates;
 };
 
-#endif //SFM_POINT3D_H
+#endif //SFM_OBJECTPOINT_H
