@@ -23,19 +23,20 @@ private:
   string file_path;
 
   // map with keypoint index and opject point
-  map<int, ObjectPoint > objectPoints;
+  map<int, shared_ptr<ObjectPoint>> objectPoints;
 
   Image() { };
 
 public:
   Mat descriptors;
+
   Image(string const &file_path, bool const load_color = true);
 
   ~Image();
 
-  Mat* get_mat_color() { return (mat_color.data != NULL) ? &mat_color : &mat_grey; }
+  Mat *get_mat_color() { return (mat_color.data != NULL) ? &mat_color : &mat_grey; }
 
-  Mat* get_mat_grey() { return &mat_grey; }
+  Mat *get_mat_grey() { return &mat_grey; }
 
   string get_file_name() const { return file_name; }
 
@@ -43,11 +44,11 @@ public:
 
   vector<KeyPoint> *get_keypoints() { return &keypoints; }
 
-  Mat* get_descriptors() { return &descriptors; }
+  Mat *get_descriptors() { return &descriptors; }
 
-  map<int, ObjectPoint>* getObjectPoints() { return &objectPoints; };
+  map<int, shared_ptr<ObjectPoint>> *getObjectPoints() { return &objectPoints; };
 
-  void addObjectPoint(int keypointIndex, ObjectPoint point);
+  void addObjectPoint(int keypointIndex, shared_ptr<ObjectPoint> point);
 };
 
 

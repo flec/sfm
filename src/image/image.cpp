@@ -29,7 +29,7 @@ Image::~Image() {
 #endif
 }
 
-void Image::addObjectPoint(int keypointIndex, ObjectPoint point) {
+void Image::addObjectPoint(int keypointIndex, shared_ptr<ObjectPoint> point) {
   this->objectPoints[keypointIndex] = point;
 }
 
