@@ -33,4 +33,13 @@ void Image::addObjectPoint(int keypointIndex, shared_ptr<ObjectPoint> point) {
   this->objectPoints[keypointIndex] = point;
 }
 
+shared_ptr<ObjectPoint> Image::getObjectPoint(int keypointIndex) {
+  map<int, shared_ptr<ObjectPoint>>::iterator it = this->objectPoints.find(keypointIndex);
+  // return null if not found
+  if (it == this->objectPoints.end()) {
+    return nullptr;
+  }
+  return it->second;
+}
+
 

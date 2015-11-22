@@ -49,6 +49,8 @@ public:
   map<int, shared_ptr<ObjectPoint>> *getObjectPoints() { return &objectPoints; };
 
   void addObjectPoint(int keypointIndex, shared_ptr<ObjectPoint> point);
+
+  shared_ptr<ObjectPoint> getObjectPoint(int keypointIndex);
 };
 
 
