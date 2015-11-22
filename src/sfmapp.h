@@ -18,6 +18,7 @@
 #include "featureDetector/featuredetector.h"
 #include "featureMatcher/featurematcher.h"
 #include "featureMatcher/flannfeaturematcher.h"
+#include "image/objectPoint/objectpoint.h"
 #include "triangulator/cvtriangulator.h"
 
 using namespace std;
@@ -29,7 +30,7 @@ class SFMApp {
 private:
   static SFMApp* instance;
 
-  FeatureDetecter* feature_detector = new KAZEFeatureDetector(); // init feature detector
+  FeatureDetecter* feature_detector = new SIFTFeatureDetector(); // init feature detector
   FeatureMatcher*feature_matcher = new FlannFeatureMatcher(); // init feature matcher
   CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();  // camera matrix finder for initial matirx
   ProjectionMatrixFinder *projectionMatrixFinder = new BasicProjectionMatrixFinder(); // projection matrix finder
@@ -38,6 +39,8 @@ private:
   shared_ptr<ImagePair> initial_image_pair; // initial image pair
 
   Mat intrinsic_camera_parameters_;  // intrinsic camera parameters
+
+  vector<shared_ptr<ObjectPoint>> objectPoints; // 3D points
 
   SFMApp() {};
 
