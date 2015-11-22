@@ -18,8 +18,8 @@
 #include "featureDetector/featuredetector.h"
 #include "featureMatcher/featurematcher.h"
 #include "featureMatcher/flannfeaturematcher.h"
-#include "triangulator/basetriangulator.h"
 #include "image/objectPoint/objectpoint.h"
+#include "triangulator/cvtriangulator.h"
 
 using namespace std;
 
@@ -34,7 +34,7 @@ private:
   FeatureMatcher*feature_matcher = new FlannFeatureMatcher(); // init feature matcher
   CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();  // camera matrix finder for initial matirx
   ProjectionMatrixFinder *projectionMatrixFinder = new BasicProjectionMatrixFinder(); // projection matrix finder
-  Triangulator *triangulator = new BaseTriangulator();
+  Triangulator *triangulator = new CVTriangulator();
 
   shared_ptr<ImagePair> initial_image_pair; // initial image pair
 

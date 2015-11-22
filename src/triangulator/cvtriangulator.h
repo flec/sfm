@@ -7,7 +7,7 @@
 
 #include "triangulator.h"
 
-class BaseTriangulator : public Triangulator {
+class CVTriangulator : public Triangulator {
 public:
   void findPoints3D(shared_ptr<ImagePair> &image_pair, Mat &points3Dh);
 };

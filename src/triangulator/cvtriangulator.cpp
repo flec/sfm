@@ -2,14 +2,14 @@
 // Created by marco on 18.11.15.
 //
 
-#include "basetriangulator.h"
+#include "cvtriangulator.h"
 #include <opencv2/calib3d.hpp>
 #include "util/plyutil.h"
 
 using namespace std;
 using namespace cv;
 
-void BaseTriangulator::findPoints3D(shared_ptr<ImagePair> &image_pair, Mat &points3Dh) {
+void CVTriangulator::findPoints3D(shared_ptr<ImagePair> &image_pair, Mat &points3Dh) {
   vector<cv::Point2f> points1;
   vector<cv::Point2f> points2;
 
