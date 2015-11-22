@@ -20,6 +20,7 @@
 #include "featureMatcher/flannfeaturematcher.h"
 #include "image/objectPoint/objectpoint.h"
 #include "triangulator/cvtriangulator.h"
+#include "pnpSolver/ransacpnpsolver.h"
 
 using namespace std;
 
@@ -35,6 +36,7 @@ private:
   CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();  // camera matrix finder for initial matirx
   ProjectionMatrixFinder *projectionMatrixFinder = new BasicProjectionMatrixFinder(); // projection matrix finder
   Triangulator *triangulator = new CVTriangulator();
+  PnPSolver *pnpSolver = new RANSACPnPSolver();
 
   shared_ptr<ImagePair> initial_image_pair; // initial image pair
 
