@@ -19,6 +19,7 @@
 #include "featureMatcher/featurematcher.h"
 #include "featureMatcher/flannfeaturematcher.h"
 #include "triangulator/basetriangulator.h"
+#include "image/objectPoint/objectpoint.h"
 
 using namespace std;
 
@@ -38,6 +39,8 @@ private:
   shared_ptr<ImagePair> initial_image_pair; // initial image pair
 
   Mat intrinsic_camera_parameters_;  // intrinsic camera parameters
+
+  vector<shared_ptr<ObjectPoint>> objectPoints; // 3D points
 
   SFMApp() {};
 
