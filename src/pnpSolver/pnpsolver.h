@@ -9,6 +9,7 @@
 
 class PnPSolver {
 public:
-  void solve(shared_ptr<ImagePair> &image_pair, Mat &intristic_camera_paramaters);
+  virtual void solve(shared_ptr<ImagePair> &image_pair, Mat &intristic_camera_paramaters) = 0;
 };
+
 #endif //SFM_PNPSOLVER_H
