@@ -12,6 +12,6 @@ using namespace std;
 
 class RANSACPnPSolver : public PnPSolver {
 public:
-  void solve(shared_ptr<ImagePair> &image_pair);
+  void solve(shared_ptr<ImagePair> &image_pair, Mat &intristic_camera_paramaters);
 };
 #endif //SFM_RANSACPNPSOLVER_H
