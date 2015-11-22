@@ -21,7 +21,7 @@ class FeatureMatcher {
 public:
   virtual shared_ptr<ImagePair> matchFeatures(shared_ptr<Image> &image, shared_ptr<Image> &image2) = 0;
 
-  void filterMatches(shared_ptr<ImagePair> &image_pair, double min_dist_factor = 8);
+  void filterMatches(shared_ptr<ImagePair> &image_pair, double min_dist_factor = 6.5);
 
 };
 
