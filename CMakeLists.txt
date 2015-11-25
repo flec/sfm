@@ -39,13 +39,25 @@ IF(USE_GUI)
   ADD_DEFINITIONS("-DUSE_GUI")
 
   find_package(Qt5Widgets REQUIRED)
-  include_directories(${Qt5Widgets_INCLUDE_DIRS})
-  list(APPEND LINK_LIBRARIES Qt5::Widgets)
+  find_package(Qt5Xml REQUIRED)
+  find_package(Qt5OpenGL REQUIRED)
+
+  include_directories(${Qt5Widgets_INCLUDE_DIRS}
+      ${Qt5Xml_INCLUDE_DIRS}
+      ${Qt5OpenGL_INCLUDE_DIRS}
+  )
+
+  list(APPEND LINK_LIBRARIES Qt5::Widgets Qt5::Xml Qt5::OpenGL)
 
   set(CMAKE_AUTOMOC ON)
   set(CMAKE_AUTOUIC ON)
   include_directories(src/ui/mainwindow
       src/ui/widgets)
+
+  # Find QGLViewer library
+  find_library(QGLVIEWER_LIBRARY
+      NAMES qglviewer-qt5 qglviewer QGLViewer QGLViewer2)
+  list(APPEND LINK_LIBRARIES ${QGLVIEWER_LIBRARY})
 ENDIF(USE_GUI)
 ########### END Qt 5 ##############
 
