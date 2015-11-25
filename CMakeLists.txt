@@ -54,10 +54,11 @@ IF(USE_GUI)
   include_directories(src/ui/mainwindow
       src/ui/widgets)
 
-  # Find QGLViewer library
+  # Find QGLViewer and OpenGL libraries
+  find_package(OpenGL REQUIRED)
   find_library(QGLVIEWER_LIBRARY
       NAMES qglviewer-qt5 qglviewer QGLViewer QGLViewer2)
-  list(APPEND LINK_LIBRARIES ${QGLVIEWER_LIBRARY})
+  list(APPEND LINK_LIBRARIES ${QGLVIEWER_LIBRARY} ${OPENGL_LIBRARIES})
 ENDIF(USE_GUI)
 ########### END Qt 5 ##############
 
