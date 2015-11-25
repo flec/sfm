@@ -42,8 +42,13 @@ void SFMApp::matchFeatures() {
 void SFMApp::findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat &intristic_camera_paramaters) {
   this->initial_image_pair = initial_image_pair;
   this->intrinsic_camera_parameters_ = intristic_camera_paramaters;
-  cameraMatrixFinder->findCameraMatrix(initial_image_pair, intristic_camera_paramaters);
-  projectionMatrixFinder->findProjectionMatrix(initial_image_pair, intristic_camera_paramaters);
+  this->findMatrices(initial_image_pair, intristic_camera_paramaters);
+}
+
+
+void SFMApp::findMatrices(shared_ptr<ImagePair> &image_pair, Mat &intristic_camera_paramaters) {
+  cameraMatrixFinder->findCameraMatrix(image_pair, intristic_camera_paramaters);
+  projectionMatrixFinder->findProjectionMatrix(image_pair, intristic_camera_paramaters);
 }
 
 
@@ -96,10 +101,13 @@ void SFMApp::prepareForTriangulation(shared_ptr<ImagePair> image_pair) {
       image_pair->pnp_image_points.push_back(keypoints2->at(match.trainIdx).pt);
     } else {
       image_pair->triangulation_points1.push_back(keypoints1->at(match.queryIdx).pt);
-      image_pair->pnp_image_points.push_back(keypoints2->at(match.trainIdx).pt);
+      image_pair->triangulation_points2.push_back(keypoints2->at(match.trainIdx).pt);
     }
   }
 
   // solve PnP
   pnpSolver->solve(image_pair, intrinsic_camera_parameters_);
+
+  // find matrices
+  this->findMatrices(image_pair, intrinsic_camera_parameters_);
 }
