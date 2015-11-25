@@ -18,7 +18,9 @@ public:
 
 public slots:
 
-  void on_runTriangulation_clicked();
+  void on_runInitialTriangulation_clicked();
+
+  void on_runNextTriangulation_clicked();
 
 private:
   Ui::TriangulationTab *ui;
