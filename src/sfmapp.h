@@ -42,7 +42,7 @@ private:
 
   Mat intrinsic_camera_parameters_;  // intrinsic camera parameters
 
-  vector<shared_ptr<ObjectPoint>> objectPoints; // 3D points
+  vector<shared_ptr<ObjectPoint>> object_points; // 3D points
 
   SFMApp() {};
 
@@ -94,6 +94,10 @@ public:
   void triangulateInitial();
 
   void triangulateNext(int image_pair_index);
+
+  vector<shared_ptr<ObjectPoint>>* get_object_points(){
+    return &object_points;
+  }
 
 };
 

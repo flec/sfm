@@ -60,7 +60,7 @@ void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
   int c = 0;
   for (auto match:image_pair->matches) {
     shared_ptr<ObjectPoint> objectPoint (new ObjectPoint(points3Dh.at<float>(0, c), points3Dh.at<float>(1, c), points3Dh.at<float>(2, c)));
-    this->objectPoints.push_back(objectPoint);
+    this->object_points.push_back(objectPoint);
     // add references to images
     objectPoint->addReference(match.queryIdx, image_pair->image1);
     objectPoint->addReference(match.trainIdx, image_pair->image2);
@@ -73,17 +73,17 @@ void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
 }
 
 void SFMApp::triangulateInitial() {
-  objectPoints.clear();
+  object_points.clear();
   prepareForInitialTriangulation();
   triangulatePoints(initial_image_pair);
-  PlyUtil::write("/tmp/initialPoints.ply", objectPoints);
+  PlyUtil::write("/tmp/initialPoints.ply", object_points);
 }
 
 void SFMApp::triangulateNext(int image_pair_index) {
   shared_ptr<ImagePair> image_pair = image_pairs[image_pair_index];
   prepareForTriangulation(image_pair);
   triangulatePoints(image_pair);
-  PlyUtil::write("/tmp/nextPoints.ply", objectPoints);
+  PlyUtil::write("/tmp/nextPoints.ply", object_points);
 }
 
 void SFMApp::prepareForInitialTriangulation() {
@@ -97,7 +97,7 @@ void SFMApp::prepareForTriangulation(shared_ptr<ImagePair> image_pair) {
   for (auto match:image_pair->matches) {
     shared_ptr<ObjectPoint> objectPoint = image_pair->image1->getObjectPoint(match.queryIdx);
     if (objectPoint) {
-      image_pair->pnp_object_points.push_back(*objectPoint->getCoordinates());
+      image_pair->pnp_object_points.push_back(*objectPoint->coordinates());
       image_pair->pnp_image_points.push_back(keypoints2->at(match.trainIdx).pt);
     } else {
       image_pair->triangulation_points1.push_back(keypoints1->at(match.queryIdx).pt);

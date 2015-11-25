@@ -56,7 +56,7 @@ void PlyUtil::write(const string &fileName, const vector<shared_ptr<ObjectPoint>
   file << fixed << setprecision(8);
 
   for (auto objectPoint:objectPoints) {
-    Point3f *coords = objectPoint->getCoordinates();
+    Point3f *coords = objectPoint->coordinates();
     file << coords->x << " " << coords->y << " " << coords->z << endl;
   }
 

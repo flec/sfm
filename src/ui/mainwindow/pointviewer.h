@@ -7,7 +7,10 @@
 
 #include <QWidget>
 #include <QGLViewer/qglviewer.h>
+#include <sfmapp.h>
 
+using namespace std;
+using namespace qglviewer;
 
 class PointViewer : public QGLViewer {
 Q_OBJECT
@@ -17,9 +20,10 @@ public:
 protected :
   virtual void draw();
 
-  virtual void init();
-
   virtual QString helpString() const;
+
+private:
+  SFMApp *sfmapp;
 };
 
 

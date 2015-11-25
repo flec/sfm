@@ -8,7 +8,7 @@ using namespace std;
 using namespace cv;
 
 ObjectPoint::ObjectPoint(float x, float y, float z) {
-  this->coordinates = Point3f(x, y, z);
+  this->coordinates_ = Point3f(x, y, z);
 }
 
 void ObjectPoint::addReference(int keypointIndex, shared_ptr<Image> image) {

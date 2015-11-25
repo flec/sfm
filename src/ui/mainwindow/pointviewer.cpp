@@ -7,36 +7,64 @@
 
 // Draws a spiral
 void PointViewer::draw() {
-  const float nbSteps = 200.0;
+//  const float nbSteps = 200.0;
+//
+//  glBegin(GL_QUAD_STRIP);
+//  for (int i = 0; i < nbSteps; ++i) {
+//    const float ratio = i / nbSteps;
+//    const float angle = 21.0 * ratio;
+//    const float c = cos(angle);
+//    const float s = sin(angle);
+//    const float r1 = 1.0 - 0.8f * ratio;
+//    const float r2 = 0.8f - 0.8f * ratio;
+//    const float alt = ratio - 0.5f;
+//    const float nor = 0.5f;
+//    const float up = sqrt(1.0 - nor * nor);
+//    glColor3f(1.0 - ratio, 0.2f, ratio);
+//    glNormal3f(nor * c, up, nor * s);
+//    glVertex3f(r1 * c, alt, r1 * s);
+//    glVertex3f(r2 * c, alt + 0.05f, r2 * s);
+//  }
+//  glEnd();
+  glPointSize(5.0);
 
-  glBegin(GL_QUAD_STRIP);
-  for (int i = 0; i < nbSteps; ++i) {
-    const float ratio = i / nbSteps;
-    const float angle = 21.0 * ratio;
-    const float c = cos(angle);
-    const float s = sin(angle);
-    const float r1 = 1.0 - 0.8f * ratio;
-    const float r2 = 0.8f - 0.8f * ratio;
-    const float alt = ratio - 0.5f;
-    const float nor = 0.5f;
-    const float up = sqrt(1.0 - nor * nor);
-    glColor3f(1.0 - ratio, 0.2f, ratio);
-    glNormal3f(nor * c, up, nor * s);
-    glVertex3f(r1 * c, alt, r1 * s);
-    glVertex3f(r2 * c, alt + 0.05f, r2 * s);
+  glBegin(GL_POINTS);
+  vector<shared_ptr<ObjectPoint>> *object_points = sfmapp->get_object_points();
+
+  //vector<ObjectPoint *> *object_points = new vector<ObjectPoint *>();
+  //object_points->push_back(ObjectPoint(5, 5, 5));
+  //object_points->push_back(ObjectPoint(0, 5, 5));
+  //object_points->push_back(ObjectPoint(5, 0, 5));
+  //object_points->push_back(ObjectPoint(5, 5, 0));
+  //object_points->push_back(ObjectPoint(0, 0, 5));
+  //object_points->push_back(ObjectPoint(0, 5, 0));
+  //object_points->push_back(ObjectPoint(5, 0, 0));
+  //object_points->push_back(ObjectPoint(0, 0, 0));
+
+  cout << "drawing " << object_points->size() << " object points." << endl;
+  glPushAttrib(GL_ENABLE_BIT);
+  glDisable(GL_LIGHTING);
+  for (auto object_point : *object_points) {
+    //glColor3ub(r, g, b);
+    glVertex3d(object_point->coordinates()->x, object_point->coordinates()->y,
+               object_point->coordinates()->z);
   }
+  glEnable(GL_LIGHTING);
   glEnd();
-}
+  glPopAttrib();
 
-void PointViewer::init() {
-  restoreStateFromFile();
-  // Opens help window
 }
 
 // Constructor must call the base class constructor.
-PointViewer::PointViewer(QWidget *parent) : QGLViewer(parent)
-{
-  restoreStateFromFile();
+PointViewer::PointViewer(QWidget *parent) : QGLViewer(parent), sfmapp(SFMApp::getInstance()) {
+  // Opens help window
+  help();
+  qglviewer::Vec camera_position(0, 0, 40);
+  camera()->setPosition(camera_position);
+  camera()->lookAt(sceneCenter());
+  setSceneBoundingBox(qglviewer::Vec(-50,-50,-50), qglviewer::Vec(50,50,50));
+
+  showEntireScene();
 }
 
 QString PointViewer::helpString() const {

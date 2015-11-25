@@ -19,13 +19,13 @@ using namespace cv;
 // Represents a point of the 3D object
 class ObjectPoint {
 private:
-  Point3f coordinates;
+  Point3f coordinates_;
   // vector of references (using vector instead of map to avoid key conflicts and two vectors instead of pair because of forward declaration)
   vector<int> refKeypoints;
   vector<shared_ptr<Image>> refImages;
 public:
   ObjectPoint(float x, float y, float z);
-  Point3f* getCoordinates() { return &this->coordinates; }
+  Point3f* coordinates() { return &coordinates_; }
   void addReference(int keypointIndex, shared_ptr<Image> image);
 };
 
