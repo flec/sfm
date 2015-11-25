@@ -68,16 +68,17 @@ void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
 }
 
 void SFMApp::triangulateInitial() {
-  this->prepareForInitialTriangulation();
-  this->triangulatePoints(this->initial_image_pair);
-  PlyUtil::write("/tmp/initialPoints.ply", this->objectPoints);
+  objectPoints.clear();
+  prepareForInitialTriangulation();
+  triangulatePoints(initial_image_pair);
+  PlyUtil::write("/tmp/initialPoints.ply", objectPoints);
 }
 
 void SFMApp::triangulateNext(int image_pair_index) {
-  shared_ptr<ImagePair> image_pair = this->image_pairs[image_pair_index];
-  this->prepareForTriangulation(image_pair);
-  this->triangulatePoints(image_pair);
-  PlyUtil::write("/tmp/nextPoints.ply", this->objectPoints);
+  shared_ptr<ImagePair> image_pair = image_pairs[image_pair_index];
+  prepareForTriangulation(image_pair);
+  triangulatePoints(image_pair);
+  PlyUtil::write("/tmp/nextPoints.ply", objectPoints);
 }
 
 void SFMApp::prepareForInitialTriangulation() {
