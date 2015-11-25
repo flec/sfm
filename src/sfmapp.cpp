@@ -4,6 +4,7 @@
 
 #include <image/imageloader.h>
 #include "sfmapp.h"
+#include "util/plyutil.h"
 
 SFMApp *SFMApp::getInstance() {
   if (!instance)
@@ -53,7 +54,7 @@ void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
   // create object points
   int c = 0;
   for (auto match:image_pair->matches) {
-    shared_ptr<ObjectPoint> objectPoint (new ObjectPoint(points3Dh.at<float>(1, c), points3Dh.at<float>(2, c), points3Dh.at<float>(3, c)));
+    shared_ptr<ObjectPoint> objectPoint (new ObjectPoint(points3Dh.at<float>(0, c), points3Dh.at<float>(1, c), points3Dh.at<float>(2, c)));
     this->objectPoints.push_back(objectPoint);
     // add references to images
     objectPoint->addReference(match.queryIdx, image_pair->image1);
@@ -66,8 +67,38 @@ void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
   }
 }
 
-void SFMApp::triangulateInitialPoints() {
+void SFMApp::triangulateInitial() {
+  this->prepareForInitialTriangulation();
   this->triangulatePoints(this->initial_image_pair);
+  PlyUtil::write("/tmp/initialPoints.ply", this->objectPoints);
 }
 
+void SFMApp::triangulateNext(int image_pair_index) {
+  shared_ptr<ImagePair> image_pair = this->image_pairs[image_pair_index];
+  this->prepareForTriangulation(image_pair);
+  this->triangulatePoints(image_pair);
+  PlyUtil::write("/tmp/nextPoints.ply", this->objectPoints);
+}
 
+void SFMApp::prepareForInitialTriangulation() {
+  initial_image_pair->getMatches(initial_image_pair->triangulation_points1, initial_image_pair->triangulation_points2);
+}
+
+void SFMApp::prepareForTriangulation(shared_ptr<ImagePair> image_pair) {
+  // separate points into those for PnP solving and those for triangulation
+  vector<KeyPoint> *keypoints1 = image_pair->image1->get_keypoints();
+  vector<KeyPoint> *keypoints2 = image_pair->image2->get_keypoints();
+  for (auto match:image_pair->matches) {
+    shared_ptr<ObjectPoint> objectPoint = image_pair->image1->getObjectPoint(match.queryIdx);
+    if (objectPoint) {
+      image_pair->pnp_object_points.push_back(*objectPoint->getCoordinates());
+      image_pair->pnp_image_points.push_back(keypoints2->at(match.trainIdx).pt);
+    } else {
+      image_pair->triangulation_points1.push_back(keypoints1->at(match.queryIdx).pt);
+      image_pair->pnp_image_points.push_back(keypoints2->at(match.trainIdx).pt);
+    }
+  }
+
+  // solve PnP
+  pnpSolver->solve(image_pair, intrinsic_camera_parameters_);
+}

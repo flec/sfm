@@ -17,9 +17,16 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="runTriangulation">
+      <widget class="QPushButton" name="runInitialTriangulation">
        <property name="text">
-        <string>Triangulate</string>
+        <string>Triangulate initial</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="runNextTriangulation">
+       <property name="text">
+        <string>Triangulate next</string>
        </property>
       </widget>
      </item>

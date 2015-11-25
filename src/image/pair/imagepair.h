@@ -30,6 +30,14 @@ public:
   Mat_<double> rotation_rect_img1;
   Mat_<double> rotation_rect_img2;
 
+  // Points for triangulation
+  vector<Point2f> triangulation_points1;
+  vector<Point2f> triangulation_points2;
+
+  // Points for PnP solve
+  vector<Point3f> pnp_object_points;
+  vector<Point2f> pnp_image_points;
+
   void getMatches(vector<Point2f> &points1, vector<Point2f> &points2);
 private:
   vector<Point2f> matches1;

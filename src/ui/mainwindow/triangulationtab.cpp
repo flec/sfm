@@ -12,6 +12,10 @@ TriangulationTab::~TriangulationTab() {
   delete ui;
 }
 
-void TriangulationTab::on_runTriangulation_clicked() {
-  sfmapp->triangulateInitialPoints();
+void TriangulationTab::on_runInitialTriangulation_clicked() {
+  sfmapp->triangulateInitial();
+}
+
+void TriangulationTab::on_runNextTriangulation_clicked() {
+  sfmapp->triangulateNext(1);
 }
