@@ -61,6 +61,10 @@ public:
 
   // sets roation and transaltion to identity matrix
   void set_rotation_translation();
+
+  Mat_<double> rotation() { return rotation_translation_(Rect(0, 0, 3, 3)); }
+
+  Mat_<double> translation() { return rotation_translation_(Rect(3, 0, 1, 3)); }
 };
 
 
