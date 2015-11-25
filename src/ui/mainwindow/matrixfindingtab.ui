@@ -29,277 +29,301 @@
         <widget class="QListWidget" name="matchesListWidget"/>
        </item>
        <item>
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="2" column="1">
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>Rotation (euler angles):</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QTableWidget" name="translationMatrix">
-           <attribute name="verticalHeaderDefaultSectionSize">
-            <number>25</number>
-           </attribute>
-           <row>
-            <property name="text">
-             <string>x</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>y</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>z</string>
-            </property>
-           </row>
-           <column>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </column>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>Translation matrix:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QTableWidget" name="rotationMatrix">
-           <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>80</number>
-           </attribute>
-           <attribute name="verticalHeaderDefaultSectionSize">
-            <number>25</number>
-           </attribute>
-           <row>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>2</string>
-            </property>
-           </row>
-           <column>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>2</string>
-            </property>
-           </column>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>Intrinsic camera parameters (input):</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Rotation matrix:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QTableWidget" name="eulerMatrix">
-           <attribute name="verticalHeaderDefaultSectionSize">
-            <number>25</number>
-           </attribute>
-           <row>
-            <property name="text">
-             <string>x</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>y</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>z</string>
-            </property>
-           </row>
-           <column>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </column>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QTableWidget" name="intrinsicMatrix">
-           <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>80</number>
-           </attribute>
-           <attribute name="verticalHeaderDefaultSectionSize">
-            <number>25</number>
-           </attribute>
-           <row>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>2</string>
-            </property>
-           </row>
-           <column>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>2</string>
-            </property>
-           </column>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>Projection Matrix 1</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2">
-          <widget class="QLabel" name="label_6">
-           <property name="text">
-            <string>Projection Matrix 2</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="2">
-          <widget class="QTableWidget" name="prjMatrix2">
-           <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>80</number>
-           </attribute>
-           <attribute name="verticalHeaderDefaultSectionSize">
-            <number>25</number>
-           </attribute>
-           <attribute name="verticalHeaderMinimumSectionSize">
-            <number>31</number>
-           </attribute>
-           <row>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>2</string>
-            </property>
-           </row>
-           <column>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>2</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>3</string>
-            </property>
-           </column>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QTableWidget" name="prjMatrix1">
-           <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>80</number>
-           </attribute>
-           <attribute name="verticalHeaderDefaultSectionSize">
-            <number>25</number>
-           </attribute>
-           <row>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>2</string>
-            </property>
-           </row>
-           <column>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>2</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>3</string>
-            </property>
-           </column>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QTabWidget" name="tabWidget">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="matricesTab">
+          <attribute name="title">
+           <string>Matrices</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <layout class="QGridLayout" name="gridLayout">
+             <item row="2" column="1">
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>Rotation (euler angles):</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QTableWidget" name="translationMatrix">
+               <attribute name="verticalHeaderDefaultSectionSize">
+                <number>25</number>
+               </attribute>
+               <row>
+                <property name="text">
+                 <string>x</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>y</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>z</string>
+                </property>
+               </row>
+               <column>
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>Translation matrix:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QTableWidget" name="rotationMatrix">
+               <attribute name="horizontalHeaderDefaultSectionSize">
+                <number>80</number>
+               </attribute>
+               <attribute name="verticalHeaderDefaultSectionSize">
+                <number>25</number>
+               </attribute>
+               <row>
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>1</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>2</string>
+                </property>
+               </row>
+               <column>
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>1</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>2</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Intrinsic camera parameters (input):</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>Rotation matrix:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QTableWidget" name="eulerMatrix">
+               <attribute name="verticalHeaderDefaultSectionSize">
+                <number>25</number>
+               </attribute>
+               <row>
+                <property name="text">
+                 <string>x</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>y</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>z</string>
+                </property>
+               </row>
+               <column>
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QTableWidget" name="intrinsicMatrix">
+               <attribute name="horizontalHeaderDefaultSectionSize">
+                <number>80</number>
+               </attribute>
+               <attribute name="verticalHeaderDefaultSectionSize">
+                <number>25</number>
+               </attribute>
+               <row>
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>1</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>2</string>
+                </property>
+               </row>
+               <column>
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>1</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>2</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>Projection Matrix 1</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Projection Matrix 2</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="2">
+              <widget class="QTableWidget" name="prjMatrix2">
+               <attribute name="horizontalHeaderDefaultSectionSize">
+                <number>80</number>
+               </attribute>
+               <attribute name="verticalHeaderDefaultSectionSize">
+                <number>25</number>
+               </attribute>
+               <attribute name="verticalHeaderMinimumSectionSize">
+                <number>31</number>
+               </attribute>
+               <row>
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>1</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>2</string>
+                </property>
+               </row>
+               <column>
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>1</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>2</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>3</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QTableWidget" name="prjMatrix1">
+               <attribute name="horizontalHeaderDefaultSectionSize">
+                <number>80</number>
+               </attribute>
+               <attribute name="verticalHeaderDefaultSectionSize">
+                <number>25</number>
+               </attribute>
+               <row>
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>1</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>2</string>
+                </property>
+               </row>
+               <column>
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>1</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>2</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>3</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="inlinerMatchesTab">
+          <attribute name="title">
+           <string>Inliner Matches</string>
+          </attribute>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="CVImageWidget" name="inlinerMatchesImage" native="true"/>
+           </item>
+          </layout>
+         </widget>
+        </widget>
        </item>
       </layout>
      </item>
@@ -307,6 +331,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CVImageWidget</class>
+   <extends>QWidget</extends>
+   <header>cvimagewidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

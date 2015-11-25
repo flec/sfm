@@ -17,8 +17,8 @@ class CameraMatrixFinder
 {
 public:
   virtual void findCameraMatrix(shared_ptr<ImagePair> &image_pair, Mat& intristic_camera_paramaters) = 0;
-private:
-
+protected:
+  void removeOutlinerMatches(shared_ptr<ImagePair> &image_pair, Mat &inliners);
 };
 
 #endif // SFM_CAMERAMATRIXFINDER_H
