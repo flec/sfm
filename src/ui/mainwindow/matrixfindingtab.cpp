@@ -32,6 +32,14 @@ void MatrixFindingTab::on_findInitialMatrices_clicked() {
     UIUtil::insert_mat_in_qtable(image_pair->projection_img1, *ui->prjMatrix1);
     UIUtil::insert_mat_in_qtable(image_pair->projection_img2, *ui->prjMatrix2);
 
+    // Draw the picture with the new inliners
+    Mat picture;
+    drawMatches(*image_pair->image1->get_mat_color(), *image_pair->image1->get_keypoints(),
+                *image_pair->image2->get_mat_color(),
+                *image_pair->image2->get_keypoints(), image_pair->matches, picture, Scalar::all(-1), Scalar::all(-1),
+                vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+    ui->inlinerMatchesImage->showImage(picture);
+
     //showRectifiedImage(image_pair);
   }
 }
