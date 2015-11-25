@@ -9,30 +9,24 @@
 void PointViewer::draw() {
   glPointSize(5.0);
 
+  float pos[4] = {0.0, 0.5, 1.0, 0.0};
+  // Directionnal light
+  glLightfv(GL_LIGHT0, GL_POSITION, pos);
+
   glBegin(GL_POINTS);
   vector<shared_ptr<ObjectPoint>> *object_points = sfmapp->get_object_points();
 
-  //vector<ObjectPoint *> *object_points = new vector<ObjectPoint *>();
-  //object_points->push_back(ObjectPoint(5, 5, 5));
-  //object_points->push_back(ObjectPoint(0, 5, 5));
-  //object_points->push_back(ObjectPoint(5, 0, 5));
-  //object_points->push_back(ObjectPoint(5, 5, 0));
-  //object_points->push_back(ObjectPoint(0, 0, 5));
-  //object_points->push_back(ObjectPoint(0, 5, 0));
-  //object_points->push_back(ObjectPoint(5, 0, 0));
-  //object_points->push_back(ObjectPoint(0, 0, 0));
-
   cout << "drawing " << object_points->size() << " object points." << endl;
-  glPushAttrib(GL_ENABLE_BIT);
-  glDisable(GL_LIGHTING);
+  glColor3f(0.862745f, 0.0784314f, 0.235294f);
   for (auto object_point : *object_points) {
     //glColor3ub(r, g, b);
+
     glVertex3d(object_point->coordinates()->x, object_point->coordinates()->y,
                object_point->coordinates()->z);
   }
-  glEnable(GL_LIGHTING);
   glEnd();
-  glPopAttrib();
+
+  drawLight(GL_LIGHT0);
 
 }
 
@@ -40,10 +34,11 @@ void PointViewer::draw() {
 PointViewer::PointViewer(QWidget *parent) : QGLViewer(parent), sfmapp(SFMApp::getInstance()) {
   // Opens help window
   help();
+  glEnable(GL_LIGHT0);
   qglviewer::Vec camera_position(0, 0, 40);
   camera()->setPosition(camera_position);
   camera()->lookAt(sceneCenter());
-  setSceneBoundingBox(qglviewer::Vec(-50,-50,-50), qglviewer::Vec(50,50,50));
+  setSceneBoundingBox(qglviewer::Vec(-5,-5,-5), qglviewer::Vec(5,5,5));
 
   showEntireScene();
 }
