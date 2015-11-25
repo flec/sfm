@@ -41,16 +41,15 @@ void SFMApp::matchFeatures() {
 
 void SFMApp::findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat &intristic_camera_paramaters) {
   this->initial_image_pair = initial_image_pair;
-  this->intrinsic_camera_parameters_ = intristic_camera_paramaters;
-  this->findMatrices(initial_image_pair, intristic_camera_paramaters);
+  intrinsic_camera_parameters_ = intristic_camera_paramaters;
+  // find camera matrix
+  cameraMatrixFinder->findCameraMatrix(initial_image_pair, intristic_camera_paramaters);
+  // set rotation and translation on images
+  initial_image_pair->image1->set_rotation_translation();
+  initial_image_pair->image2->set_rotation_translation(initial_image_pair->rotation, initial_image_pair->translation);
+  // find projection matrix
+  projectionMatrixFinder->findProjectionMatrix(initial_image_pair, intristic_camera_paramaters);
 }
-
-
-void SFMApp::findMatrices(shared_ptr<ImagePair> &image_pair, Mat &intristic_camera_paramaters) {
-  cameraMatrixFinder->findCameraMatrix(image_pair, intristic_camera_paramaters);
-  projectionMatrixFinder->findProjectionMatrix(image_pair, intristic_camera_paramaters);
-}
-
 
 void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
   Mat points3Dh;
@@ -108,6 +107,9 @@ void SFMApp::prepareForTriangulation(shared_ptr<ImagePair> image_pair) {
   // solve PnP
   pnpSolver->solve(image_pair, intrinsic_camera_parameters_);
 
-  // find matrices
-  this->findMatrices(image_pair, intrinsic_camera_parameters_);
+  // set rotation and translation on image
+  image_pair->image2->set_rotation_translation(image_pair->rotation, image_pair->translation);
+
+  // find projection matrices
+  projectionMatrixFinder->findProjectionMatrix(image_pair, intrinsic_camera_parameters_);
 }

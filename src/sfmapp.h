@@ -77,9 +77,6 @@ public:
   // Find the initial matrices of an image pair.
   void findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat& intristic_camera_paramaters);
 
-  // Find the matrices of an image pair.
-  void findMatrices(shared_ptr<ImagePair> &image_pair, Mat& intristic_camera_paramaters);
-
   // Load images from a directory into 'images'
   void loadImages(string const &images_dir);
 

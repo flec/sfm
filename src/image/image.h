@@ -25,6 +25,9 @@ private:
   // map with keypoint index and opject point
   map<int, shared_ptr<ObjectPoint>> object_points_;
 
+  // matrix with camera rotation and translation [R|t] relative to the initial image
+  Mat_<double> rotation_translation_;
+
   Image() { };
 
 public:
@@ -51,6 +54,13 @@ public:
   void addObjectPoint(int keypointIndex, shared_ptr<ObjectPoint> point);
 
   shared_ptr<ObjectPoint> getObjectPoint(int keypointIndex);
+
+  Mat_<double> *rotation_translation() { return &rotation_translation_; }
+
+  void set_rotation_translation(const Mat_<double> &rotation, const Mat_<double> &translation);
+
+  // sets roation and transaltion to identity matrix
+  void set_rotation_translation();
 };
 
 
