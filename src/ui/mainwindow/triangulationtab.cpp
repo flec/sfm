@@ -14,12 +14,18 @@ TriangulationTab::~TriangulationTab() {
 
 void TriangulationTab::on_runInitialTriangulation_clicked() {
   sfmapp->triangulateInitial();
+  updateViewer();
 }
 
 void TriangulationTab::on_runNextTriangulation_clicked() {
   sfmapp->triangulateNext(1);
+  updateViewer();
 }
 
 void TriangulationTab::showHelp() {
   ui->qGLViewerWidget->help();
+}
+
+void TriangulationTab::updateViewer() {
+  ui->qGLViewerWidget->update(*sfmapp->get_object_points());
 }

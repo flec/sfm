@@ -24,6 +24,8 @@ public slots:
 
   void showHelp();
 
+  void updateViewer();
+
 private:
   Ui::TriangulationTab *ui;
   SFMApp *sfmapp;

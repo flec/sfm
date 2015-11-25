@@ -4,24 +4,31 @@
 
 #include "pointviewer.h"
 
+void PointViewer::update(vector<shared_ptr<ObjectPoint>> &object_points) {
+  visible_object_points = shared_ptr<vector<shared_ptr<ObjectPoint>>>(
+      new vector<shared_ptr<ObjectPoint>>(object_points));
+  updateGL();
+}
 
-// Draws a spiral
 void PointViewer::draw() {
   glPointSize(5.0);
 
+  // Draw the ambient light
   float pos[4] = {0.0, 0.5, 1.0, 0.0};
   glLightfv(GL_LIGHT0, GL_POSITION, pos);
   drawLight(GL_LIGHT0);
 
-  glBegin(GL_POINTS);
-  vector<shared_ptr<ObjectPoint>> *object_points = sfmapp->get_object_points();
+  // Draw the points
+  if (visible_object_points) {
+    glBegin(GL_POINTS);
+    glColor3f(0.862745f, 0.0784314f, 0.235294f);
 
-  glColor3f(0.862745f, 0.0784314f, 0.235294f);
-  for (auto object_point : *object_points) {
-    glVertex3d(object_point->coordinates()->x, object_point->coordinates()->y,
-               object_point->coordinates()->z);
+    for (auto object_point : *visible_object_points) {
+      glVertex3d(object_point->coordinates()->x, object_point->coordinates()->y,
+                 object_point->coordinates()->z);
+    }
+    glEnd();
   }
-  glEnd();
 }
 
 // Constructor must call the base class constructor.
@@ -30,7 +37,7 @@ PointViewer::PointViewer(QWidget *parent) : QGLViewer(parent), sfmapp(SFMApp::ge
   qglviewer::Vec camera_position(0, 0, 40);
   camera()->setPosition(camera_position);
   camera()->lookAt(sceneCenter());
-  setSceneBoundingBox(qglviewer::Vec(-5,-5,-5), qglviewer::Vec(5,5,5));
+  setSceneBoundingBox(qglviewer::Vec(-5, -5, -5), qglviewer::Vec(5, 5, 5));
   showEntireScene();
 }
 
@@ -52,3 +59,5 @@ QString PointViewer::helpString() const {
   text += "Press <b>Escape</b> to exit the viewer.";
   return text;
 }
+
+
