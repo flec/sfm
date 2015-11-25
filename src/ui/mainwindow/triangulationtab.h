@@ -22,6 +22,8 @@ public slots:
 
   void on_runNextTriangulation_clicked();
 
+  void showHelp();
+
 private:
   Ui::TriangulationTab *ui;
   SFMApp *sfmapp;

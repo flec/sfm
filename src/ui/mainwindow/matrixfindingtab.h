@@ -31,6 +31,9 @@ public slots:
 
   void updateImagePairs();
 
+signals:
+  void imagePairsUpdated();
+
 private:
   void updateMatrices();
   shared_ptr<ImagePair> getCurrentImagePair();

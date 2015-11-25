@@ -19,3 +19,7 @@ void TriangulationTab::on_runInitialTriangulation_clicked() {
 void TriangulationTab::on_runNextTriangulation_clicked() {
   sfmapp->triangulateNext(1);
 }
+
+void TriangulationTab::showHelp() {
+  ui->qGLViewerWidget->help();
+}

@@ -31,7 +31,7 @@
       </widget>
      </item>
      <item>
-      <widget class="PointViewer" name="widget" native="true"/>
+      <widget class="PointViewer" name="qGLViewerWidget" native="true"/>
      </item>
     </layout>
    </item>

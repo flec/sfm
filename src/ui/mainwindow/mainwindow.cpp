@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
   connect(this, SIGNAL(imagePairsUpdated()), ui->featureMatchingTab, SLOT(updateImagePairs()));
 
   connect(ui->featureMatchingTab, SIGNAL(imagePairsUpdated()), ui->matrixFindingTab, SLOT(updateImagePairs()));
+  connect(ui->matrixFindingTab, SIGNAL(imagePairsUpdated()), ui->featureMatchingTab, SLOT(updateImage()));
 }
 
 MainWindow::~MainWindow() {
@@ -51,4 +52,8 @@ void MainWindow::on_actionTest_it_all_triggered() {
   //ui->triangulationTab->on_runNextTriangulation_clicked();
   ui->tabWidget->setCurrentIndex(3);
   //system("meshlab /tmp/initialPoints.ply &");
+}
+
+void MainWindow::on_actionTriangulation_QGLViewer_Help_triggered() {
+  ui->triangulationTab->showHelp();
 }

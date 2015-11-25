@@ -55,7 +55,7 @@
      <x>0</x>
      <y>0</y>
      <width>939</width>
-     <height>35</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -67,7 +67,14 @@
     <addaction name="separator"/>
     <addaction name="actionTest_it_all"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionTriangulation_QGLViewer_Help"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -100,6 +107,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="actionTriangulation_QGLViewer_Help">
+   <property name="text">
+    <string>Triangulation/QGLViewer Help</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+H</string>
    </property>
   </action>
  </widget>

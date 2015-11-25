@@ -28,6 +28,8 @@ private slots:
 
   void on_actionTest_it_all_triggered();
 
+  void on_actionTriangulation_QGLViewer_Help_triggered();
+
 signals:
   void imagesUpdated();
   void imagePairsUpdated();

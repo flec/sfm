@@ -26,14 +26,11 @@ void PointViewer::draw() {
 
 // Constructor must call the base class constructor.
 PointViewer::PointViewer(QWidget *parent) : QGLViewer(parent), sfmapp(SFMApp::getInstance()) {
-  // Opens help window
-  help();
   glEnable(GL_LIGHT0);
   qglviewer::Vec camera_position(0, 0, 40);
   camera()->setPosition(camera_position);
   camera()->lookAt(sceneCenter());
   setSceneBoundingBox(qglviewer::Vec(-5,-5,-5), qglviewer::Vec(5,5,5));
-
   showEntireScene();
 }
 

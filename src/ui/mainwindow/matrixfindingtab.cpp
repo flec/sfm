@@ -22,6 +22,7 @@ void MatrixFindingTab::on_findInitialMatrices_clicked() {
     Mat intrinsic_matrix = UIUtil::get_mat_from_qtable(*ui->intrinsicMatrix);
     sfmapp->findInitialMatrices(image_pair, intrinsic_matrix);
     updateMatrices();
+    emit imagePairsUpdated();
   }
 }
 
@@ -34,6 +35,7 @@ void MatrixFindingTab::updateImagePairs() {
   if (ui->matchesListWidget->count() > 0)
     ui->matchesListWidget->setCurrentRow(0);
 
+  // Read the camera intrinsic matrix from disk, if available
   if (sfmapp->images.size() > 0) {
     string instrinsic_parameters_file = sfmapp->images.at(0)->file_path() + "/camera_intrinsic.yaml";
     if (FILE *file = fopen(instrinsic_parameters_file.c_str(), "r")) {

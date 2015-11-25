@@ -29,10 +29,10 @@ using namespace std;
  */
 class SFMApp {
 private:
-  static SFMApp* instance;
+  static SFMApp *instance;
 
-  FeatureDetecter* feature_detector = new SIFTFeatureDetector(); // init feature detector
-  FeatureMatcher*feature_matcher = new FlannFeatureMatcher(); // init feature matcher
+  FeatureDetecter *feature_detector = new SIFTFeatureDetector(); // init feature detector
+  FeatureMatcher *feature_matcher = new FlannFeatureMatcher(); // init feature matcher
   CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();  // camera matrix finder for initial matirx
   ProjectionMatrixFinder *projectionMatrixFinder = new BasicProjectionMatrixFinder(); // projection matrix finder
   Triangulator *triangulator = new CVTriangulator();
@@ -44,11 +44,11 @@ private:
 
   vector<shared_ptr<ObjectPoint>> object_points; // 3D points
 
-  SFMApp() {};
+  SFMApp() { };
 
-  SFMApp ( const SFMApp& ){};
+  SFMApp(const SFMApp &) { };
 
-  ~SFMApp () { }
+  ~SFMApp() { }
 
   void prepareForInitialTriangulation();
 
@@ -59,7 +59,7 @@ private:
   void triangulatePoints(shared_ptr<ImagePair> image_pair);
 
 public:
-  static SFMApp* getInstance();
+  static SFMApp *getInstance();
 
   // Images that have been loaded by 'loadImages()'
   vector<shared_ptr<Image>> images;
@@ -75,7 +75,7 @@ public:
   void matchFeatures();
 
   // Find the initial matrices of an image pair.
-  void findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat& intristic_camera_paramaters);
+  void findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat &intristic_camera_paramaters);
 
   // Load images from a directory into 'images'
   void loadImages(string const &images_dir);
@@ -83,7 +83,7 @@ public:
   // Unload everything
   void unload();
 
-  Mat* intrinsic_camera_parameters(){
+  Mat *intrinsic_camera_parameters() {
     return &intrinsic_camera_parameters_;
   }
 
@@ -92,12 +92,11 @@ public:
 
   void triangulateNext(int image_pair_index);
 
-  vector<shared_ptr<ObjectPoint>>* get_object_points(){
+  vector<shared_ptr<ObjectPoint>> *get_object_points() {
     return &object_points;
   }
 
 };
-
 
 
 #endif //SFM_SFMAPP_H
