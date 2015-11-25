@@ -18,6 +18,4 @@ void CVTriangulator::findPoints3D(shared_ptr<ImagePair> &image_pair, Mat &points
   points3Dh.row(0) = (points3Dh.row(0) / points3Dh.row(3)) + 0;
   points3Dh.row(1) = (points3Dh.row(1) / points3Dh.row(3)) + 0;
   points3Dh.row(2) = (points3Dh.row(2) / points3Dh.row(3)) + 0;
-
-  PlyUtil::write("/tmp/test.ply", points3Dh);
 }

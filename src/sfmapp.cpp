@@ -4,6 +4,7 @@
 
 #include <image/imageloader.h>
 #include "sfmapp.h"
+#include "util/plyutil.h"
 
 SFMApp *SFMApp::getInstance() {
   if (!instance)
@@ -53,7 +54,7 @@ void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
   // create object points
   int c = 0;
   for (auto match:image_pair->matches) {
-    shared_ptr<ObjectPoint> objectPoint (new ObjectPoint(points3Dh.at<float>(1, c), points3Dh.at<float>(2, c), points3Dh.at<float>(3, c)));
+    shared_ptr<ObjectPoint> objectPoint (new ObjectPoint(points3Dh.at<float>(0, c), points3Dh.at<float>(1, c), points3Dh.at<float>(2, c)));
     this->objectPoints.push_back(objectPoint);
     // add references to images
     objectPoint->addReference(match.queryIdx, image_pair->image1);
@@ -69,12 +70,14 @@ void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
 void SFMApp::triangulateInitial() {
   this->prepareForInitialTriangulation();
   this->triangulatePoints(this->initial_image_pair);
+  PlyUtil::write("/tmp/initialPoints.ply", this->objectPoints);
 }
 
 void SFMApp::triangulateNext(int image_pair_index) {
   shared_ptr<ImagePair> image_pair = this->image_pairs[image_pair_index];
   this->prepareForTriangulation(image_pair);
   this->triangulatePoints(image_pair);
+  PlyUtil::write("/tmp/nextPoints.ply", this->objectPoints);
 }
 
 void SFMApp::prepareForInitialTriangulation() {
