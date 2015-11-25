@@ -12,7 +12,7 @@ void CvProjectionMatrixFinder::findProjectionMatrix(shared_ptr<ImagePair> &image
   Mat D1 = Mat::zeros(1, 5, CV_64F);
   Mat D2 = Mat::zeros(1, 5, CV_64F);
   Mat Q;
-  Size imgSize = image_pair->image1->get_mat_grey()->size();
+  Size imgSize = image_pair->image1->mat_grey()->size();
   stereoRectify(intristic_camera_paramaters, D1, intristic_camera_paramaters, D2,
                 imgSize, image_pair->rotation, image_pair->translation,
                 image_pair->rotation_rect_img1, image_pair->rotation_rect_img2,

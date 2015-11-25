@@ -14,16 +14,16 @@ using namespace std;
 
 class Image {
 private:
-  vector<KeyPoint> keypoints;
+  vector<KeyPoint> keypoints_;
 
-  Mat mat_color;
-  Mat mat_grey;
+  Mat mat_color_;
+  Mat mat_grey_;
 
-  string file_name;
-  string file_path;
+  string file_name_;
+  string file_path_;
 
   // map with keypoint index and opject point
-  map<int, shared_ptr<ObjectPoint>> objectPoints;
+  map<int, shared_ptr<ObjectPoint>> object_points_;
 
   Image() { };
 
@@ -34,19 +34,19 @@ public:
 
   ~Image();
 
-  Mat *get_mat_color() { return (mat_color.data != NULL) ? &mat_color : &mat_grey; }
+  Mat *mat_color() { return (mat_color_.data != NULL) ? &mat_color_ : &mat_grey_; }
 
-  Mat *get_mat_grey() { return &mat_grey; }
+  Mat *mat_grey() { return &mat_grey_; }
 
-  string get_file_name() const { return file_name; }
+  string file_name() const { return file_name_; }
 
-  string get_file_path() const { return file_path; }
+  string file_path() const { return file_path_; }
 
-  vector<KeyPoint> *get_keypoints() { return &keypoints; }
+  vector<KeyPoint> *get_keypoints() { return &keypoints_; }
 
   Mat *get_descriptors() { return &descriptors; }
 
-  map<int, shared_ptr<ObjectPoint>> *getObjectPoints() { return &objectPoints; };
+  map<int, shared_ptr<ObjectPoint>> *object_points() { return &object_points_; };
 
   void addObjectPoint(int keypointIndex, shared_ptr<ObjectPoint> point);
 

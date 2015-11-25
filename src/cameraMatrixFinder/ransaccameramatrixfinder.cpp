@@ -11,7 +11,7 @@ void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pai
   vector<Point2f> points_img1;
   vector<Point2f> points_img2;
 
-  // get keypoints from good matches
+  // get keypoints_ from good matches
   image_pair->getMatches(points_img1, points_img2);
 
   // Mask with inliners

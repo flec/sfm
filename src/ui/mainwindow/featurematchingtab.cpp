@@ -16,7 +16,7 @@ void FeatureMatchingTab::updateImagePairs() {
   ui->matchesListWidget->clear();
   for (auto &featureMatch : sfmapp->image_pairs)
     ui->matchesListWidget->addItem(
-        QString((featureMatch->image1->get_file_name() + " <-> " + featureMatch->image2->get_file_name()).c_str()));
+        QString((featureMatch->image1->file_name() + " <-> " + featureMatch->image2->file_name()).c_str()));
   emit imagePairsUpdated();
 }
 
@@ -28,11 +28,11 @@ void FeatureMatchingTab::updateImage() {
 
     if (matches->matches.size() > 0) {
       Mat picture;
-      drawMatches(*image1->get_mat_color(), *image1->get_keypoints(), *image2->get_mat_color(),
+      drawMatches(*image1->mat_color(), *image1->get_keypoints(), *image2->mat_color(),
                   *image2->get_keypoints(), matches->matches, picture);
       ui->cvImageWidget->showImage(picture);
     } else
-      ui->cvImageWidget->showImage(*image1->get_mat_grey());
+      ui->cvImageWidget->showImage(*image1->mat_grey());
   }
 }
 

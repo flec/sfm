@@ -11,6 +11,6 @@ SIFTFeatureDetector::SIFTFeatureDetector() : sift(SIFT::create(FeatureDetecter::
 
 void SIFTFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, bool useProvidedKeypoints) {
   for (auto image: images) {
-    sift->detectAndCompute(*image->get_mat_grey(), noArray(), *image->get_keypoints(), *image->get_descriptors(), useProvidedKeypoints);
+    sift->detectAndCompute(*image->mat_grey(), noArray(), *image->get_keypoints(), *image->get_descriptors(), useProvidedKeypoints);
   }
 }

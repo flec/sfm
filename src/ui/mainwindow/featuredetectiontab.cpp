@@ -19,7 +19,7 @@ FeatureDetectionTab::~FeatureDetectionTab() {
 void FeatureDetectionTab::updateImages() {
   ui->imagesListWidget->clear();
   for (auto &image : sfmapp->images)
-    ui->imagesListWidget->addItem(QString(image->get_file_name().c_str()));
+    ui->imagesListWidget->addItem(QString(image->file_name().c_str()));
 }
 
 void FeatureDetectionTab::on_detectFeatures_clicked() {
@@ -36,10 +36,10 @@ void FeatureDetectionTab::updateImage() {
 
     if (image->get_keypoints()->size() > 0) {
       Mat picture;
-      drawKeypoints(*image->get_mat_color(), *image->get_keypoints(), picture);
+      drawKeypoints(*image->mat_color(), *image->get_keypoints(), picture);
       ui->cvImageWidget->showImage(picture);
     } else
-      ui->cvImageWidget->showImage(*image->get_mat_color());
+      ui->cvImageWidget->showImage(*image->mat_color());
   }
 }
 

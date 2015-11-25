@@ -34,8 +34,8 @@ void MatrixFindingTab::on_findInitialMatrices_clicked() {
 
     // Draw the picture with the new inliners
     Mat picture;
-    drawMatches(*image_pair->image1->get_mat_color(), *image_pair->image1->get_keypoints(),
-                *image_pair->image2->get_mat_color(),
+    drawMatches(*image_pair->image1->mat_color(), *image_pair->image1->get_keypoints(),
+                *image_pair->image2->mat_color(),
                 *image_pair->image2->get_keypoints(), image_pair->matches, picture, Scalar::all(-1), Scalar::all(-1),
                 vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
     ui->inlinerMatchesImage->showImage(picture);
@@ -48,13 +48,13 @@ void MatrixFindingTab::updateImagePairs() {
   ui->matchesListWidget->clear();
   for (auto &featureMatch : sfmapp->image_pairs)
     ui->matchesListWidget->addItem(
-        QString((featureMatch->image1->get_file_name() + " <-> " + featureMatch->image2->get_file_name()).c_str()));
+        QString((featureMatch->image1->file_name() + " <-> " + featureMatch->image2->file_name()).c_str()));
 
   if (ui->matchesListWidget->count() > 0)
     ui->matchesListWidget->setCurrentRow(0);
 
   if (sfmapp->images.size() > 0) {
-    string instrinsic_parameters_file = sfmapp->images.at(0)->get_file_path() + "/camera_intrinsic.yaml";
+    string instrinsic_parameters_file = sfmapp->images.at(0)->file_path() + "/camera_intrinsic.yaml";
     if (FILE *file = fopen(instrinsic_parameters_file.c_str(), "r")) {
       fclose(file);
       Mat_<double> intrinsic_matrix;
@@ -72,14 +72,14 @@ void MatrixFindingTab::showRectifiedImage(shared_ptr<ImagePair> &image_pair) {
   Mat map1x, map1y, map2x, map2y;
   Mat imgU1, imgU2;
   initUndistortRectifyMap(*sfmapp->intrinsic_camera_parameters(), D1, image_pair->rotation_rect_img1,
-                          image_pair->projection_img1, image_pair->image1->get_mat_grey()->size(), CV_32FC1, map1x,
+                          image_pair->projection_img1, image_pair->image1->mat_grey()->size(), CV_32FC1, map1x,
                           map1y);
   initUndistortRectifyMap(*sfmapp->intrinsic_camera_parameters(), D2, image_pair->rotation_rect_img2,
-                          image_pair->projection_img2, image_pair->image2->get_mat_grey()->size(), CV_32FC1, map2x,
+                          image_pair->projection_img2, image_pair->image2->mat_grey()->size(), CV_32FC1, map2x,
                           map2y);
 
-  remap(*image_pair->image1->get_mat_color(), imgU1, map1x, map1y, INTER_LINEAR, BORDER_CONSTANT, Scalar());
-  remap(*image_pair->image2->get_mat_color(), imgU2, map2x, map2y, INTER_LINEAR, BORDER_CONSTANT, Scalar());
+  remap(*image_pair->image1->mat_color(), imgU1, map1x, map1y, INTER_LINEAR, BORDER_CONSTANT, Scalar());
+  remap(*image_pair->image2->mat_color(), imgU2, map2x, map2y, INTER_LINEAR, BORDER_CONSTANT, Scalar());
 
   CVImageDialog img_dlg(imgU1);
   CVImageDialog img_dlg2(imgU2);
