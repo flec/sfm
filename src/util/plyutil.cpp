@@ -34,3 +34,30 @@ void PlyUtil::write(const string &fileName, const Mat &points3Dh) {
   }
 
 }
+
+void PlyUtil::write(const string &fileName, const vector<shared_ptr<ObjectPoint>> &objectPoints) {
+  ofstream file(fileName.c_str());
+
+  if (!file) {
+    cerr << "Error opening output file: " << fileName << "!" << endl;
+    exit(1);
+  }
+
+  file << "ply" << endl;
+  file << "format ascii 1.0" << endl;
+  file << "element vertex " << objectPoints.size() << endl;
+  file << "property float x" << endl;
+  file << "property float y" << endl;
+  file << "property float z" << endl;
+  //file << "element face " << triangleNum << endl;
+  //file << "property list uchar int vertex_index" << endl;
+  file << "end_header" << endl;
+
+  file << fixed << setprecision(8);
+
+  for (auto objectPoint:objectPoints) {
+    Point3f *coords = objectPoint->getCoordinates();
+    file << coords->x << " " << coords->y << " " << coords->z << endl;
+  }
+
+}
