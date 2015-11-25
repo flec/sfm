@@ -50,6 +50,14 @@ private:
 
   ~SFMApp () { }
 
+  void prepareForInitialTriangulation();
+
+  // Prepares the image pair for the triangulation process
+  void prepareForTriangulation(shared_ptr<ImagePair> image_pair);
+
+  // Triangulates points of an image pair
+  void triangulatePoints(shared_ptr<ImagePair> image_pair);
+
 public:
   static SFMApp* getInstance();
 
@@ -80,10 +88,10 @@ public:
   }
 
   // Triangulates the points of the initial image pair
-  void triangulateInitialPoints();
+  void triangulateInitial();
 
-  // Triangulates points of an image pair
-  void triangulatePoints(shared_ptr<ImagePair> image_pair);
+  void triangulateNext(int image_pair_index);
+
 };
 
 

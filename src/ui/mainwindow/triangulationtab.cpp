@@ -13,5 +13,5 @@ TriangulationTab::~TriangulationTab() {
 }
 
 void TriangulationTab::on_runTriangulation_clicked() {
-  sfmapp->triangulateInitialPoints();
+  sfmapp->triangulateInitial();
 }
