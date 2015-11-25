@@ -10,24 +10,18 @@ void PointViewer::draw() {
   glPointSize(5.0);
 
   float pos[4] = {0.0, 0.5, 1.0, 0.0};
-  // Directionnal light
   glLightfv(GL_LIGHT0, GL_POSITION, pos);
+  drawLight(GL_LIGHT0);
 
   glBegin(GL_POINTS);
   vector<shared_ptr<ObjectPoint>> *object_points = sfmapp->get_object_points();
 
-  cout << "drawing " << object_points->size() << " object points." << endl;
   glColor3f(0.862745f, 0.0784314f, 0.235294f);
   for (auto object_point : *object_points) {
-    //glColor3ub(r, g, b);
-
     glVertex3d(object_point->coordinates()->x, object_point->coordinates()->y,
                object_point->coordinates()->z);
   }
   glEnd();
-
-  drawLight(GL_LIGHT0);
-
 }
 
 // Constructor must call the base class constructor.

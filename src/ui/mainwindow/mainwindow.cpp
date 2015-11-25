@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
   connect(this, SIGNAL(imagePairsUpdated()), ui->featureMatchingTab, SLOT(updateImagePairs()));
 
   connect(ui->featureMatchingTab, SIGNAL(imagePairsUpdated()), ui->matrixFindingTab, SLOT(updateImagePairs()));
-
 }
 
 MainWindow::~MainWindow() {

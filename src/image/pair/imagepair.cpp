@@ -22,3 +22,22 @@ void ImagePair::getMatches(vector<Point2f> &points1, vector<Point2f> &points2) {
   points1 = matches1;
   points2 = matches2;
 }
+
+void ImagePair::clearMatrices() {
+  rotation.release();
+  translation.release();
+  fundamental.release();
+  essential.release();
+
+  projection_img1.release();
+  projection_img2.release();
+
+  rotation_rect_img1.release();
+  rotation_rect_img2.release();
+
+  triangulation_points1.clear();
+  triangulation_points2.clear();
+
+  pnp_object_points.clear();
+  pnp_image_points.clear();
+}

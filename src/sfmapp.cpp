@@ -25,11 +25,15 @@ void SFMApp::unload() {
 }
 
 void SFMApp::detectFeatures() {
+  image_pairs.clear();
+  object_points.clear();
   feature_detector->detectFeatures(images);
 }
 
 void SFMApp::matchFeatures() {
   image_pairs.clear();
+  object_points.clear();
+
   for (unsigned int i = 0; i < images.size(); i++) {
     for (unsigned int j = i + 1; j < images.size(); j++) {
       image_pairs.push_back(feature_matcher->matchFeatures(images.at(i), images.at(j)));

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <src/sfmapp.h>
+#include <QtWidgets/qlistwidget.h>
 
 namespace Ui {
   class MatrixFindingTab;
@@ -14,6 +15,7 @@ Q_OBJECT
 private:
   Ui::MatrixFindingTab *ui;
   SFMApp *sfmapp;
+  int current_image_pair_index=-1;
 
 public:
   explicit MatrixFindingTab(QWidget *parent = 0);
@@ -21,6 +23,7 @@ public:
   ~MatrixFindingTab();
 
 private slots:
+  void on_matchesListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
 public slots:
 
@@ -29,7 +32,8 @@ public slots:
   void updateImagePairs();
 
 private:
-  void showRectifiedImage(shared_ptr<ImagePair> &image_pair);
+  void updateMatrices();
+  shared_ptr<ImagePair> getCurrentImagePair();
 
 };
 

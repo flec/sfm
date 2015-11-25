@@ -39,6 +39,7 @@ public:
   vector<Point2f> pnp_image_points;
 
   void getMatches(vector<Point2f> &points1, vector<Point2f> &points2);
+  void clearMatrices();
 private:
   vector<Point2f> matches1;
   vector<Point2f> matches2;
