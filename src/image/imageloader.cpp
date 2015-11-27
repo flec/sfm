@@ -12,7 +12,6 @@
 using namespace std;
 
 vector<shared_ptr<Image>> ImageLoader::loadImagesFromDir(string const &dirName) {
-  DIR *dir;
   vector<string> files = read_directory(dirName);
   if (errno == 0) {
     vector<shared_ptr<Image>> images;

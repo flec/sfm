@@ -23,8 +23,8 @@ void PointViewer::draw() {
 
     for (auto object_point : visible_object_points) {
       glColor3f(object_point->color().x, object_point->color().y, object_point->color().z);
-      glVertex3d(object_point->coordinates()->x, object_point->coordinates()->y,
-                 object_point->coordinates()->z);
+      glVertex3d(object_point->gl_coordinates()->x, object_point->gl_coordinates()->y,
+                 object_point->gl_coordinates()->z);
     }
     glEnd();
   }
@@ -34,7 +34,7 @@ void PointViewer::draw() {
   glPointSize(20.0);
   glColor3f(1, 1, 1);
   for (auto camera : cameras) {
-    glVertex3d(camera->translation().at<double>(0),camera->translation().at<double>(1),camera->translation().at<double>(2));
+    glVertex3d(camera->gl_translation().at<double>(0),camera->gl_translation().at<double>(1),camera->gl_translation().at<double>(2));
   }
   glEnd();
 }
