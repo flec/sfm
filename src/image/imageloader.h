@@ -14,7 +14,10 @@ using namespace std;
 
 class ImageLoader {
 public:
-  static vector<shared_ptr<Image>> loadImagesFromDir(string const& dirName);
+  static vector<shared_ptr<Image>> loadImagesFromDir(string const &dirName);
+
+private:
+  static vector<string> read_directory(const string &path = string());
 };
 
 
