@@ -8,7 +8,7 @@
 #include "imageloadexception.h"
 
 
-Image::Image(string const &file_path, bool const load_color) : camera_(shared_ptr<Camera>(new Camera())) {
+Image::Image(string const &file_path, bool const load_color) : camera_(shared_ptr<ImageCamera>(new ImageCamera())) {
 #ifdef DEBUG
   printf("Loading image %s\n", file_path.c_str());
 #endif

@@ -11,7 +11,7 @@
 using namespace std;
 using namespace cv;
 
-struct Camera {
+struct ImageCamera {
 private:
   // matrix with camera rotation and translation [R|t] relative to the initial image
   Mat_<double> rotation_translation_;

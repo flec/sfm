@@ -7,8 +7,8 @@
 
 #include <opencv2/core/mat.hpp>
 #include <map>
+#include <image/camera/imagecamera.h>
 #include "objectPoint/objectpoint.h"
-#include "image/camera/camera.h"
 
 using namespace cv;
 using namespace std;
@@ -29,7 +29,7 @@ private:
 
   Image() { };
 
-  shared_ptr<Camera> camera_;
+  shared_ptr<ImageCamera> camera_;
 
 public:
   Mat descriptors;
@@ -56,7 +56,7 @@ public:
 
   shared_ptr<ObjectPoint> getObjectPoint(int keypointIndex);
 
-  shared_ptr<Camera> camera(){return camera_;};
+  shared_ptr<ImageCamera> camera(){return camera_;};
 
 };
 

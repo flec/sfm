@@ -4,31 +4,39 @@
 
 #include "pointviewer.h"
 
-void PointViewer::update(vector<shared_ptr<ObjectPoint>> &object_points) {
-  visible_object_points = shared_ptr<vector<shared_ptr<ObjectPoint>>>(
-      new vector<shared_ptr<ObjectPoint>>(object_points));
+void PointViewer::update(vector<shared_ptr<ObjectPoint>> &object_points, vector<shared_ptr<ImageCamera>> &cameras) {
+  visible_object_points = object_points;
+  this->cameras = cameras;
   updateGL();
 }
 
 void PointViewer::draw() {
-  glPointSize(5.0);
-
   // Draw the ambient light
-  float pos[4] = {0.0, 0.5, 1.0, 0.0};
+  float pos[4] = {1.0, 0.5, 1.0, 0.0};
   glLightfv(GL_LIGHT0, GL_POSITION, pos);
   drawLight(GL_LIGHT0);
 
   // Draw the points
-  if (visible_object_points) {
+  if (visible_object_points.size() > 0) {
+    glPointSize(5.0);
     glBegin(GL_POINTS);
 
-    for (auto object_point : *visible_object_points) {
+    for (auto object_point : visible_object_points) {
       glColor3f(object_point->color().x, object_point->color().y, object_point->color().z);
       glVertex3d(object_point->coordinates()->x, object_point->coordinates()->y,
                  object_point->coordinates()->z);
     }
     glEnd();
   }
+
+  // Draw the camera
+  glBegin(GL_POINTS);
+  glPointSize(20.0);
+  glColor3f(1, 1, 1);
+  for (auto camera : cameras) {
+    glVertex3d(camera->translation().at<double>(0),camera->translation().at<double>(1),camera->translation().at<double>(2));
+  }
+  glEnd();
 }
 
 // Constructor must call the base class constructor.

@@ -8,6 +8,7 @@
 #include <QWidget>
 #include <QGLViewer/qglviewer.h>
 #include <sfmapp.h>
+#include <image/camera/imagecamera.h>
 
 using namespace std;
 using namespace qglviewer;
@@ -16,7 +17,7 @@ class PointViewer : public QGLViewer {
 Q_OBJECT
 public:
   PointViewer(QWidget *parent = 0);
-  void update(vector<shared_ptr<ObjectPoint>> &object_points);
+  void update(vector<shared_ptr<ObjectPoint>> &object_points, vector<shared_ptr<ImageCamera>> &cameras);
 
 protected :
   virtual void draw();
@@ -25,7 +26,8 @@ protected :
 
 private:
   SFMApp *sfmapp;
-  shared_ptr<vector<shared_ptr<ObjectPoint>>> visible_object_points;
+  vector<shared_ptr<ObjectPoint>> visible_object_points;
+  vector<shared_ptr<ImageCamera>> cameras;
 };
 
 

@@ -27,5 +27,11 @@ void TriangulationTab::showHelp() {
 }
 
 void TriangulationTab::updateViewer() {
-  ui->qGLViewerWidget->update(*sfmapp->get_object_points());
+  vector<shared_ptr<ImageCamera>> cameras;
+
+  for (auto image : sfmapp->images)
+    if (image->camera()->rotation_translation()->data != NULL)
+      cameras.push_back(image->camera());
+
+  ui->qGLViewerWidget->update(*sfmapp->get_object_points(), cameras);
 }
