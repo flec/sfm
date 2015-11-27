@@ -11,7 +11,7 @@ void RANSACPnPSolver::solve(shared_ptr <ImagePair> &image_pair, Mat &intristic_c
   Mat rot;
   Mat trans;
   solvePnPRansac(image_pair->pnp_object_points, image_pair->pnp_image_points, intristic_camera_paramaters,
-                 noArray(), rvec, tvec, true, CV_EPNP);
+                 noArray(), rvec, tvec, false, CV_EPNP);
   Rodrigues(rvec, rot);
   rot = rot.t();
   trans = -rot * tvec;
