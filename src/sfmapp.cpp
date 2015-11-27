@@ -126,9 +126,6 @@ void SFMApp::prepareForTriangulation(shared_ptr<ImagePair> image_pair) {
   // solve PnP
   pnpSolver->solve(image_pair, intrinsic_camera_parameters_);
 
-  // set rotation and translation on image
-  image_pair->image2->camera()->set_rotation_translation(image_pair->rotation, image_pair->translation);
-
   // find projection matrices
   projectionMatrixFinder->findProjectionMatrix(image_pair, intrinsic_camera_parameters_);
 }
