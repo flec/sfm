@@ -8,9 +8,11 @@
 #include <opencv2/core/mat.hpp>
 #include <map>
 #include "objectPoint/objectpoint.h"
+#include "image/camera/camera.h"
 
 using namespace cv;
 using namespace std;
+
 
 class Image {
 private:
@@ -25,10 +27,9 @@ private:
   // map with keypoint index and opject point
   map<int, shared_ptr<ObjectPoint>> object_points_;
 
-  // matrix with camera rotation and translation [R|t] relative to the initial image
-  Mat_<double> rotation_translation_;
-
   Image() { };
+
+  shared_ptr<Camera> camera_;
 
 public:
   Mat descriptors;
@@ -55,16 +56,8 @@ public:
 
   shared_ptr<ObjectPoint> getObjectPoint(int keypointIndex);
 
-  Mat_<double> *rotation_translation() { return &rotation_translation_; }
+  shared_ptr<Camera> camera(){return camera_;};
 
-  void set_rotation_translation(const Mat_<double> &rotation, const Mat_<double> &translation);
-
-  // sets roation and transaltion to identity matrix
-  void set_rotation_translation();
-
-  Mat_<double> rotation() { return rotation_translation_(Rect(0, 0, 3, 3)); }
-
-  Mat_<double> translation() { return rotation_translation_(Rect(3, 0, 1, 3)); }
 };
 
 
