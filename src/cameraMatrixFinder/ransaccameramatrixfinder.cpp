@@ -32,14 +32,11 @@ void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pai
   recoverPose(image_pair->essential, points_img1, points_img2, image_pair->rotation, image_pair->translation,
               intristic_camera_paramaters.at<double>(0, 0), camera_center, inliners);
 
+  // see http://stackoverflow.com/a/14543277
   image_pair->rotation = image_pair->rotation.t();
   image_pair->translation = image_pair->rotation*-image_pair->translation;
 
   removeOutlinerMatches(image_pair, inliners);
-
-
-
-
 
 
 //  Mat F = findFundamentalMat(points_img1, points_img2, CV_FM_8POINT, 2, 0.9999, inliners);
