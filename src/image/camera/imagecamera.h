@@ -29,11 +29,11 @@ public:
 
   Mat_<double> *gl_rotation_translation() { return &gl_rotation_translation_; }
 
-  Mat_<double> rotation() { return rotation_translation_(Rect(0, 0, 3, 3)); }
+  Mat_<double> rotation() { return rotation_translation_.data==NULL?Mat_<double>():rotation_translation_(Rect(0, 0, 3, 3)); }
 
   Mat_<double> gl_rotation() { return gl_rotation_translation_(Rect(0, 0, 3, 3)); }
 
-  Mat_<double> translation() { return rotation_translation_(Rect(3, 0, 1, 3)); }
+  Mat_<double> translation() { return rotation_translation_.data==NULL?Mat_<double>():rotation_translation_(Rect(3, 0, 1, 3)); }
 
   Mat_<double> gl_translation() { return gl_rotation_translation_(Rect(3, 0, 1, 3)); }
 

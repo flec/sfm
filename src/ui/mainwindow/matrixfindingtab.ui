@@ -30,15 +30,45 @@
        </item>
        <item>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="2" column="1">
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>Rotation (euler angles):</string>
-           </property>
+         <item row="7" column="1">
+          <widget class="QTableWidget" name="rotationMatrixCam2">
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>25</number>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>2</string>
+            </property>
+           </row>
+           <column>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>2</string>
+            </property>
+           </column>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QTableWidget" name="translationMatrix">
+         <item row="7" column="2">
+          <widget class="QTableWidget" name="eulerMatrixCam2">
            <attribute name="verticalHeaderDefaultSectionSize">
             <number>25</number>
            </attribute>
@@ -64,69 +94,62 @@
            </column>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>Translation matrix:</string>
-           </property>
+         <item row="7" column="0">
+          <widget class="QTableWidget" name="translationMatrixCam2">
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>25</number>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>x</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>y</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>z</string>
+            </property>
+           </row>
+           <column>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QTableWidget" name="translationMatrixCam1">
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>25</number>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>x</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>y</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>z</string>
+            </property>
+           </row>
+           <column>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </column>
           </widget>
          </item>
          <item row="3" column="0">
-          <widget class="QTableWidget" name="rotationMatrix">
-           <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>80</number>
-           </attribute>
-           <attribute name="verticalHeaderDefaultSectionSize">
-            <number>25</number>
-           </attribute>
-           <row>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>2</string>
-            </property>
-           </row>
-           <column>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>2</string>
-            </property>
-           </column>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>Intrinsic camera parameters (input):</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Rotation matrix:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QTableWidget" name="eulerMatrix">
+          <widget class="QTableWidget" name="translationMatrixImgPair">
            <attribute name="verticalHeaderDefaultSectionSize">
             <number>25</number>
            </attribute>
@@ -152,61 +175,62 @@
            </column>
           </widget>
          </item>
-         <item row="1" column="0">
-          <widget class="QTableWidget" name="intrinsicMatrix">
-           <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>80</number>
-           </attribute>
-           <attribute name="verticalHeaderDefaultSectionSize">
-            <number>25</number>
-           </attribute>
-           <row>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>2</string>
-            </property>
-           </row>
-           <column>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>2</string>
-            </property>
-           </column>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QLabel" name="label_5">
+         <item row="2" column="2">
+          <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>Projection Matrix 1</string>
+            <string>Euler angles (image pair):</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="2">
-          <widget class="QLabel" name="label_6">
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_7">
            <property name="text">
-            <string>Projection Matrix 2</string>
+            <string>Translation matrix (camera 1):</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>Rotation matrix (camera 1):</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="2">
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>Euler angles (camera 1):</string>
            </property>
           </widget>
          </item>
          <item row="3" column="2">
+          <widget class="QTableWidget" name="eulerMatrixImgPair">
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>25</number>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>x</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>y</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>z</string>
+            </property>
+           </row>
+           <column>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item row="1" column="2">
           <widget class="QTableWidget" name="prjMatrix2">
            <attribute name="horizontalHeaderDefaultSectionSize">
             <number>80</number>
@@ -254,7 +278,68 @@
            </column>
           </widget>
          </item>
-         <item row="1" column="2">
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Translation matrix (image pair):</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QTableWidget" name="rotationMatrixImgPair">
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>80</number>
+           </attribute>
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>25</number>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>2</string>
+            </property>
+           </row>
+           <column>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>2</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Rotation matrix (image pair):</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Projection Matrix 1</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
           <widget class="QTableWidget" name="prjMatrix1">
            <attribute name="horizontalHeaderDefaultSectionSize">
             <number>80</number>
@@ -297,6 +382,151 @@
              <string>3</string>
             </property>
            </column>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Projection Matrix 2</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QTableWidget" name="rotationMatrixCam1">
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>25</number>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>2</string>
+            </property>
+           </row>
+           <column>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>2</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item row="5" column="2">
+          <widget class="QTableWidget" name="eulerMatrixCam1">
+           <property name="rowCount">
+            <number>3</number>
+           </property>
+           <property name="columnCount">
+            <number>1</number>
+           </property>
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>25</number>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>x</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>y</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>z</string>
+            </property>
+           </row>
+           <column>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Intrinsic camera parameters (input):</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QTableWidget" name="intrinsicMatrix">
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>80</number>
+           </attribute>
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>25</number>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>2</string>
+            </property>
+           </row>
+           <column>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>2</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>Translation matrix (camera 2):</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QLabel" name="label_11">
+           <property name="text">
+            <string>Rotation matrix (camera 2):</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="2">
+          <widget class="QLabel" name="label_12">
+           <property name="text">
+            <string>Euler angles (camera 2):</string>
+           </property>
           </widget>
          </item>
         </layout>
