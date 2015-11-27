@@ -70,14 +70,17 @@ void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
   // create object points
   int c = 0;
   for (auto match:image_pair->matches) {
-    shared_ptr<ObjectPoint> objectPoint(
-        new ObjectPoint(points3Dh.at<float>(0, c), points3Dh.at<float>(1, c), points3Dh.at<float>(2, c), r, g, b));
-    this->object_points.push_back(objectPoint);
-    // add references to images
-    objectPoint->addReference(match.queryIdx, image_pair->image1);
+    shared_ptr<ObjectPoint> objectPoint = image_pair->image1->getObjectPoint(match.queryIdx);
+    if (!objectPoint) {
+      objectPoint = shared_ptr<ObjectPoint>(
+          new ObjectPoint(points3Dh.at<float>(0, c), points3Dh.at<float>(1, c), points3Dh.at<float>(2, c), r, g, b));
+      this->object_points.push_back(objectPoint);
+      // add references for image1
+      objectPoint->addReference(match.queryIdx, image_pair->image1);
+      image_pair->image1->addObjectPoint(match.queryIdx, objectPoint);
+    }
+    // add references for image2
     objectPoint->addReference(match.trainIdx, image_pair->image2);
-    // add references on image
-    image_pair->image1->addObjectPoint(match.queryIdx, objectPoint);
     image_pair->image2->addObjectPoint(match.trainIdx, objectPoint);
     //increment column
     c++;
