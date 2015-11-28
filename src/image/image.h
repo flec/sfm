@@ -15,6 +15,7 @@ using namespace std;
 
 
 class Image {
+  friend class TestCube;
 private:
   vector<KeyPoint> keypoints_;
 
