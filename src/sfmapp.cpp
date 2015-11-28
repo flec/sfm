@@ -56,7 +56,7 @@ void SFMApp::findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat 
 }
 
 void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
-  Mat points3Dh;
+  vector<Point3f> points3Dh;
   triangulator->findPoints3D(image_pair, points3Dh);
 
   // compute color
@@ -71,17 +71,18 @@ void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
     shared_ptr<ObjectPoint> objectPoint = image_pair->image1->getObjectPoint(match.queryIdx);
     if (!objectPoint) {
       objectPoint = shared_ptr<ObjectPoint>(
-          new ObjectPoint(points3Dh.at<float>(0, c), points3Dh.at<float>(1, c), points3Dh.at<float>(2, c), r, g, b));
+          new ObjectPoint(points3Dh.at(c).x, points3Dh.at(c).y, points3Dh.at(c).z, r, g, b));
       this->object_points.push_back(objectPoint);
       // add references for image1
       objectPoint->addReference(match.queryIdx, image_pair->image1);
       image_pair->image1->addObjectPoint(match.queryIdx, objectPoint);
+      //increment column
+      c++;
     }
     // add references for image2
     objectPoint->addReference(match.trainIdx, image_pair->image2);
     image_pair->image2->addObjectPoint(match.trainIdx, objectPoint);
-    //increment column
-    c++;
+
   }
 }
 

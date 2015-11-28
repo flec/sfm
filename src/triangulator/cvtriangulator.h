@@ -9,6 +9,6 @@
 
 class CVTriangulator : public Triangulator {
 public:
-  void findPoints3D(shared_ptr<ImagePair> &image_pair, Mat &points3Dh);
+  void findPoints3D(shared_ptr<ImagePair> &image_pair, vector <Point3f> &points3D);
 };
 #endif //SFM_BASETRIANGULATOR_H
