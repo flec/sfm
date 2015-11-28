@@ -51,8 +51,8 @@ void SFMApp::findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat 
   // find camera matrix
   cameraMatrixFinder->findCameraMatrix(initial_image_pair, intristic_camera_paramaters);
   // set rotation and translation on images
-  initial_image_pair->image1->camera()->set_rotation_translation();
-  initial_image_pair->image2->camera()->set_rotation_translation(initial_image_pair->rotation, initial_image_pair->translation);
+  initial_image_pair->image1->camera()->set_extrinsic();
+  initial_image_pair->image2->camera()->set_extrinsic(initial_image_pair->rotation, initial_image_pair->translation);
   // find projection matrix
   projectionMatrixFinder->findProjectionMatrix(initial_image_pair, intristic_camera_paramaters);
 }
