@@ -25,6 +25,8 @@ public:
   static shared_ptr<ImagePair> getPair1();
 
   static shared_ptr<ImagePair> getPair2();
+
+  static Mat_<double> getIntrinsicMatrix();
 };
 
 #endif //SFM_TESTCUBE_H

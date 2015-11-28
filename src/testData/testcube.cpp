@@ -69,3 +69,11 @@ shared_ptr<ImagePair> TestCube::getPair2() {
   TestCube::setMatches(9, image_pair->matches);
   return image_pair;
 }
+
+Mat_<double> TestCube::getIntrinsicMatrix() {
+  return (Mat_<double>(3, 4) <<
+          1207.1067811865476, 0.0, 500.0,
+      0.0, 1207.1067811865476, 500.0,
+      0.0, 0.0, 1.0
+  );
+}
