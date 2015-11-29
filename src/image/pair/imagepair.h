@@ -20,7 +20,6 @@ public:
   vector<DMatch> matches;
   Mat_<double> rotation;
   Mat_<double> translation;
-  Mat_<double> fundamental;
   Mat_<double> essential;
 
   // Projection matrices

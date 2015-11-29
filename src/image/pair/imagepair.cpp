@@ -26,7 +26,6 @@ void ImagePair::getMatches(vector<Point2f> &points1, vector<Point2f> &points2) {
 void ImagePair::clearMatrices() {
   rotation.release();
   translation.release();
-  fundamental.release();
   essential.release();
 
   projection_img1.release();

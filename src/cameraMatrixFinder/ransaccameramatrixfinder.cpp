@@ -17,14 +17,12 @@ void RANSACCameraMatrixFinder::findCameraMatrix(shared_ptr<ImagePair> &image_pai
   // Mask with inliners
   Mat inliners;
 
-  // find the fundamental matrix
-  image_pair->fundamental = findFundamentalMat(points_img1, points_img2, CV_FM_RANSAC, 2, 0.9999, inliners);
-
-  // compute the essential matrix - this could also be done by using the function findEssentialMat
-  image_pair->essential = intristic_camera_paramaters.t() * image_pair->fundamental *
-                          intristic_camera_paramaters;
-
+  // create camera center point
   Point2d camera_center(intristic_camera_paramaters.at<double>(0, 2), intristic_camera_paramaters.at<double>(1, 2));
+
+  // compute the essential matrix directly
+  image_pair->essential = findEssentialMat(points_img1, points_img2, intristic_camera_paramaters.at<double>(0, 0),
+  camera_center, RANSAC, 0.999, 1.0, inliners);
 
   // get rotation and translation matrix - cheirality check is done inside this function
   // computing the rot and trans matrix could also be done by using SVD, but then the cheirality needs to be done
