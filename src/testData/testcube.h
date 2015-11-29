@@ -17,14 +17,13 @@ using namespace std;
 class TestCube {
 private:
 
-  static void setKeypointsPair1(vector<KeyPoint> &keyPoints1, vector<KeyPoint> &keyPoints2);
-  static void setKeypointsPair2(vector<KeyPoint> &keyPoints1, vector<KeyPoint> &keyPoints2);
+  static void setKeypointsImg1(vector<KeyPoint> &keyPoints);
+  static void setKeypointsImg2(vector<KeyPoint> &keyPoints);
+  static void setKeypointsImg3(vector<KeyPoint> &keyPoints);
   static void setMatches(int num, vector<DMatch> &matches);
 
 public:
-  static shared_ptr<ImagePair> getPair1();
-
-  static shared_ptr<ImagePair> getPair2();
+  static void setPairs(vector<shared_ptr<ImagePair>> &pairs);
 
   static Mat_<double> getIntrinsicMatrix();
 };
