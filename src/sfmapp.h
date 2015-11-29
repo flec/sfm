@@ -13,6 +13,7 @@
 #include <featureDetector/orbfeaturedetector.h>
 #include <featureDetector/siftfeaturedetector.h>
 #include <featureDetector/briskfeaturedetector.h>
+#include <projectionMatrixFinder/cvprojectionmatrixfinder.h>
 #include "projectionMatrixFinder/basicprojectionmatrixfinder.h"
 #include "image/pair/imagepair.h"
 #include "featureDetector/featuredetector.h"

@@ -18,7 +18,7 @@ void TriangulationTab::on_runInitialTriangulation_clicked() {
 }
 
 void TriangulationTab::on_runNextTriangulation_clicked() {
-  sfmapp->triangulateNext(1);
+  sfmapp->triangulateNext(++i); // TODO: more sophisticated solution
   updateViewer();
 }
 

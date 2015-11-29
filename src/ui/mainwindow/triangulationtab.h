@@ -29,6 +29,7 @@ public slots:
 private:
   Ui::TriangulationTab *ui;
   SFMApp *sfmapp;
+  int i=0; // TODO: more sophisticated solution
 };
 
 #endif // TRIANGULATIONTAB_H

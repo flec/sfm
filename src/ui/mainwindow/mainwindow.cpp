@@ -50,7 +50,7 @@ void MainWindow::on_actionTest_it_all_triggered() {
   ui->matrixFindingTab->on_findInitialMatrices_clicked();
   ui->triangulationTab->on_runInitialTriangulation_clicked();
   //ui->triangulationTab->on_runNextTriangulation_clicked();
-  ui->tabWidget->setCurrentIndex(3);
+  //ui->tabWidget->setCurrentIndex(3);
   //system("meshlab /tmp/initialPoints.ply &");
 }
 
