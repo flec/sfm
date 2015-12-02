@@ -62,6 +62,12 @@ IF(USE_GUI)
 ENDIF(USE_GUI)
 ########### END Qt 5 ##############
 
+########### vendors ###############
+subdirs(vendor/SSBA-4.0)
+include_directories(vendor vendor/SSBA-4.0)
+add_definitions(-DV3DLIB_ENABLE_SUITESPARSE)
+########### END vendors ###########
+
 ########### sources ###############
 file(GLOB_RECURSE SOURCE_FILES "src/*.cpp")
 add_executable(sfm ${SOURCE_FILES} )
