@@ -13,8 +13,7 @@ using namespace cv;
 Mat_<float> ObjectPoint::rotate_x_axis_180 = (Mat_<float>(3, 3) << 1, 0, 0, 0, -1, 0, 0, 0, -1);
 
 void ObjectPoint::addReference(int keypointIndex, shared_ptr<Image> image) {
-  this->refKeypoints.push_back(keypointIndex);
-  this->refImages.push_back(image);
+  references_.push_back(KeyPointImagePair(keypointIndex, image));
 }
 
 ObjectPoint::ObjectPoint(float x, float y, float z) :
@@ -25,10 +24,9 @@ ObjectPoint::ObjectPoint(float x, float y, float z) :
 
 void ObjectPoint::removeReferencesToImage(shared_ptr<Image> image) {
   int i;
-  for (auto ref_image : refImages) {
-    if (ref_image == image) {
-      refImages.erase(refImages.begin() + i);
-      refKeypoints.erase(refKeypoints.begin() + i);
+  for (auto reference : references_) {
+    if (reference.image == image) {
+      references_.erase(references_.begin() + i);
     }
     else
       ++i;
@@ -38,15 +36,14 @@ void ObjectPoint::removeReferencesToImage(shared_ptr<Image> image) {
 void ObjectPoint::recalculateColor() {
   Point3_<uint> sum_colors(0, 0, 0);
 
-  for (int i = 0; i < refImages.size(); ++i) {
-    KeyPoint key_point = refImages.at(i)->get_keypoints()->at(refKeypoints.at(i));
-    Point3_<uchar> *color = refImages.at(i)->mat_color()->ptr<Point3_<uchar> >(key_point.pt.y, key_point.pt.x);
+  for (auto reference : references_) {
+    Point3_<uchar> *color = reference.image->mat_color()->ptr<Point3_<uchar> >(reference.key_point->pt.y, reference.key_point->pt.x);
     sum_colors.x += (int) color->x;
     sum_colors.y += (int) color->y;
     sum_colors.z += (int) color->z;
   }
 
-  color_.x = ((float) sum_colors.z / refImages.size()) / 255;
-  color_.y = ((float) sum_colors.y / refImages.size()) / 255;
-  color_.z = ((float) sum_colors.x / refImages.size()) / 255;
+  color_.x = ((float) sum_colors.z / references_.size()) / 255;
+  color_.y = ((float) sum_colors.y / references_.size()) / 255;
+  color_.z = ((float) sum_colors.x / references_.size()) / 255;
 }
