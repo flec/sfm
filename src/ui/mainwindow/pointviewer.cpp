@@ -23,7 +23,7 @@ void PointViewer::draw() {
   if (visible_object_points.size() > 0) {
     glPointSize(2.0);
     glBegin(GL_POINTS);
-cout<<"drawing "<<visible_object_points.size()<<" points"<<endl;
+
     for (auto object_point : visible_object_points) {
       glColor3f(object_point->color().x, object_point->color().y, object_point->color().z);
       glVertex3d(object_point->gl_coordinates()->x, object_point->gl_coordinates()->y,

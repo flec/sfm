@@ -34,13 +34,17 @@ void CVTriangulator::findPoints3D(shared_ptr<ImagePair> &image_pair, Mat &intrin
 
   // Clear points3D and only add points with acceptable reproj. error
   points3D.clear();
+  float max_acceptable_reprojection_error = 1;
   for (int i = 0; i < mat_points3d.cols; i++) {
     float repojection_error = sqrt(pow(reprojected_points.at(i).x - image_pair->triangulation_points2.at(i).x, 2) +
                                    pow(reprojected_points.at(i).y - image_pair->triangulation_points2.at(i).y, 2));
 
-    cout<<repojection_error<<endl;
-    if (repojection_error < 1)
+    if (repojection_error < max_acceptable_reprojection_error)
       map_points3D[i] = Point3f(mat_points3d.at<float>(0, i), mat_points3d.at<float>(1, i), mat_points3d.at<float>(2, i));
   }
 
+#ifdef DEBUG
+  printf("Filtered out %lu bad objects points (reprojection error > %f), kept %lu pairs.\n", points3D.size()-map_points3D.size(), max_acceptable_reprojection_error,
+         points3D.size());
+#endif
 }
