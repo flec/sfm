@@ -7,6 +7,7 @@
 #include "util/plyutil.h"
 #include <iostream>
 #include <ctime>
+#include <omp.h>
 
 SFMApp *SFMApp::getInstance() {
   if (!instance)
@@ -36,9 +37,21 @@ void SFMApp::matchFeatures() {
   image_pairs.clear();
   object_points.clear();
 
-  for (unsigned int i = 0; i < images.size() - 1; i++) {
-    image_pairs.push_back(feature_matcher->matchFeatures(images.at(i), images.at(i + 1)));
-    feature_matcher->filterMatches(image_pairs.back());
+  // Match keypoints of images in a parallel fashion
+  // http://stackoverflow.com/a/18671256
+#pragma omp parallel
+  {
+    vector<shared_ptr<ImagePair>> image_pairs_private;
+#pragma omp for nowait schedule(static)
+    for (int i = 0; i < images.size() - 1; i++) {
+      image_pairs_private.push_back(feature_matcher->matchFeatures(images.at(i), images.at(i + 1)));
+      feature_matcher->filterMatches(image_pairs_private.back());
+    }
+#pragma omp for schedule(static) ordered
+    for (int i = 0; i < omp_get_num_threads(); i++) {
+#pragma omp ordered
+      image_pairs.insert(image_pairs.end(), image_pairs_private.begin(), image_pairs_private.end());
+    }
   }
 }
 
@@ -157,27 +170,30 @@ void SFMApp::prepareForTriangulation(shared_ptr<ImagePair> image_pair) {
 }
 
 void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
-  vector<Point3f> points3Dh;
-  triangulator->findPoints3D(image_pair, points3Dh);
+  map<int, Point3f> map_points3D;
+  triangulator->findPoints3D(image_pair, intrinsic_camera_parameters_, map_points3D);
 
   // create object points
   int c = 0;
   for (auto match:image_pair->matches) {
     shared_ptr<ObjectPoint> objectPoint = image_pair->image1->getObjectPoint(match.queryIdx);
     if (!objectPoint) {
-      objectPoint = shared_ptr<ObjectPoint>(
-          new ObjectPoint(points3Dh.at(c).x, points3Dh.at(c).y, points3Dh.at(c).z));
-      this->object_points.push_back(objectPoint);
-      // add references for image1
-      objectPoint->addReference(match.queryIdx, image_pair->image1);
-      image_pair->image1->addObjectPoint(match.queryIdx, objectPoint);
-      //increment column
-      c++;
+      map<int, Point3f>::iterator points3D_entry = map_points3D.find(c++);
+      if (points3D_entry != map_points3D.end()) {
+        objectPoint = shared_ptr<ObjectPoint>(
+            new ObjectPoint(points3D_entry->second.x, points3D_entry->second.y, points3D_entry->second.z));
+        this->object_points.push_back(objectPoint);
+        // add references for image1
+        objectPoint->addReference(match.queryIdx, image_pair->image1);
+        image_pair->image1->addObjectPoint(match.queryIdx, objectPoint);
+      }
     }
-    // add references for image2
-    objectPoint->addReference(match.trainIdx, image_pair->image2);
-    image_pair->image2->addObjectPoint(match.trainIdx, objectPoint);
 
+    // add references for image2
+    if (objectPoint) {
+      objectPoint->addReference(match.trainIdx, image_pair->image2);
+      image_pair->image2->addObjectPoint(match.trainIdx, objectPoint);
+    }
   }
 }
 

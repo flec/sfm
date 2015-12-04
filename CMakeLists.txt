@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 project(sfm)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 # Set a default build type for single-configuration
 # CMake generators if no build type is set.
@@ -10,7 +9,7 @@ IF(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
 ENDIF(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
 
 # Select flags.
-SET(CMAKE_CXX_FLAGS "-Wall -fno-rtti -std=c++11")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fno-rtti -std=c++11")
 SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
 SET(CMAKE_CXX_FLAGS_RELEASE "-O2")
 SET(CMAKE_CXX_FLAGS_DEBUG  "-O0 -g -DDEBUG")
@@ -25,6 +24,10 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 SET(USE_GUI TRUE CACHE BOOL "Build with CLI and GUI?")
 ########### END options ###########
 
+########### OpenMP ################
+find_package(OpenMP)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+########### END OpenMP ############
 
 ########### OpenCV ################
 set(OpenCV_STATIC OFF)

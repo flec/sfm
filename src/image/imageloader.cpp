@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <stdio.h>
 #include <iostream>
+#include <omp.h>
 #include "imageloader.h"
 #include "imageloadexception.h"
 
@@ -15,14 +16,27 @@ vector<shared_ptr<Image>> ImageLoader::loadImagesFromDir(string const &dirName) 
   vector<string> files = read_directory(dirName);
   if (errno == 0) {
     vector<shared_ptr<Image>> images;
-    for(auto file_name : files){
-      try {
-        shared_ptr<Image>image (new Image(dirName + file_name));
-        images.push_back(image);
-      } catch (const ImageLoadException& e) {
+
+    // Load images in a parallel fashion
+    // http://stackoverflow.com/a/18671256
+#pragma omp parallel
+    {
+      vector<shared_ptr<Image>> images_private;
+#pragma omp for nowait schedule(static)
+      for (int i = 0; i < files.size() - 1; i++) {
+        try {
+          shared_ptr<Image> image(new Image(dirName + files.at(i)));
+          images_private.push_back(image);
+        } catch (const ImageLoadException &e) {
 #ifdef DEBUG
-        printf("Caugth exception %s\n", e.what());
+          printf("Caugth exception %s\n", e.what());
 #endif
+        }
+      }
+#pragma omp for schedule(static) ordered
+      for (int i = 0; i < omp_get_num_threads(); i++) {
+#pragma omp ordered
+        images.insert(images.end(), images_private.begin(), images_private.end());
       }
     }
     return images;
@@ -38,24 +52,21 @@ vector<shared_ptr<Image>> ImageLoader::loadImagesFromDir(string const &dirName) 
 //   Always check the value of the global 'errno' variable after using this
 //   function to see if anything went wrong. (It will be zero if all is well.)
 //
-vector <string> ImageLoader::read_directory( const string& path)
-{
-  vector <string> result;
-  dirent* de;
-  DIR* dp;
+vector<string> ImageLoader::read_directory(const string &path) {
+  vector<string> result;
+  dirent *de;
+  DIR *dp;
   errno = 0;
-  dp = opendir( path.empty() ? "." : path.c_str() );
-  if (dp)
-  {
-    while (true)
-    {
+  dp = opendir(path.empty() ? "." : path.c_str());
+  if (dp) {
+    while (true) {
       errno = 0;
-      de = readdir( dp );
+      de = readdir(dp);
       if (de == NULL) break;
-      result.push_back( string( de->d_name ) );
+      result.push_back(string(de->d_name));
     }
-    closedir( dp );
-    sort( result.begin(), result.end() );
+    closedir(dp);
+    sort(result.begin(), result.end());
   }
   return result;
 }

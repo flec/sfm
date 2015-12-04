@@ -12,6 +12,6 @@ class Triangulator
 {
 public:
   // computes homogenous 3D points for an image pair
-  virtual void findPoints3D(shared_ptr<ImagePair> &image_pair, vector <Point3f> &points3D) = 0;
+  virtual void findPoints3D(shared_ptr<ImagePair> &image_pair, Mat &intrinsic_camera_parameters, map<int, Point3f> &map_points3D) = 0;
 
 };
