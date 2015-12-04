@@ -42,3 +42,11 @@ shared_ptr<ObjectPoint> Image::getObjectPoint(int keypointIndex) {
   return it->second;
 }
 
+void Image::clearObjectPointsAndCamera() {
+  object_points_.clear();
+  camera_ = shared_ptr<ImageCamera>(new ImageCamera());
+}
+
+void Image::removeObjectPoint(int keypointIndex) {
+  object_points_.erase(keypointIndex);
+}

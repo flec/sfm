@@ -55,9 +55,13 @@ public:
 
   void addObjectPoint(int keypointIndex, shared_ptr<ObjectPoint> point);
 
+  void removeObjectPoint(int keypointIndex);
+
   shared_ptr<ObjectPoint> getObjectPoint(int keypointIndex);
 
   shared_ptr<ImageCamera> camera(){return camera_;};
+
+  void clearObjectPointsAndCamera();
 
 };
 

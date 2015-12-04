@@ -39,4 +39,7 @@ void ImagePair::clearMatrices() {
 
   pnp_object_points.clear();
   pnp_image_points.clear();
+
+  matches1.clear();
+  matches2.clear();
 }

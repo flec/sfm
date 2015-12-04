@@ -42,7 +42,11 @@ public:
 
   Point3f *gl_coordinates() { return &gl_coordinates_; }
 
+  unsigned long getNumReferences(){return refKeypoints.size(); }
+
   void addReference(int keypointIndex, shared_ptr<Image> image);
+
+  void removeReferencesToImage(shared_ptr<Image> image);
 
   const Point3f &color() const { return color_; }
 };

@@ -20,14 +20,18 @@ void FeatureMatcher::filterMatches(shared_ptr<ImagePair> &image_pair, double min
   // erase bad pair
   auto i = begin(image_pair->matches);
   while (i != end(image_pair->matches)) {
-    if (i->distance > min_dist_factor * min_dist)
-      i = image_pair->matches.erase(i);
-    else
+    if (i->distance < min_dist_factor * min_dist) {
+
       ++i;
+    }
+    else {
+      i = image_pair->matches.erase(i);
+    }
   }
 
 #ifdef DEBUG
-  printf("Filtered out %lu bad pairs.\n", matches_before - image_pair->matches.size());
+  printf("Filtered out %lu bad pairs, kept %lu pairs.\n", matches_before - image_pair->matches.size(),
+         image_pair->matches.size());
 #endif
 
 }

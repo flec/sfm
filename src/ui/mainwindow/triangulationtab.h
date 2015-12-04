@@ -26,10 +26,12 @@ public slots:
 
   void updateViewer();
 
+private slots:
+  void on_removeLastCamera_clicked();
+
 private:
   Ui::TriangulationTab *ui;
   SFMApp *sfmapp;
-  int i=0; // TODO: more sophisticated solution
 };
 
 #endif // TRIANGULATIONTAB_H

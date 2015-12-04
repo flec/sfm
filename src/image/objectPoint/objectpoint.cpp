@@ -21,3 +21,15 @@ ObjectPoint::ObjectPoint(float x, float y, float z, float r, float g, float b) :
   Mat gl_coordinates_mat = rotate_x_axis_180 * Mat(coordinates_, false);
   gl_coordinates_mat.copyTo(Mat(gl_coordinates_, false));
 }
+
+void ObjectPoint::removeReferencesToImage(shared_ptr<Image> image) {
+  int i;
+  for (auto ref_image : refImages) {
+    if (ref_image == image) {
+      refImages.erase(refImages.begin() + i);
+      refKeypoints.erase(refKeypoints.begin() + i);
+    }
+    else
+      ++i;
+  }
+}

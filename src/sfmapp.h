@@ -12,6 +12,7 @@
 #include <featureDetector/kazefeaturedetector.h>
 #include <featureDetector/orbfeaturedetector.h>
 #include <featureDetector/siftfeaturedetector.h>
+#include <featureDetector/surffeaturedetector.h>
 #include <featureDetector/briskfeaturedetector.h>
 #include <projectionMatrixFinder/cvprojectionmatrixfinder.h>
 #include "projectionMatrixFinder/basicprojectionmatrixfinder.h"
@@ -32,7 +33,7 @@ class SFMApp {
 private:
   static SFMApp *instance;
 
-  FeatureDetecter *feature_detector = new SIFTFeatureDetector(); // init feature detector
+  FeatureDetecter *feature_detector = new SURFFeatureDetector(); // init feature detector
   FeatureMatcher *feature_matcher = new FlannFeatureMatcher(); // init feature matcher
   CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();  // camera matrix finder for initial matirx
   ProjectionMatrixFinder *projectionMatrixFinder = new BasicProjectionMatrixFinder(); // projection matrix finder
@@ -89,9 +90,13 @@ public:
   }
 
   // Triangulates the points of the initial image pair
-  void triangulateInitial();
+  void triangulateInitialImagePair();
 
-  void triangulateNext(int image_pair_index);
+  // Triangulate the points of the next image pair
+  void triangulateNextImagePair();
+
+  // Remove the last triangulated image pair (camera)
+  void removeLastCamera();
 
   vector<shared_ptr<ObjectPoint>> *get_object_points() {
     return &object_points;

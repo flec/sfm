@@ -13,12 +13,12 @@ TriangulationTab::~TriangulationTab() {
 }
 
 void TriangulationTab::on_runInitialTriangulation_clicked() {
-  sfmapp->triangulateInitial();
+  sfmapp->triangulateInitialImagePair();
   updateViewer();
 }
 
 void TriangulationTab::on_runNextTriangulation_clicked() {
-  sfmapp->triangulateNext(++i); // TODO: more sophisticated solution
+  sfmapp->triangulateNextImagePair();
   updateViewer();
 }
 
@@ -34,4 +34,9 @@ void TriangulationTab::updateViewer() {
       cameras.push_back(image->camera());
 
   ui->qGLViewerWidget->update(*sfmapp->get_object_points(), cameras);
+}
+
+void TriangulationTab::on_removeLastCamera_clicked() {
+  sfmapp->removeLastCamera();
+  updateViewer();
 }
