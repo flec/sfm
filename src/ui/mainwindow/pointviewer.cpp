@@ -6,6 +6,9 @@
 
 void PointViewer::update(vector<shared_ptr<ObjectPoint>> &object_points, vector<shared_ptr<ImageCamera>> &cameras) {
   visible_object_points = object_points;
+  for(auto object_point : visible_object_points)
+    object_point->recalculateColor();
+
   this->cameras = cameras;
   updateGL();
 }
@@ -45,7 +48,7 @@ PointViewer::PointViewer(QWidget *parent) : QGLViewer(parent), sfmapp(SFMApp::ge
   qglviewer::Vec camera_position(0, 0, 40);
   camera()->setPosition(camera_position);
   camera()->lookAt(sceneCenter());
-  setSceneBoundingBox(qglviewer::Vec(-5, -5, -5), qglviewer::Vec(5, 5, 5));
+  setSceneBoundingBox(qglviewer::Vec(-50, -50, -50), qglviewer::Vec(50, 50, 50));
   showEntireScene();
 }
 

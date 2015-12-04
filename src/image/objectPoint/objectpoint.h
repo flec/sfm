@@ -36,7 +36,7 @@ private:
   vector<shared_ptr<Image>> refImages;
 public:
 
-  ObjectPoint(float x, float y, float z, float r = 1.0f, float g = 0.0f, float b = 0.0f);
+  ObjectPoint(float x, float y, float z);
 
   Point3f *coordinates() { return &coordinates_; }
 
@@ -49,6 +49,8 @@ public:
   void removeReferencesToImage(shared_ptr<Image> image);
 
   const Point3f &color() const { return color_; }
+
+  void recalculateColor();
 };
 #endif //SFM_OBJECTPOINT_H
 

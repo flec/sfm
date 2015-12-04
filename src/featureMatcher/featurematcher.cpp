@@ -11,7 +11,7 @@ void FeatureMatcher::filterMatches(shared_ptr<ImagePair> &image_pair, double min
   double min_dist = DBL_MAX;
   double max_dist = 0;
 
-  // calc min and max distance between keypoints_
+ /* // calc min and max distance between keypoints_
   for (auto match : image_pair->matches) {
     if (match.distance < min_dist) min_dist = match.distance;
     if (match.distance > max_dist) max_dist = match.distance;
@@ -27,7 +27,7 @@ void FeatureMatcher::filterMatches(shared_ptr<ImagePair> &image_pair, double min
     else {
       i = image_pair->matches.erase(i);
     }
-  }
+  }*/
 
 #ifdef DEBUG
   printf("Filtered out %lu bad pairs, kept %lu pairs.\n", matches_before - image_pair->matches.size(),

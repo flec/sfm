@@ -6,6 +6,7 @@
 #define SFM_SURFFEATUREDETECTOR_H
 #include "featuredetector.h"
 #include <opencv2/xfeatures2d.hpp>
+#include <opencv2/calib3d.hpp>
 
 using namespace xfeatures2d;
 

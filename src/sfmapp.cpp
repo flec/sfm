@@ -160,19 +160,13 @@ void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
   vector<Point3f> points3Dh;
   triangulator->findPoints3D(image_pair, points3Dh);
 
-  // compute color
-  float rand_color = (double) rand() / (RAND_MAX);
-  float r = 1.0 - rand_color;
-  float g = 0.2f;
-  float b = rand_color;
-
   // create object points
   int c = 0;
   for (auto match:image_pair->matches) {
     shared_ptr<ObjectPoint> objectPoint = image_pair->image1->getObjectPoint(match.queryIdx);
     if (!objectPoint) {
       objectPoint = shared_ptr<ObjectPoint>(
-          new ObjectPoint(points3Dh.at(c).x, points3Dh.at(c).y, points3Dh.at(c).z, r, g, b));
+          new ObjectPoint(points3Dh.at(c).x, points3Dh.at(c).y, points3Dh.at(c).z));
       this->object_points.push_back(objectPoint);
       // add references for image1
       objectPoint->addReference(match.queryIdx, image_pair->image1);
