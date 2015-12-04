@@ -9,6 +9,7 @@
 #include <opencv2/core/types.hpp>
 #include <utility>
 #include <memory>
+#include "image/pair/keypointimagepair.h"
 
 // forward declaration
 class Image;
@@ -30,10 +31,8 @@ private:
 
   static Mat_<float> rotate_x_axis_180;
 
-  // vector of references (using vector instead of map to avoid key conflicts and two vectors instead of pair because of forward declaration)
-  vector<int> refKeypoints;
+  vector<KeyPointImagePair> references_;
 
-  vector<shared_ptr<Image>> refImages;
 public:
 
   ObjectPoint(float x, float y, float z);
@@ -42,7 +41,9 @@ public:
 
   Point3f *gl_coordinates() { return &gl_coordinates_; }
 
-  unsigned long getNumReferences(){return refKeypoints.size(); }
+  unsigned long getNumReferences() { return references_.size(); }
+
+  vector<KeyPointImagePair> *references() { return &references_; }
 
   void addReference(int keypointIndex, shared_ptr<Image> image);
 
@@ -52,5 +53,6 @@ public:
 
   void recalculateColor();
 };
+
 #endif //SFM_OBJECTPOINT_H
 
