@@ -66,7 +66,9 @@ ENDIF(USE_GUI)
 ########### END Qt 5 ##############
 
 ########### vendors ###############
-subdirs(vendor/SSBA-4.0)
+add_subdirectory(vendor/SSBA-4.0)
+link_directories(vendor/SSBA-4.0)
+link_libraries(V3D)
 include_directories(vendor vendor/SSBA-4.0)
 add_definitions(-DV3DLIB_ENABLE_SUITESPARSE)
 ########### END vendors ###########
