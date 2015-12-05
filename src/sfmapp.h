@@ -34,7 +34,7 @@ class SFMApp {
 private:
   static SFMApp *instance;
 
-  FeatureDetecter *feature_detector = new SURFCUDAFeatureDetector(); // init feature detector
+  FeatureDetecter *feature_detector = new SURFFeatureDetector(); // init feature detector
   FeatureMatcher *feature_matcher = new FlannFeatureMatcher(); // init feature matcher
   CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();  // camera matrix finder for initial matirx
   ProjectionMatrixFinder *projectionMatrixFinder = new BasicProjectionMatrixFinder(); // projection matrix finder
