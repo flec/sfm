@@ -34,6 +34,9 @@ set(OpenCV_STATIC OFF)
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 list(APPEND LINK_LIBRARIES ${OpenCV_LIBS})
+
+# CUDA
+#add_definitions(-DUSE_CUDA)
 ########### END OpenCV ############
 
 

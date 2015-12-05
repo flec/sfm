@@ -42,7 +42,14 @@
       </layout>
      </item>
      <item>
-      <widget class="PointViewer" name="qGLViewerWidget" native="true"/>
+      <widget class="PointViewer" name="qGLViewerWidget" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
