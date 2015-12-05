@@ -12,6 +12,12 @@ using namespace cv;
 
 Mat_<float> ObjectPoint::rotate_x_axis_180 = (Mat_<float>(3, 3) << 1, 0, 0, 0, -1, 0, 0, 0, -1);
 
+void ObjectPoint::updateCoordinates(float x, float y, float z) {
+  coordinates_.x = x;
+  coordinates_.y = y;
+  coordinates_.z = z;
+}
+
 void ObjectPoint::addReference(int keypointIndex, shared_ptr<Image> image) {
   references_.push_back(KeyPointImagePair(keypointIndex, image));
 }

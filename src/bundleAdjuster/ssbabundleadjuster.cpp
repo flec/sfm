@@ -9,6 +9,7 @@
 void SSBABundleAdjuster::adjust(Mat intrinsicCameraParams, vector<shared_ptr<ObjectPoint>> objectPoints,
                                 vector<shared_ptr<Image>> images) {
 
+  // prepare data for bundle adjustment
   Matrix3x3d K = convertIntrinsicCameraParams(intrinsicCameraParams);
   double const inlierThreshold = 2.0 / fabs(K[0][0]);
   StdDistortionFunction distortion;
@@ -19,8 +20,22 @@ void SSBABundleAdjuster::adjust(Mat intrinsicCameraParams, vector<shared_ptr<Obj
   vector<int> correspondingPoint;
   getCorrespondences(objectPoints, K, measurements, correspondingView, correspondingPoint);
 
+  // do adjustment
   CommonInternalsMetricBundleOptimizer optimizer(V3D::FULL_BUNDLE_FOCAL_LENGTH_PP, inlierThreshold, K, distortion, cams,
                                                  Xs, measurements, correspondingView, correspondingPoint);
+
+  optimizer.tau = 1e-3;
+  optimizer.maxIterations = 50;
+  // use this line when it compiles
+#if 0
+  optimizer.minimize();
+#endif
+
+  // update data if adjustment is ok
+  if (optimizer.status != 2) {
+    updateObjectPoints(objectPoints, Xs);
+    updateCameras(images, cams);
+  }
 }
 
 Matrix3x3d SSBABundleAdjuster::convertIntrinsicCameraParams(const Mat &matrix) {
@@ -109,3 +124,27 @@ void SSBABundleAdjuster::getCorrespondences(const vector<shared_ptr<ObjectPoint>
   }
 }
 
+void SSBABundleAdjuster::updateObjectPoints(vector<shared_ptr<ObjectPoint>> objectPoints, vector<Vector3d> Xs) {
+  int i = 0;
+  for (auto objectPoint : objectPoints) {
+    objectPoint->updateCoordinates(Xs[i][0], Xs[i][1], Xs[i][2]);
+  }
+}
+
+
+void SSBABundleAdjuster::updateCameras(vector<shared_ptr<Image>> images, vector<CameraMatrix> cameras) {
+  for (unsigned int i = 0; i < cameras.size(); ++i) {
+    Matrix3x3d rotation = cameras[i].getRotation();
+    Vector3d translation = cameras[i].getTranslation();
+
+    Mat cvRotation = (Mat_<double>(3, 3) <<
+                  rotation(0, 0), rotation(0, 1), rotation(0, 2),
+        rotation(1, 0), rotation(1, 1), rotation(1, 2),
+        rotation(2, 0), rotation(2, 1), rotation(2, 2));
+
+    Mat cvTranslation = (Mat_<double>(3, 1) << translation(0), translation(1), translation(2));
+
+
+    images.at(i)->camera()->set_extrinsic(cvRotation, cvTranslation);
+  }
+}

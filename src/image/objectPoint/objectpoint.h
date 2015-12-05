@@ -37,6 +37,8 @@ public:
 
   ObjectPoint(float x, float y, float z);
 
+  void updateCoordinates(float x, float y, float z);
+
   Point3f *coordinates() { return &coordinates_; }
 
   Point3f *gl_coordinates() { return &gl_coordinates_; }
