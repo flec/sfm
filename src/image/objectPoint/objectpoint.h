@@ -33,6 +33,8 @@ private:
 
   vector<KeyPointImagePair> references_;
 
+  void updateGlCoordinates();
+
 public:
 
   ObjectPoint(float x, float y, float z);
