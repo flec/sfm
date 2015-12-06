@@ -39,6 +39,13 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="doBundleAdjustment">
+         <property name="text">
+          <string>Perform bundle adjustment</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>

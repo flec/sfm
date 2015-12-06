@@ -40,3 +40,9 @@ void TriangulationTab::on_removeLastCamera_clicked() {
   sfmapp->removeLastCamera();
   updateViewer();
 }
+
+void TriangulationTab::on_doBundleAdjustment_clicked()
+{
+  sfmapp->doBundleAdjustment();
+  updateViewer();
+}

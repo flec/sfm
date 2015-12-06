@@ -29,6 +29,8 @@ public slots:
 private slots:
   void on_removeLastCamera_clicked();
 
+  void on_doBundleAdjustment_clicked();
+
 private:
   Ui::TriangulationTab *ui;
   SFMApp *sfmapp;
