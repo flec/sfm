@@ -67,12 +67,17 @@ vector<Vector3d> SSBABundleAdjuster::convertObjectPoints(const vector<shared_ptr
 
 vector<CameraMatrix> SSBABundleAdjuster::getCameras(vector<shared_ptr<Image>> images, Matrix3x3d K) {
   Matrix3x3d Knorm = normalizeIntrinsicCameraParams(K);
-  vector<CameraMatrix> cams(images.size());
+  vector<CameraMatrix> cams;
   int i = 0;
   for (auto image : images) {
     Matrix3x3d rotation;
     Vector3d translation;
     Mat_<double> extrinsic = *image->camera()->extrinsic();
+
+    // check if image has been trinagulated
+    if (extrinsic.data == NULL) {
+      break;
+    }
 
     rotation[0][0] = extrinsic(0,0);
     rotation[0][1] = extrinsic(0,1);
@@ -88,9 +93,11 @@ vector<CameraMatrix> SSBABundleAdjuster::getCameras(vector<shared_ptr<Image>> im
     translation[1] = extrinsic(1,3);
     translation[2] = extrinsic(2,3);
 
-    cams[i].setIntrinsic(Knorm);
-    cams[i].setRotation(rotation);
-    cams[i].setTranslation(translation);
+    CameraMatrix camera;
+    camera.setIntrinsic(Knorm);
+    camera.setRotation(rotation);
+    camera.setTranslation(translation);
+    cams.push_back(camera);
 
     // set reference in map
     image_camera_map[image->file_name()] = i;
@@ -135,11 +142,11 @@ void SSBABundleAdjuster::updateCameras(vector<shared_ptr<Image>> images, vector<
     Vector3d translation = cameras[i].getTranslation();
 
     Mat cvRotation = (Mat_<double>(3, 3) <<
-                  rotation(0, 0), rotation(0, 1), rotation(0, 2),
-        rotation(1, 0), rotation(1, 1), rotation(1, 2),
-        rotation(2, 0), rotation(2, 1), rotation(2, 2));
+                  rotation[0][0], rotation[0][1], rotation[0][2],
+        rotation[1][0], rotation[1][1], rotation[1][2],
+        rotation[2][0], rotation[2][1], rotation[2][2]);
 
-    Mat cvTranslation = (Mat_<double>(3, 1) << translation(0), translation(1), translation(2));
+    Mat cvTranslation = (Mat_<double>(3, 1) << translation[0], translation[1], translation[2]);
 
 
     images.at(i)->camera()->set_extrinsic(cvRotation, cvTranslation);
