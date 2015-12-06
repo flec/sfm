@@ -68,6 +68,11 @@ IF(USE_GUI)
 ENDIF(USE_GUI)
 ########### END Qt 5 ##############
 
+########### SuiteSparse ###########
+include_directories(/usr/include/suitesparse)
+link_libraries (colamd)
+########### END SuiteSparse #######
+
 ########### vendors ###############
 add_subdirectory(vendor/SSBA-4.0)
 link_directories(vendor/SSBA-4.0)
