@@ -129,9 +129,8 @@ void SSBABundleAdjuster::getCorrespondences(const vector<shared_ptr<ObjectPoint>
 }
 
 void SSBABundleAdjuster::updateObjectPoints(vector<shared_ptr<ObjectPoint>> objectPoints, vector<Vector3d> Xs) {
-  int i = 0;
-  for (auto objectPoint : objectPoints) {
-    objectPoint->updateCoordinates(Xs[i][0], Xs[i][1], Xs[i][2]);
+  for (unsigned int i = 0; i < objectPoints.size(); ++i) {
+    objectPoints.at(i)->updateCoordinates(Xs[i][0], Xs[i][1], Xs[i][2]);
   }
 }
 
