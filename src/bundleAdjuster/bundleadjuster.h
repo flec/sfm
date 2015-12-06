@@ -12,7 +12,6 @@
 
 class BundleAdjuster {
 public:
-  virtual void adjust(Mat intrinsicCameraParams, vector<shared_ptr<ObjectPoint>> objectPoints, vector<shared_ptr<ImagePair>> imagePairs) = 0;
-
-private:
+  virtual void adjust(Mat intrinsicCameraParams, vector<shared_ptr<ObjectPoint>> objectPoints,
+                      vector<shared_ptr<Image>> images) = 0;
 };

@@ -13,7 +13,7 @@
 
 using namespace V3D;
 
-class SSBABundleAdjuster : BundleAdjuster {
+class SSBABundleAdjuster : public BundleAdjuster {
 private:
   map<string, int> image_camera_map;
 
@@ -36,6 +36,7 @@ private:
 public:
   void adjust(Mat intrinsicCameraParams, vector<shared_ptr<ObjectPoint>> objectPoints,
               vector<shared_ptr<Image>> images);
+
 };
 
 #endif //SFM_SSBABUNDLEADJUSTER_H

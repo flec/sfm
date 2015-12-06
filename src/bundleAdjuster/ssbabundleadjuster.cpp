@@ -26,10 +26,7 @@ void SSBABundleAdjuster::adjust(Mat intrinsicCameraParams, vector<shared_ptr<Obj
 
   optimizer.tau = 1e-3;
   optimizer.maxIterations = 50;
-  // use this line when it compiles
-#if 0
   optimizer.minimize();
-#endif
 
   // update data if adjustment is ok
   if (optimizer.status != 2) {
