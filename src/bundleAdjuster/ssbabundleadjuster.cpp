@@ -6,8 +6,8 @@
 
 #include "ssbabundleadjuster.h"
 
-void SSBABundleAdjuster::adjust(Mat intrinsicCameraParams, vector<shared_ptr<ObjectPoint>> objectPoints,
-                                vector<shared_ptr<Image>> images) {
+void SSBABundleAdjuster::adjust(Mat intrinsicCameraParams, vector<shared_ptr<ObjectPoint>> &objectPoints,
+                                vector<shared_ptr<Image>> &images) {
 
   // prepare data for bundle adjustment
   Matrix3x3d K = convertIntrinsicCameraParams(intrinsicCameraParams);
@@ -53,19 +53,17 @@ Matrix3x3d SSBABundleAdjuster::normalizeIntrinsicCameraParams(const Matrix3x3d &
   return normalized;
 }
 
-vector<Vector3d> SSBABundleAdjuster::convertObjectPoints(const vector<shared_ptr<ObjectPoint>> objectPoints) {
+vector<Vector3d> SSBABundleAdjuster::convertObjectPoints(const vector<shared_ptr<ObjectPoint>> &objectPoints) {
   vector<Vector3d> points(objectPoints.size());
-  int i = 0;
-  for (auto objectPoint : objectPoints) {
-    points[i][0] = objectPoint->coordinates()->x;
-    points[i][1] = objectPoint->coordinates()->y;
-    points[i][2] = objectPoint->coordinates()->z;
-    i++;
+  for (unsigned int i = 0; i < objectPoints.size(); ++i) {
+    points[i][0] = objectPoints.at(i)->coordinates()->x;
+    points[i][1] = objectPoints.at(i)->coordinates()->y;
+    points[i][2] = objectPoints.at(i)->coordinates()->z;
   }
   return points;
 }
 
-vector<CameraMatrix> SSBABundleAdjuster::getCameras(vector<shared_ptr<Image>> images, Matrix3x3d K) {
+vector<CameraMatrix> SSBABundleAdjuster::getCameras(vector<shared_ptr<Image>> &images, Matrix3x3d &K) {
   Matrix3x3d Knorm = normalizeIntrinsicCameraParams(K);
   vector<CameraMatrix> cams;
   int i = 0;
@@ -107,7 +105,7 @@ vector<CameraMatrix> SSBABundleAdjuster::getCameras(vector<shared_ptr<Image>> im
   return cams;
 }
 
-void SSBABundleAdjuster::getCorrespondences(const vector<shared_ptr<ObjectPoint>> objectPoints, const Matrix3x3d &K,
+void SSBABundleAdjuster::getCorrespondences(const vector<shared_ptr<ObjectPoint>> &objectPoints, const Matrix3x3d &K,
                                             vector<Vector2d> &measurements, vector<int> &correspondingView,
                                             vector<int> &correspondingPoint) {
   int i = 0;
@@ -128,14 +126,14 @@ void SSBABundleAdjuster::getCorrespondences(const vector<shared_ptr<ObjectPoint>
   }
 }
 
-void SSBABundleAdjuster::updateObjectPoints(vector<shared_ptr<ObjectPoint>> objectPoints, vector<Vector3d> Xs) {
+void SSBABundleAdjuster::updateObjectPoints(vector<shared_ptr<ObjectPoint>> &objectPoints, vector<Vector3d> &Xs) {
   for (unsigned int i = 0; i < objectPoints.size(); ++i) {
     objectPoints.at(i)->updateCoordinates(Xs[i][0], Xs[i][1], Xs[i][2]);
   }
 }
 
 
-void SSBABundleAdjuster::updateCameras(vector<shared_ptr<Image>> images, vector<CameraMatrix> cameras) {
+void SSBABundleAdjuster::updateCameras(vector<shared_ptr<Image>> &images, vector<CameraMatrix> &cameras) {
   for (unsigned int i = 0; i < cameras.size(); ++i) {
     Matrix3x3d rotation = cameras[i].getRotation();
     Vector3d translation = cameras[i].getTranslation();

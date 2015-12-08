@@ -21,21 +21,21 @@ private:
 
   Matrix3x3d normalizeIntrinsicCameraParams(const Matrix3x3d &matrix);
 
-  vector<Vector3d> convertObjectPoints(const vector<shared_ptr<ObjectPoint>> objectPoints);
+  vector<Vector3d> convertObjectPoints(const vector<shared_ptr<ObjectPoint>> &objectPoints);
 
-  vector<CameraMatrix> getCameras(vector<shared_ptr<Image>> images, Matrix3x3d K);
+  vector<CameraMatrix> getCameras(vector<shared_ptr<Image>> &images, Matrix3x3d &K);
 
-  void getCorrespondences(const vector<shared_ptr<ObjectPoint>> objectPoints, const Matrix3x3d &K,
+  void getCorrespondences(const vector<shared_ptr<ObjectPoint>> &objectPoints, const Matrix3x3d &K,
                           vector<Vector2d> &measurements, vector<int> &correspondingView,
                           vector<int> &correspondingPoint);
 
-  void updateObjectPoints(vector<shared_ptr<ObjectPoint>> objectPoints, vector<Vector3d> Xs);
+  void updateObjectPoints(vector<shared_ptr<ObjectPoint>> &objectPoints, vector<Vector3d> &Xs);
 
-  void updateCameras(vector<shared_ptr<Image>> images, vector<CameraMatrix> cameras);
+  void updateCameras(vector<shared_ptr<Image>> &images, vector<CameraMatrix> &cameras);
 
 public:
-  void adjust(Mat intrinsicCameraParams, vector<shared_ptr<ObjectPoint>> objectPoints,
-              vector<shared_ptr<Image>> images);
+  void adjust(Mat intrinsicCameraParams, vector<shared_ptr<ObjectPoint>> &objectPoints,
+              vector<shared_ptr<Image>> &images);
 
 };
 
