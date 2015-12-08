@@ -66,13 +66,12 @@ vector<Vector3d> SSBABundleAdjuster::convertObjectPoints(const vector<shared_ptr
 vector<CameraMatrix> SSBABundleAdjuster::getCameras(vector<shared_ptr<Image>> &images, Matrix3x3d &K) {
   Matrix3x3d Knorm = normalizeIntrinsicCameraParams(K);
   vector<CameraMatrix> cams;
-  int i = 0;
-  for (auto image : images) {
+  for (unsigned int i = 0; i < images.size(); ++i) {
     Matrix3x3d rotation;
     Vector3d translation;
-    Mat_<double> extrinsic = *image->camera()->extrinsic();
+    Mat_<double> extrinsic = *images.at(i)->camera()->extrinsic();
 
-    // check if image has been trinagulated
+    // check if image has been triangulated
     if (extrinsic.data == NULL) {
       break;
     }
@@ -98,9 +97,7 @@ vector<CameraMatrix> SSBABundleAdjuster::getCameras(vector<shared_ptr<Image>> &i
     cams.push_back(camera);
 
     // set reference in map
-    image_camera_map[image->file_name()] = i;
-
-    i++;
+    image_camera_map[images.at(i)->file_name()] = i;
   }
   return cams;
 }
@@ -108,9 +105,8 @@ vector<CameraMatrix> SSBABundleAdjuster::getCameras(vector<shared_ptr<Image>> &i
 void SSBABundleAdjuster::getCorrespondences(const vector<shared_ptr<ObjectPoint>> &objectPoints, const Matrix3x3d &K,
                                             vector<Vector2d> &measurements, vector<int> &correspondingView,
                                             vector<int> &correspondingPoint) {
-  int i = 0;
-  for (auto objectPoint : objectPoints) {
-    for (auto reference : *objectPoint->references()) {
+  for (unsigned int i = 0; i < objectPoints.size(); ++i) {
+    for (auto reference : *objectPoints.at(i)->references()) {
       Vector3d imagePoint;
       Point2f keyPoint = reference.key_point->pt;
       imagePoint[0] = keyPoint.x;
@@ -122,7 +118,6 @@ void SSBABundleAdjuster::getCorrespondences(const vector<shared_ptr<ObjectPoint>
       correspondingView.push_back(image_camera_map[reference.image->file_name()]);
       correspondingPoint.push_back(i);
     }
-    i++;
   }
 }
 
