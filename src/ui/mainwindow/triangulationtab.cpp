@@ -41,8 +41,11 @@ void TriangulationTab::on_removeLastCamera_clicked() {
   updateViewer();
 }
 
-void TriangulationTab::on_doBundleAdjustment_clicked()
-{
+void TriangulationTab::on_doBundleAdjustment_clicked() {
   sfmapp->doBundleAdjustment();
   updateViewer();
+}
+
+void TriangulationTab::on_centerPivot_clicked() {
+  ui->qGLViewerWidget->setObjectCenterPivot();
 }

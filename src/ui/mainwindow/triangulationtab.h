@@ -31,6 +31,8 @@ private slots:
 
   void on_doBundleAdjustment_clicked();
 
+  void on_centerPivot_clicked();
+
 private:
   Ui::TriangulationTab *ui;
   SFMApp *sfmapp;

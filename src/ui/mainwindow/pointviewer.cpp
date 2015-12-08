@@ -6,7 +6,7 @@
 
 void PointViewer::update(vector<shared_ptr<ObjectPoint>> &object_points, vector<shared_ptr<ImageCamera>> &cameras) {
   visible_object_points = object_points;
-  for(auto object_point : visible_object_points)
+  for (auto object_point : visible_object_points)
     object_point->recalculateColor();
 
   this->cameras = cameras;
@@ -37,7 +37,8 @@ void PointViewer::draw() {
   glPointSize(20.0);
   glColor3f(1, 1, 1);
   for (auto camera : cameras) {
-    glVertex3d(camera->gl_translation().at<double>(0),camera->gl_translation().at<double>(1),camera->gl_translation().at<double>(2));
+    glVertex3d(camera->gl_translation().at<double>(0), camera->gl_translation().at<double>(1),
+               camera->gl_translation().at<double>(2));
   }
   glEnd();
 }
@@ -69,6 +70,21 @@ QString PointViewer::helpString() const {
   text += "See the <b>Mouse</b> tab and the documentation web pages for details.<br><br>";
   text += "Press <b>Escape</b> to exit the viewer.";
   return text;
+}
+
+void PointViewer::setObjectCenterPivot() {
+  float sumX = 0;
+  float sumY = 0;
+  float sumZ = 0;
+  unsigned long numPoints = visible_object_points.size();
+  for (auto object_point : visible_object_points) {
+    sumX += object_point->gl_coordinates()->x;
+    sumY += object_point->gl_coordinates()->y;
+    sumZ += object_point->gl_coordinates()->z;
+  }
+  if (numPoints > 0) {
+    camera()->setPivotPoint(qglviewer::Vec(sumX / numPoints, sumY / numPoints, sumZ / numPoints));
+  }
 }
 
 

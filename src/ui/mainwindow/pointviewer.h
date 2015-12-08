@@ -17,7 +17,11 @@ class PointViewer : public QGLViewer {
 Q_OBJECT
 public:
   PointViewer(QWidget *parent = 0);
+
   void update(vector<shared_ptr<ObjectPoint>> &object_points, vector<shared_ptr<ImageCamera>> &cameras);
+
+  // sets the pivot at the objects center
+  void setObjectCenterPivot();
 
 protected :
   virtual void draw();
