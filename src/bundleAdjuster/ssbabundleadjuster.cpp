@@ -11,6 +11,7 @@ void SSBABundleAdjuster::adjust(Mat intrinsicCameraParams, vector<shared_ptr<Obj
 
   // prepare data for bundle adjustment
   Matrix3x3d K = convertIntrinsicCameraParams(intrinsicCameraParams);
+  Matrix3x3d Knorm = normalizeIntrinsicCameraParams(K);
   double const inlierThreshold = 2.0 / fabs(K[0][0]);
   StdDistortionFunction distortion;
   vector<Vector3d> Xs = convertObjectPoints(objectPoints);
@@ -21,7 +22,7 @@ void SSBABundleAdjuster::adjust(Mat intrinsicCameraParams, vector<shared_ptr<Obj
   getCorrespondences(objectPoints, K, measurements, correspondingView, correspondingPoint);
 
   // do adjustment
-  CommonInternalsMetricBundleOptimizer optimizer(V3D::FULL_BUNDLE_FOCAL_LENGTH_PP, inlierThreshold, K, distortion, cams,
+  CommonInternalsMetricBundleOptimizer optimizer(V3D::FULL_BUNDLE_FOCAL_LENGTH_PP, inlierThreshold, Knorm, distortion, cams,
                                                  Xs, measurements, correspondingView, correspondingPoint);
 
   optimizer.tau = 1e-3;
@@ -63,8 +64,7 @@ vector<Vector3d> SSBABundleAdjuster::convertObjectPoints(const vector<shared_ptr
   return points;
 }
 
-vector<CameraMatrix> SSBABundleAdjuster::getCameras(vector<shared_ptr<Image>> &images, Matrix3x3d &K) {
-  Matrix3x3d Knorm = normalizeIntrinsicCameraParams(K);
+vector<CameraMatrix> SSBABundleAdjuster::getCameras(vector<shared_ptr<Image>> &images, Matrix3x3d &Knorm) {
   vector<CameraMatrix> cams;
   for (unsigned int i = 0; i < images.size(); ++i) {
     Matrix3x3d rotation;
