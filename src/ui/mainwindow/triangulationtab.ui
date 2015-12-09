@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>854</width>
+    <width>954</width>
     <height>437</height>
    </rect>
   </property>
@@ -49,7 +49,14 @@
        <item>
         <widget class="QPushButton" name="doBundleAdjustment">
          <property name="text">
-          <string>Perform bundle adjustment</string>
+          <string>Bundle adjust</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="denseReconstruct">
+         <property name="text">
+          <string>Dense Reconst.</string>
          </property>
         </widget>
        </item>

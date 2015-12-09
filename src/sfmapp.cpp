@@ -200,3 +200,7 @@ void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
 void SFMApp::doBundleAdjustment() {
   bundleAdjuster->adjust(intrinsic_camera_parameters_, object_points, images);
 }
+
+void SFMApp::doDenseReconstructon() {
+  denseReconstructor->reconstruct(image_pairs);
+}

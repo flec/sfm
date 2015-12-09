@@ -33,6 +33,8 @@ private slots:
 
   void on_centerPivot_clicked();
 
+  void on_denseReconstruct_clicked();
+
 private:
   Ui::TriangulationTab *ui;
   SFMApp *sfmapp;

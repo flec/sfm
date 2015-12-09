@@ -9,13 +9,13 @@
 #include <memory>
 #include <cameraMatrixFinder/cameramatrixfinder.h>
 #include "cameraMatrixFinder/ransaccameramatrixfinder.h"
-#include <featureDetector/kazefeaturedetector.h>
-#include <featureDetector/orbfeaturedetector.h>
-#include <featureDetector/siftfeaturedetector.h>
-#include <featureDetector/surffeaturedetector.h>
-#include <featureDetector/surfcudafeaturedetector.h>
-#include <featureDetector/briskfeaturedetector.h>
-#include <projectionMatrixFinder/cvprojectionmatrixfinder.h>
+#include "featureDetector/kazefeaturedetector.h"
+#include "featureDetector/orbfeaturedetector.h"
+#include "featureDetector/siftfeaturedetector.h"
+#include "featureDetector/surffeaturedetector.h"
+#include "featureDetector/surfcudafeaturedetector.h"
+#include "featureDetector/briskfeaturedetector.h"
+#include "projectionMatrixFinder/cvprojectionmatrixfinder.h"
 #include "projectionMatrixFinder/basicprojectionmatrixfinder.h"
 #include "image/pair/imagepair.h"
 #include "featureDetector/featuredetector.h"
@@ -25,6 +25,8 @@
 #include "triangulator/cvtriangulator.h"
 #include "pnpSolver/ransacpnpsolver.h"
 #include "bundleAdjuster/ssbabundleadjuster.h"
+#include "denseReconstructor/patchdensereconstructor.h"
+#include "denseReconstructor/densereconstructor.h"
 
 using namespace std;
 
@@ -42,6 +44,7 @@ private:
   Triangulator *triangulator = new CVTriangulator();
   PnPSolver *pnpSolver = new RANSACPnPSolver();
   BundleAdjuster *bundleAdjuster = new SSBABundleAdjuster();
+  DenseReconstructor *denseReconstructor = new PatchDenseReconstructor();
 
   shared_ptr<ImagePair> initial_image_pair; // initial image pair
 
@@ -106,6 +109,8 @@ public:
   }
 
   void doBundleAdjustment();
+
+  void doDenseReconstructon();
 
 };
 

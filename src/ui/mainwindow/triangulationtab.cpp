@@ -27,7 +27,7 @@ void TriangulationTab::showHelp() {
 }
 
 void TriangulationTab::updateViewer() {
-  vector<shared_ptr<ImageCamera>> cameras;
+  vector <shared_ptr<ImageCamera>> cameras;
 
   for (auto image : sfmapp->images)
     if (image->camera()->extrinsic()->data != NULL)
@@ -48,4 +48,8 @@ void TriangulationTab::on_doBundleAdjustment_clicked() {
 
 void TriangulationTab::on_centerPivot_clicked() {
   ui->qGLViewerWidget->setObjectCenterPivot();
+}
+
+void TriangulationTab::on_denseReconstruct_clicked() {
+
 }
