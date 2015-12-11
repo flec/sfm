@@ -15,17 +15,38 @@ using namespace cv;
 class Image;
 
 /**
- *
+ * Represents a key point index with corresponding image
  */
 struct KeyPointImagePair {
 private:
+  /**
+   * index of the referenced key point
+   */
   int key_point_index_;
+  /**
+   * Corresponding image
+   */
   shared_ptr<Image> image_;
 public:
+  /**
+   * Default constructor
+   */
   KeyPointImagePair();
+  /**
+   * Constructor that initializes all fields
+   */
   KeyPointImagePair(int key_point_index, shared_ptr<Image> image);
+  /**
+   * Getter for key point
+   */
   KeyPoint *getKeyPoint();
+  /**
+   * Getter for key point index
+   */
   int key_point_index(){ return key_point_index_;}
+  /**
+   * Getter for image
+   */
   shared_ptr<Image> image() { return image_;}
 };
 
