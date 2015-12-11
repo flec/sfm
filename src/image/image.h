@@ -20,12 +20,6 @@ struct Image {
   friend class TestCube;
 
 private:
-  // vector containing keypoints of the features
-  vector<KeyPoint> keypoints_;
-
-  // cv::Mat containing the descriptors of the features
-  Mat descriptors_;
-
   // The image itself in color
   Mat mat_color_;
 
@@ -38,15 +32,19 @@ private:
   // Directory that contains the image
   string file_path_;
 
-  // map with keypoint index and opject point
-  map<int, shared_ptr<ObjectPoint>> object_points_;
+  // vector containing keypoints of the features
+  vector<KeyPoint> keypoints_;
+
+  // cv::Mat containing the descriptors of the features
+  Mat descriptors_;
 
   // Camera that sees this image
   shared_ptr<ImageCamera> camera_;
 
-  /**
-   * Unload image from memory before deconstruction
-   */
+  // A map containing all object points that are based on a keypoint of this image
+  // The key is the keypoint index and the value the opject point
+  map<int, shared_ptr<ObjectPoint>> object_points_;
+
   Image() { };
 
 public:
@@ -56,24 +54,43 @@ public:
    *
    * file_path    Path and name to the image
    * load_color   Load mat_grey AND mat_color
+   *
+   * throws   ImageLoadException    if the image cannot be loaded (ie the file_path is not a path to an image)
    */
   Image(string const &file_path, bool const load_color = true);
 
+  /**
+   * Unload image from memory before deconstruction
+   */
   ~Image();
 
-  map<int, shared_ptr<ObjectPoint>> *object_points() { return &object_points_; };
+  /**
+   * Add an object point that is based on a keypoint of this image
+   *
+   * keypoint_index   index of the keypoint
+   * point            the ObjectPoint to add
+   */
+  void addObjectPoint(int keypoint_index, shared_ptr<ObjectPoint> point);
 
-  void addObjectPoint(int keypointIndex, shared_ptr<ObjectPoint> point);
+  /**
+   * remove a reference to an ObjectPoint that this image has
+   *
+   * keypoint_index   index of the keypoint that has a reference to the ObjectPoint. This reference will be removed.
+   */
+  void removeObjectPoint(int keypoint_index);
 
-  void removeObjectPoint(int keypointIndex);
-
-  shared_ptr<ObjectPoint> getObjectPoint(int keypointIndex);
-
-  shared_ptr<ImageCamera> camera() { return camera_; };
+  /**
+   * Get the ObjectPoint that is based on a certain keypoint
+   *
+   * keypoint_index   index of the keypoint
+   */
+  shared_ptr<ObjectPoint> getObjectPoint(int keypoint_index);
 
   void clearObjectPointsAndCamera();
 
-  // Getters/Setters
+  //
+  // getters/setters
+  //
 
   Mat *mat_color() { return (mat_color_.data != NULL) ? &mat_color_ : &mat_grey_; }
 
@@ -87,6 +104,9 @@ public:
 
   Mat *descriptors() { return &descriptors_; }
 
+  map<int, shared_ptr<ObjectPoint>> *object_points() { return &object_points_; };
+
+  shared_ptr<ImageCamera> camera() { return camera_; };
 };
 
 
