@@ -1,21 +1,22 @@
 # Structure from Motion
 
-The main logic is in sfmapp.h/sfmapp.cpp. One can easily interchange feature detectors and so on int the sfmapp.h file.
+The main logic is in `sfmapp.h` and `sfmapp.cpp`. One can easily interchange feature detectors and so on int the sfmapp.h file.
 
 ## Installation
-## CUDA
+### CUDA
 One can offload feature detection to the graphic card. Thus enable the USE_CUDA CMake option and compile OpenCV with 
  CUDA.
 ### Linux
 1. Build OpenCV with the contrib modules and install it:
-⋅⋅⋅<https://github.com/itseez/opencv_contrib#how-to-build-opencv-with-extra-modules>
+   <https://github.com/itseez/opencv_contrib#how-to-build-opencv-with-extra-modules>
 
 2. Install the following dependencies:
-⋅⋅⋅* libsuitesparse-dev
-⋅⋅⋅* Qt (working for us: 5.5.0)
-⋅⋅⋅* libqglviewer-dev (working for us: 2.6.3+dfsg1-1)
+   * libsuitesparse-dev
+   * Qt (working for us: 5.5.0)
+   * libqglviewer-dev (working for us: 2.6.3+dfsg1-1)
 
-3. ```bash
+3. Compile it: 
+```bash
 mkdir build
 cd build
 cmake ..
