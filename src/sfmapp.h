@@ -37,7 +37,11 @@ class SFMApp {
 private:
   static SFMApp *instance;
 
+#ifdef USE_CUDA
   FeatureDetecter *feature_detector = new SURFCUDAFeatureDetector(); // init feature detector
+#else
+  FeatureDetecter *feature_detector = new SURFFeatureDetector(); // init feature detector
+#endif
   FeatureMatcher *feature_matcher = new FlannFeatureMatcher(); // init feature matcher
   CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();  // camera matrix finder for initial matirx
   ProjectionMatrixFinder *projectionMatrixFinder = new BasicProjectionMatrixFinder(); // projection matrix finder
