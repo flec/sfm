@@ -12,11 +12,29 @@
 
 using namespace std;
 
+/**
+ * Class for bulk loading Images from a directory.
+ */
 class ImageLoader {
 public:
-  static vector<shared_ptr<Image>> loadImagesFromDir(string const &dirName);
+
+  /**
+   * Load all images from a directory.
+   *
+   * dir_name   The directory to load the images from
+   * returns    A vector containing all loaded Images
+   */
+  static vector<shared_ptr<Image>> loadImagesFromDir(string const &dir_name);
 
 private:
+
+  /**
+   * Get all file names that are inside a directory sorted by ASCII table.
+   * Check the value of the global variable errno after calling this function for errors.
+   *
+   * path     The path to the directory
+   * returns  A vector containing all file names of the directory
+   */
   static vector<string> read_directory(const string &path = string());
 };
 

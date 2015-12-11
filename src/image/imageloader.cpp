@@ -12,20 +12,19 @@
 
 using namespace std;
 
-vector<shared_ptr<Image>> ImageLoader::loadImagesFromDir(string const &dirName) {
-  vector<string> files = read_directory(dirName);
+vector<shared_ptr<Image>> ImageLoader::loadImagesFromDir(string const &dir_name) {
+  vector<string> files = read_directory(dir_name);
   if (errno == 0) {
     vector<shared_ptr<Image>> images;
 
     // Load images in a parallel fashion
-    // http://stackoverflow.com/a/18671256
 #pragma omp parallel
     {
       vector<shared_ptr<Image>> images_private;
 #pragma omp for nowait schedule(static)
       for (int i = 0; i < files.size() - 1; i++) {
         try {
-          shared_ptr<Image> image(new Image(dirName + files.at(i)));
+          shared_ptr<Image> image(new Image(dir_name + files.at(i)));
           images_private.push_back(image);
         } catch (const ImageLoadException &e) {
 #ifdef DEBUG
@@ -41,17 +40,10 @@ vector<shared_ptr<Image>> ImageLoader::loadImagesFromDir(string const &dirName) 
     }
     return images;
   } else {
-    throw ImageLoadException("ImageLoader::loadImagesFromDir(): cannot open directory  " + dirName);
+    throw ImageLoadException("ImageLoader::loadImagesFromDir(): cannot open directory  " + dir_name);
   }
 }
 
-// read_directory()
-//   Return an ASCII-sorted vector of filename entries in a given directory.
-//   If no path is specified, the current working directory is used.
-//
-//   Always check the value of the global 'errno' variable after using this
-//   function to see if anything went wrong. (It will be zero if all is well.)
-//
 vector<string> ImageLoader::read_directory(const string &path) {
   vector<string> result;
   dirent *de;
