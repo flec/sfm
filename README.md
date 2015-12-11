@@ -1,5 +1,7 @@
 # Structure from Motion
 
+The main logic is in sfmapp.h/sfmapp.cpp. One can easily interchange feature detectors and so on int the sfmapp.h file.
+
 ## Installation
 ## CUDA
 One can offload feature detection to the graphic card. Thus enable the USE_CUDA CMake option and compile OpenCV with 
