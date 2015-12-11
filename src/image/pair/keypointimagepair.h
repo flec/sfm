@@ -14,17 +14,40 @@ using namespace cv;
 // forward declaration
 class Image;
 
+/**
+ * Represents a key point index with corresponding image
+ */
 struct KeyPointImagePair {
+private:
+  /**
+   * index of the referenced key point
+   */
+  int key_point_index_;
+  /**
+   * Corresponding image
+   */
+  shared_ptr<Image> image_;
 public:
+  /**
+   * Default constructor
+   */
   KeyPointImagePair();
-
-  KeyPointImagePair(int keyPointIndex, KeyPoint *keyPoint, shared_ptr<Image> image);
-
-  KeyPointImagePair(int keyPointIndex, shared_ptr<Image> image);
-
-  int keyPointIndex;
-  KeyPoint *key_point;
-  shared_ptr<Image> image;
+  /**
+   * Constructor that initializes all fields
+   */
+  KeyPointImagePair(int key_point_index, shared_ptr<Image> image);
+  /**
+   * Getter for key point
+   */
+  KeyPoint *getKeyPoint();
+  /**
+   * Getter for key point index
+   */
+  int key_point_index(){ return key_point_index_;}
+  /**
+   * Getter for image
+   */
+  shared_ptr<Image> image() { return image_;}
 };
 
 #endif //SFM_KEYPOINTIMAGEPAIR_H
