@@ -21,3 +21,20 @@ mkdir build
 cd build
 cmake ..
 ```
+
+## Usage
+### Datasets
+For sake of comfort, two sample datasets are already provided in the datasets folder.
+### Camera intrinsic parameters
+To avoid specifying the camera intrinsic parameters on every run in the GUI, one can define those in a file called 
+`camera_intrinsic.yaml`, which must be in the same folder as the images. Replace `fx`, `fy`, `cx` and `cy` accordingly.
+```yaml
+%YAML:1.0
+mat1: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [fx, 0,  cx, 
+          0,  fy, cy,
+          0,  0,  1 ] 
+```
