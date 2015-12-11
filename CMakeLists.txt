@@ -7,7 +7,7 @@ project(sfm)
 
 ########### options ###############
 SET(USE_QT TRUE CACHE BOOL "Build with CLI or QT GUI?")
-SET(USE_CUDA TRUE CACHE BOOL "Build with CUDA?")
+SET(USE_CUDA FALSE CACHE BOOL "Build with CUDA?")
 ########### END options ###########
 
 # Set a default build type for single-configuration

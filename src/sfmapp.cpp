@@ -4,18 +4,15 @@
 
 #include "image/imageloader.h"
 #include "sfmapp.h"
-#include "util/plyutil.h"
-#include <iostream>
-#include <ctime>
 #include <omp.h>
+
+SFMApp *SFMApp::instance = 0;
 
 SFMApp *SFMApp::getInstance() {
   if (!instance)
     instance = new SFMApp();
   return instance;
 }
-
-SFMApp *SFMApp::instance = 0;
 
 void SFMApp::loadImages(string const &images_dir) {
   images_ = ImageLoader::loadImagesFromDir(images_dir);
@@ -38,13 +35,13 @@ void SFMApp::matchFeatures() {
   object_points_.clear();
 
   // Match keypoints of images in a parallel fashion
-  // http://stackoverflow.com/a/18671256
 #pragma omp parallel
   {
     vector<shared_ptr<ImagePair>> image_pairs_private;
 #pragma omp for nowait schedule(static)
     for (int i = 0; i < images_.size() - 1; i++) {
       image_pairs_private.push_back(feature_matcher->matchFeatures(images_.at(i), images_.at(i + 1)));
+      // filtering matches can turn out bad, if we have very very good matches that are used as a reference.
       //feature_matcher->filterMatches(image_pairs_private.back());
     }
 #pragma omp for schedule(static) ordered
@@ -54,7 +51,6 @@ void SFMApp::matchFeatures() {
     }
   }
 }
-
 
 void SFMApp::findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat &intristic_camera_paramaters) {
   this->initial_image_pair = initial_image_pair;
@@ -67,7 +63,6 @@ void SFMApp::findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat 
   // find projection matrix
   projectionMatrixFinder->findProjectionMatrix(initial_image_pair, intristic_camera_paramaters);
 }
-
 
 void SFMApp::triangulateInitialImagePair() {
   // Clear the current object points
