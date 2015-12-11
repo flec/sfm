@@ -71,12 +71,8 @@ IF (USE_QT)
 ENDIF (USE_QT)
 ########### END Qt 5 ##############
 
-########### SuiteSparse ###########
-include_directories(/usr/include/suitesparse)
-link_libraries(colamd)
-########### END SuiteSparse #######
-
 ########### vendors ###############
+link_libraries(colamd)
 add_subdirectory(vendor/SSBA-4.0)
 link_directories(vendor/SSBA-4.0)
 link_libraries(V3D)
