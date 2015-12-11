@@ -29,8 +29,8 @@ void ObjectPoint::updateGlCoordinates() {
   gl_coordinates_mat.copyTo(Mat(gl_coordinates_, false));
 }
 
-void ObjectPoint::addReference(int keypointIndex, shared_ptr<Image> image) {
-  references_.push_back(KeyPointImagePair(keypointIndex, image));
+void ObjectPoint::addReference(int key_point_index, shared_ptr<Image> image) {
+  references_.push_back(KeyPointImagePair(key_point_index, image));
 }
 
 void ObjectPoint::removeReferencesToImage(shared_ptr<Image> image) {
@@ -38,9 +38,9 @@ void ObjectPoint::removeReferencesToImage(shared_ptr<Image> image) {
   for (auto reference : references_) {
     if (reference.image == image) {
       references_.erase(references_.begin() + i);
-    }
-    else
+    } else {
       ++i;
+    }
   }
 }
 
