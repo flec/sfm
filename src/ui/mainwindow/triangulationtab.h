@@ -1,8 +1,12 @@
+// Copyright 2015 Marco Fuellemann & Janosch Rohdewald.  All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 #ifndef TRIANGULATIONTAB_H
 #define TRIANGULATIONTAB_H
 
 #include <QWidget>
-#include <src/sfmapp.h>
+#include "sfmapp.h"
 
 namespace Ui {
   class TriangulationTab;

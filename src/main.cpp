@@ -1,4 +1,8 @@
-#ifdef USE_GUI
+// Copyright 2015 Marco Fuellemann & Janosch Rohdewald.  All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
+#ifdef USE_QT
 
 #include "ui/mainwindow/mainwindow.h"
 #include <QApplication>

@@ -1,6 +1,6 @@
-//
-// Created by joschi on 20.11.15.
-//
+// Copyright 2015 Marco Fuellemann & Janosch Rohdewald.  All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
 #ifndef SFM_BRISKFEATUREDETECTOR_H
 #define SFM_BRISKFEATUREDETECTOR_H
