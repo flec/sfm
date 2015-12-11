@@ -7,8 +7,13 @@ project(sfm)
 
 ########### options ###############
 SET(USE_QT TRUE CACHE BOOL "Build with CLI or QT GUI?")
-SET(USE_CUDA TRUE CACHE BOOL "Build with CUDA?")
+SET(USE_CUDA FALSE CACHE BOOL "Build with CUDA?")
+SET(USE_VAR_IMAGES FALSE CACHE BOOL "Look for the images in /var/images?")
 ########### END options ###########
+
+IF (USE_VAR_IMAGES)
+  add_definitions(-DUSE_VAR_IMAGES)
+ENDIF (USE_VAR_IMAGES)
 
 # Set a default build type for single-configuration
 # CMake generators if no build type is set.

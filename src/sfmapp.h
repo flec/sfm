@@ -41,7 +41,7 @@ private:
 
   // Initialize the FeatureDetecter
 #ifdef USE_CUDA
-  FeatureDetecter *feature_detector = new SURFFeatureDetector();
+  FeatureDetecter *feature_detector = new SURFCUDAFeatureDetector();
 #else
   FeatureDetecter *feature_detector = new SURFFeatureDetector();
 #endif
