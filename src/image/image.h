@@ -5,7 +5,7 @@
 #ifndef SFM_IMAGE_H
 #define SFM_IMAGE_H
 
-#include <opencv2/core/mat.hpp>
+#include "opencv2/core/mat.hpp"
 #include <map>
 #include "objectPoint/objectpoint.h"
 #include "camera/imagecamera.h"
