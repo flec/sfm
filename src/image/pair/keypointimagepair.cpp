@@ -9,7 +9,6 @@ KeyPointImagePair::KeyPointImagePair() { }
 
 KeyPointImagePair::KeyPointImagePair(int keyPointIndex, KeyPoint *keyPoint, shared_ptr<Image> image) :
     keyPointIndex(keyPointIndex), key_point(keyPoint), image(image) {
-
 }
 
 KeyPointImagePair::KeyPointImagePair(int keyPointIndex, shared_ptr<Image> image) :

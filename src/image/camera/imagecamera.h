@@ -5,32 +5,52 @@
 #ifndef SFM_CAMERA_H
 #define SFM_CAMERA_H
 
-#include <opencv2/core/mat.hpp>
+#include "opencv2/core/mat.hpp"
 #include <memory>
 
 using namespace std;
 using namespace cv;
 
+/*
+ * Represents a camera that sees an Image.
+ */
 struct ImageCamera {
 private:
   // Projection matrix
   Mat_<float> projection_;
 
-  // extrinsic matrix with camera rotation and translation [R|t]
+  // Camera position as rotation and translation [R|t] in object coordinates (relative to the camera)
   Mat_<double> extrinsic_;
 
-  // cameras position as rotation and translation [R|t] in world coordinates
+  // Camera position as rotation and translation [R|t] in world coordinates (relative to the world/center)
   Mat_<double> position_;
 
-  // rotated by 180? around the X axis
-  // OpenCV: x goes top-down, y left to right
-  // OpenGL: x(-axis) goes bottom-up, y left to right
+  // Camera position rotated by 180 degrees around the X axis. This is used, to get the point cloud not bottom-up, as
+  //   - OpenCV: x goes top-down, y left to right
+  //   - OpenGL: x(-axis) goes bottom-up, y left to right
   Mat_<double> gl_position_;
 
+  // Rotation matrix used to rotate a point by 180 degrees around the X-axis
   static Mat_<double> rotate_x_axis_180;
 
 public:
 
+  /**
+   * Set the extrinsic rotation and translation. The parameters must be in object coordinates.
+   *
+   * rotation     The rotation of the camera in object coordinates.
+   * translation  The translation of the camera in object coordinates.
+   */
+  void set_extrinsic(const Mat_<double> &rotation, const Mat_<double> &translation);
+
+  /**
+   * Set rotation and translation to identity matrix.
+   */
+  void set_extrinsic();
+
+  //
+  // getters / setters
+  //
 
   Mat_<float> *projection() {return &projection_;}
 
@@ -49,12 +69,6 @@ public:
   Mat_<double> position_translation() { return position_.data==NULL?Mat_<double>(): position_(Rect(3, 0, 1, 3)); }
 
   Mat_<double> gl_translation() { return gl_position_(Rect(3, 0, 1, 3)); }
-
-  void set_extrinsic(const Mat_<double> &rotation, const Mat_<double> &translation);
-
-  // sets rotation and translation to identity matrix
-  void set_extrinsic();
-
 };
 
 

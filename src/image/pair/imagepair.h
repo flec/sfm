@@ -41,8 +41,10 @@ public:
   // The essential matrix that relates the corresponding points of the two images
   Mat_<double> essential;
 
-  // Points for triangulation
+  // Points used for triangulation of image1
   vector<Point2f> triangulation_points1;
+
+  // Points used for triangulation of image2
   vector<Point2f> triangulation_points2;
 
   // For solving the PnP problem, one needs to know which object point ("in space") is related to
@@ -50,11 +52,21 @@ public:
   // Thus the ObjectPoints for solving PnP are saved in this vector
   vector<Point3f> pnp_object_points;
 
-  // and the points that refer to the image are saved in this image
+  // and the points that refer to the image (image2) are saved in this vector
   vector<Point2f> pnp_image_points;
 
+  /**
+   * Get the matches/keypoints in as two vector of Point2f.
+   *
+   * output: points1    the matched keypoints in image1
+   * output: points2    the matched keypoints in image2
+   */
   void getMatches(vector<Point2f> &points1, vector<Point2f> &points2);
 
+  /**
+   * Clear all the matrices. Is used if one would like to restart the calculation
+   * with the same images
+   */
   void clearMatrices();
 };
 

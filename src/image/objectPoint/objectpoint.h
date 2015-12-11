@@ -5,7 +5,6 @@
 #ifndef SFM_OBJECTPOINT_H
 #define SFM_OBJECTPOINT_H
 
-
 #include <opencv2/core/types.hpp>
 #include <utility>
 #include <memory>
