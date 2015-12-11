@@ -19,6 +19,13 @@ using namespace V3D;
  */
 class SSBABundleAdjuster : public BundleAdjuster {
 private:
+
+  /**
+   * Optimizer parameters
+   */
+  static const double OPTIMIZER_TAU;
+  static const int OPTIMIZER_MAX_ITERATIONS;
+
   /**
    * maps images to cameras (image name to camera index)
    */
