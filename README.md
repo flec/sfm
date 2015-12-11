@@ -1,6 +1,6 @@
 # Structure from Motion
 
-The main logic is in `sfmapp.h` and `sfmapp.cpp`. One can easily interchange feature detectors and so on int the sfmapp.h file.
+The main logic is in `sfmapp.h` and `sfmapp.cpp`. One can easily interchange feature detectors and so on in the `sfmapp.h` file.
 
 ## Installation
 ### CUDA
