@@ -128,7 +128,7 @@ void SSBABundleAdjuster::getCorrespondences(const vector<shared_ptr<ObjectPoint>
       scaleVectorIP(1.0 / k[0][0], image_point);
       measurements.push_back(Vector2d(image_point[0], image_point[1]));
 
-      // set corresondences between image and 3D point
+      // set correspondences between image and 3D point
       corresponding_view.push_back(image_camera_map[reference.image()->file_name()]);
       corresponding_point.push_back(i);
     }
