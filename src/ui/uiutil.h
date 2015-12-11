@@ -10,10 +10,29 @@
 
 using namespace cv;
 
+/**
+ * A generic util with static functions that helps performing UI tasks.
+ */
 class UIUtil {
 public:
-  static Mat get_mat_from_qtable(QTableWidget &table);
-  static void insert_mat_in_qtable(Mat &mat, QTableWidget &table);
+  /**
+   * Convert a QTableWidget into a Mat_<double>.
+   * This is ie. needed to read the camera instrinsic parameters.
+   * Make sure that the Mat and the QTableWidget have the same size (cols/rows).
+   *
+   * table    The QTableWidget
+   * returns  The cv::Mat_<double>
+   */
+  static Mat getMatFromQtable(QTableWidget &table);
+
+  /**
+   * Insert a matrix into a QTableWidget.
+   * Make sure that the Mat and the QTableWidget have the same size (cols/rows).
+   *
+   * mat      The cv::Mat_<double>
+   * table    The QTableWidget
+   */
+  static void insertMatInQtable(Mat &mat, QTableWidget &table);
 };
 
 

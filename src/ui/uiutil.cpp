@@ -5,7 +5,7 @@
 #include <iostream>
 #include "uiutil.h"
 
-Mat UIUtil::get_mat_from_qtable(QTableWidget &table) {
+Mat UIUtil::getMatFromQtable(QTableWidget &table) {
   Mat_<double> mat(table.rowCount(), table.columnCount());
   for (int row = 0; row < table.rowCount(); row++) {
     for (int col = 0; col < table.columnCount(); col++) {
@@ -19,7 +19,7 @@ Mat UIUtil::get_mat_from_qtable(QTableWidget &table) {
 }
 
 
-void UIUtil::insert_mat_in_qtable(Mat &mat, QTableWidget &table) {
+void UIUtil::insertMatInQtable(Mat &mat, QTableWidget &table) {
   for (int row = 0; row < mat.size().height; row++) {
     for (int col = 0; col < mat.size().width; col++) {
       if (table.item(row, col) == 0)
