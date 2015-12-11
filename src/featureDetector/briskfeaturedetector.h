@@ -5,21 +5,24 @@
 #ifndef SFM_BRISKFEATUREDETECTOR_H
 #define SFM_BRISKFEATUREDETECTOR_H
 
-
-#include <opencv2/features2d.hpp>
+#include "opencv2/features2d.hpp"
 #include "featuredetector.h"
 
+/*
+ * Implementation of the BRISK feature detector
+ */
 class BRISKFeatureDetector : public FeatureDetecter {
 private:
   Ptr<BRISK> brisk;
 
-
 public:
   BRISKFeatureDetector();
 
-  void detectFeatures(vector<shared_ptr<Image>> &images, bool useProvidedKeypoints = false);
+  /**
+   * @see FeatureDetecter
+   */
+  void detectFeatures(vector<shared_ptr<Image>> &images, bool use_provided_keypoints = false);
 
 };
-
 
 #endif //SFM_BRISKFEATUREDETECTOR_H

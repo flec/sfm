@@ -5,9 +5,12 @@
 #ifndef SFM_KAZEFEATUREDETECTOR_H
 #define SFM_KAZEFEATUREDETECTOR_H
 
-#include <opencv2/features2d.hpp>
+#include "opencv2/features2d.hpp"
 #include "featuredetector.h"
 
+/*
+ * Implementation of the KAZE feature detector
+ */
 class KAZEFeatureDetector : public FeatureDetecter {
 private:
   Ptr<KAZE> kaze;
@@ -15,7 +18,10 @@ private:
 public:
   KAZEFeatureDetector();
 
-  void detectFeatures(vector<shared_ptr<Image>> &images, bool useProvidedKeypoints = false);
+  /**
+   * @see FeatureDetecter
+   */
+  void detectFeatures(vector<shared_ptr<Image>> &images, bool use_provided_keypoints = false);
 };
 
 

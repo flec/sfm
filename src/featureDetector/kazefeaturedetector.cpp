@@ -5,15 +5,11 @@
 
 #include "kazefeaturedetector.h"
 
-
-
 KAZEFeatureDetector::KAZEFeatureDetector() : kaze(KAZE::create(false,false, 0.000001f,6,6)) {
 }
 
-void KAZEFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, bool useProvidedKeypoints) {
+void KAZEFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, bool use_provided_keypoints) {
   for (auto image: images) {
-    image->get_keypoints()->clear();
-    image->get_descriptors()->release();
-    kaze->detectAndCompute(*image->mat_grey(), noArray(), *image->get_keypoints(), *image->get_descriptors(), useProvidedKeypoints);
+    kaze->detectAndCompute(*image->mat_grey(), noArray(), *image->get_keypoints(), *image->get_descriptors(), use_provided_keypoints);
   }
 }

@@ -4,12 +4,16 @@
 
 #ifndef SFM_SURFFEATUREDETECTOR_H
 #define SFM_SURFFEATUREDETECTOR_H
+
 #include "featuredetector.h"
-#include <opencv2/xfeatures2d.hpp>
-#include <opencv2/calib3d.hpp>
+#include "opencv2/xfeatures2d.hpp"
+#include "opencv2/calib3d.hpp"
 
 using namespace xfeatures2d;
 
+/*
+ * Implementation of the SURF feature detector
+ */
 class SURFFeatureDetector : public FeatureDetecter {
 private:
   Ptr<SURF> surf;
@@ -18,9 +22,11 @@ private:
 public:
   SURFFeatureDetector();
 
-  void detectFeatures(vector<shared_ptr<Image>> &images, bool useProvidedKeypoints = false);
+  /**
+   * @see FeatureDetecter
+   */
+  void detectFeatures(vector<shared_ptr<Image>> &images, bool use_provided_keypoints = false);
 
 };
-
 
 #endif //SFM_SURFFEATUREDETECTOR_H

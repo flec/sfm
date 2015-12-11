@@ -11,8 +11,10 @@
 SURFCUDAFeatureDetector::SURFCUDAFeatureDetector() : surf_cuda(SURF_CUDA((100, 4, 3, true, false))) {
 }
 
-void SURFCUDAFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, bool useProvidedKeypoints) {
-  cv::cuda::printShortCudaDeviceInfo(cv::cuda::getDevice());
+void SURFCUDAFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, bool use_provided_keypoints) {
+#ifdef DEBUG
+  printShortCudaDeviceInfo(cv::cuda::getDevice());
+#endif
 
   // Detect keypoints of images in a parallel fashion
 #pragma omp for
@@ -22,12 +24,13 @@ void SURFCUDAFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, 
     // Upload image to GPU
     GpuMat img_GPU;
     img_GPU.upload(*images.at(i)->mat_grey());
-    surf_cuda(img_GPU, GpuMat(), keypoints_GPU, descriptors_GPU, useProvidedKeypoints);
+
+    // compute the descriptors and keypoints on the GPU
+    surf_cuda(img_GPU, GpuMat(), keypoints_GPU, descriptors_GPU, use_provided_keypoints);
 
     // download results from GPU
     surf_cuda.downloadKeypoints(keypoints_GPU, *images.at(i)->get_keypoints());
     Mat(descriptors_GPU).copyTo(*images.at(i)->get_descriptors());
-    //surf_cuda.downloadDescriptors(descriptors_GPU, *image->get_descriptors());
   }
 }
 

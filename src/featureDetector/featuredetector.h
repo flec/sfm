@@ -5,8 +5,6 @@
 #ifndef SFM_FEATUREDETECTOR_H
 #define SFM_FEATUREDETECTOR_H
 
-#pragma once
-
 #include <opencv2/core/cvdef.h>
 #include "opencv2/core/core.hpp"
 #include "image/image.h"
@@ -15,11 +13,23 @@
 using namespace cv;
 using namespace std;
 
+/*
+ * Interface for detecting image features. Responsibility of a FeatureDetecter is to detect and describe features
+ * in an image.
+ */
 class FeatureDetecter {
 public:
-  const static int max_features=5000;
+  // Detect a maximum of max_features, if supported by the implementing feature detector.
+  const static int max_features = 5000;
 
-  virtual void detectFeatures(vector<shared_ptr<Image>> &images, bool useProvidedKeypoints = false) = 0;
+  /**
+   * Detect the features for each image. The result being keypoints and descriptors are save into the Image itself.
+   * Thus Image->descriptors and Image->keypoints will be overriden.
+   *
+   * images                 Detect the features for this list of images.
+   * use_provided_keypoints Use the provided keypoints and therefore update only the descriptors.
+   */
+  virtual void detectFeatures(vector<shared_ptr<Image>> &images, bool use_provided_keypoints = false) = 0;
 
 };
 

@@ -5,13 +5,11 @@
 
 #include "orbfeaturedetector.h"
 
-
-
 ORBFeatureDetector::ORBFeatureDetector() : orb(ORB::create(FeatureDetecter::max_features)) {
 }
 
-void ORBFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, bool useProvidedKeypoints) {
+void ORBFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, bool use_provided_keypoints) {
   for (auto image: images) {
-    orb->detectAndCompute(*image->mat_grey(), noArray(), *image->get_keypoints(), *image->get_descriptors(), useProvidedKeypoints);
+    orb->detectAndCompute(*image->mat_grey(), noArray(), *image->get_keypoints(), *image->get_descriptors(), use_provided_keypoints);
   }
 }
