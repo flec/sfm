@@ -23,7 +23,8 @@ class FeatureMatcher {
 public:
   /**
    * Match features between two images. Thus the descriptors of both images are matched by an algorithm against each
-   * other. The result is a list that matches one keypoint in image1 to another in image2.
+   * other. The keypoints and descriptors must have been calculated previously using a FeatureDetector.
+   * The result is a list that matches one keypoint in image1 to another in image2.
    *
    * image1   First image
    * image2   Second image
