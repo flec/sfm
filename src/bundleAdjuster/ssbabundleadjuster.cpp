@@ -119,7 +119,7 @@ void SSBABundleAdjuster::getCorrespondences(const vector<shared_ptr<ObjectPoint>
     for (auto reference : *object_points.at(i)->references()) {
       // get image point
       Vector3d image_point;
-      Point2f key_point = reference.key_point->pt;
+      Point2f key_point = reference.getKeyPoint()->pt;
       image_point[0] = key_point.x;
       image_point[1] = key_point.y;
       image_point[2] = 1.0;
@@ -129,7 +129,7 @@ void SSBABundleAdjuster::getCorrespondences(const vector<shared_ptr<ObjectPoint>
       measurements.push_back(Vector2d(image_point[0], image_point[1]));
 
       // set corresondences between image and 3D point
-      corresponding_view.push_back(image_camera_map[reference.image->file_name()]);
+      corresponding_view.push_back(image_camera_map[reference.image()->file_name()]);
       corresponding_point.push_back(i);
     }
   }

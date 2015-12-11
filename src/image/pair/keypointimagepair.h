@@ -14,17 +14,19 @@ using namespace cv;
 // forward declaration
 class Image;
 
+/**
+ *
+ */
 struct KeyPointImagePair {
+private:
+  int key_point_index_;
+  shared_ptr<Image> image_;
 public:
   KeyPointImagePair();
-
-  KeyPointImagePair(int keyPointIndex, KeyPoint *keyPoint, shared_ptr<Image> image);
-
-  KeyPointImagePair(int keyPointIndex, shared_ptr<Image> image);
-
-  int keyPointIndex;
-  KeyPoint *key_point;
-  shared_ptr<Image> image;
+  KeyPointImagePair(int key_point_index, shared_ptr<Image> image);
+  KeyPoint *getKeyPoint();
+  int key_point_index(){ return key_point_index_;}
+  shared_ptr<Image> image() { return image_;}
 };
 
 #endif //SFM_KEYPOINTIMAGEPAIR_H
