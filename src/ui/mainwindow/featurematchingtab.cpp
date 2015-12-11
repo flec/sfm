@@ -18,15 +18,15 @@ FeatureMatchingTab::~FeatureMatchingTab() {
 
 void FeatureMatchingTab::updateImagePairs() {
   ui->matchesListWidget->clear();
-  for (auto &featureMatch : sfmapp->image_pairs)
+  for (auto &featureMatch : *sfmapp->image_pairs())
     ui->matchesListWidget->addItem(
         QString((featureMatch->image1->file_name() + " <-> " + featureMatch->image2->file_name()).c_str()));
   emit imagePairsUpdated();
 }
 
 void FeatureMatchingTab::updateImage() {
-  if (currentMatchIndex >= 0 && sfmapp->images.size() > 0) {
-    shared_ptr<ImagePair> matches = sfmapp->image_pairs.at(currentMatchIndex);
+  if (currentMatchIndex >= 0 && sfmapp->images()->size() > 0) {
+    shared_ptr<ImagePair> matches = sfmapp->image_pairs()->at(currentMatchIndex);
     shared_ptr<Image> image1 = matches->image1;
     shared_ptr<Image> image2 = matches->image2;
 

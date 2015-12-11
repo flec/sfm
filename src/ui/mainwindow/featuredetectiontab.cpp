@@ -22,7 +22,7 @@ FeatureDetectionTab::~FeatureDetectionTab() {
 
 void FeatureDetectionTab::updateImages() {
   ui->imagesListWidget->clear();
-  for (auto &image : sfmapp->images)
+  for (auto &image : *sfmapp->images())
     ui->imagesListWidget->addItem(QString(image->file_name().c_str()));
 }
 
@@ -35,8 +35,8 @@ void FeatureDetectionTab::on_detectFeatures_clicked() {
 
 void FeatureDetectionTab::updateImage() {
 
-  if (currentImageIndex >= 0 && sfmapp->images.size() > 0) {
-    shared_ptr<Image> image = sfmapp->images.at(currentImageIndex);
+  if (currentImageIndex >= 0 && sfmapp->images()->size() > 0) {
+    shared_ptr<Image> image = sfmapp->images()->at(currentImageIndex);
 
     if (image->keypoints()->size() > 0) {
       Mat picture;

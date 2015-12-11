@@ -18,24 +18,24 @@ SFMApp *SFMApp::getInstance() {
 SFMApp *SFMApp::instance = 0;
 
 void SFMApp::loadImages(string const &images_dir) {
-  images = ImageLoader::loadImagesFromDir(images_dir);
+  images_ = ImageLoader::loadImagesFromDir(images_dir);
 }
 
 void SFMApp::unload() {
-  images.clear();
-  image_pairs.clear();
+  images_.clear();
+  image_pairs_.clear();
   initial_image_pair = NULL;
 }
 
 void SFMApp::detectFeatures() {
-  image_pairs.clear();
-  object_points.clear();
-  feature_detector->detectFeatures(images);
+  image_pairs_.clear();
+  object_points_.clear();
+  feature_detector->detectFeatures(images_);
 }
 
 void SFMApp::matchFeatures() {
-  image_pairs.clear();
-  object_points.clear();
+  image_pairs_.clear();
+  object_points_.clear();
 
   // Match keypoints of images in a parallel fashion
   // http://stackoverflow.com/a/18671256
@@ -43,14 +43,14 @@ void SFMApp::matchFeatures() {
   {
     vector<shared_ptr<ImagePair>> image_pairs_private;
 #pragma omp for nowait schedule(static)
-    for (int i = 0; i < images.size() - 1; i++) {
-      image_pairs_private.push_back(feature_matcher->matchFeatures(images.at(i), images.at(i + 1)));
+    for (int i = 0; i < images_.size() - 1; i++) {
+      image_pairs_private.push_back(feature_matcher->matchFeatures(images_.at(i), images_.at(i + 1)));
       //feature_matcher->filterMatches(image_pairs_private.back());
     }
 #pragma omp for schedule(static) ordered
     for (int i = 0; i < omp_get_num_threads(); i++) {
 #pragma omp ordered
-      image_pairs.insert(image_pairs.end(), image_pairs_private.begin(), image_pairs_private.end());
+      image_pairs_.insert(image_pairs_.end(), image_pairs_private.begin(), image_pairs_private.end());
     }
   }
 }
@@ -71,10 +71,10 @@ void SFMApp::findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat 
 
 void SFMApp::triangulateInitialImagePair() {
   // Clear the current object points
-  object_points.clear();
+  object_points_.clear();
 
   // clear the matrices except for the initial image pair
-  for (auto image_pair:image_pairs)
+  for (auto image_pair:image_pairs_)
     if (image_pair != initial_image_pair) {
       // only clear camera two, as
       // a) we don't clear camera two of the initial image pair
@@ -90,7 +90,7 @@ void SFMApp::triangulateInitialImagePair() {
 void SFMApp::triangulateNextImagePair() {
   // get the next not yet triangulated image pair in order
   shared_ptr<ImagePair> next_image_pair;
-  for (auto image_pair:image_pairs)
+  for (auto image_pair:image_pairs_)
     if (image_pair->rotation.data == NULL) {
       next_image_pair = image_pair;
       break;
@@ -105,7 +105,7 @@ void SFMApp::triangulateNextImagePair() {
 void SFMApp::removeLastCamera() {
   // get the last triangulated image pair
   shared_ptr<ImagePair> last_triangulated_image_pair;
-  for (auto image_pair : image_pairs) {
+  for (auto image_pair : image_pairs_) {
     if (image_pair->rotation.data == NULL)
       break;
     last_triangulated_image_pair = image_pair;
@@ -124,8 +124,8 @@ void SFMApp::removeLastCamera() {
 
     if (object_point_to_remove->getNumReferences() <= 1) {
       // remove object_point_to_remove from global object_points
-      object_points.erase(remove(object_points.begin(), object_points.end(), object_point_to_remove),
-                          object_points.end());
+      object_points_.erase(remove(object_points_.begin(), object_points_.end(), object_point_to_remove),
+                           object_points_.end());
 
       // remove object point from image1
       map<int, shared_ptr<ObjectPoint>> *image1_object_points = last_triangulated_image_pair->image1->object_points();
@@ -182,7 +182,7 @@ void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
       if (points3D_entry != map_points3D.end()) {
         objectPoint = shared_ptr<ObjectPoint>(
             new ObjectPoint(points3D_entry->second.x, points3D_entry->second.y, points3D_entry->second.z));
-        this->object_points.push_back(objectPoint);
+        this->object_points_.push_back(objectPoint);
         // add references for image1
         objectPoint->addReference(match.queryIdx, image_pair->image1);
         image_pair->image1->addObjectPoint(match.queryIdx, objectPoint);
@@ -198,9 +198,9 @@ void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
 }
 
 void SFMApp::doBundleAdjustment() {
-  bundleAdjuster->adjust(intrinsic_camera_parameters_, object_points, images);
+  bundleAdjuster->adjust(intrinsic_camera_parameters_, object_points_, images_);
 }
 
 void SFMApp::doDenseReconstructon() {
-  denseReconstructor->reconstruct(image_pairs);
+  denseReconstructor->reconstruct(image_pairs_);
 }
