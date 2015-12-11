@@ -14,5 +14,5 @@ KeyPointImagePair::KeyPointImagePair(int keyPointIndex, KeyPoint *keyPoint, shar
 
 KeyPointImagePair::KeyPointImagePair(int keyPointIndex, shared_ptr<Image> image) :
     keyPointIndex(keyPointIndex), image(image) {
-  key_point = &image->get_keypoints()->at(keyPointIndex);
+  key_point = &image->keypoints()->at(keyPointIndex);
 }

@@ -9,7 +9,7 @@ SURFFeatureDetector::SURFFeatureDetector() : surf(SURF::create(100, 4, 3, true, 
 
 void SURFFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, bool use_provided_keypoints) {
   for (auto image: images) {
-    surf->detectAndCompute(*image->mat_grey(), noArray(), *image->get_keypoints(), *image->get_descriptors(),
+    surf->detectAndCompute(*image->mat_grey(), noArray(), *image->keypoints(), *image->descriptors(),
                            use_provided_keypoints);
   }
 }

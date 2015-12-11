@@ -38,9 +38,9 @@ void FeatureDetectionTab::updateImage() {
   if (currentImageIndex >= 0 && sfmapp->images.size() > 0) {
     shared_ptr<Image> image = sfmapp->images.at(currentImageIndex);
 
-    if (image->get_keypoints()->size() > 0) {
+    if (image->keypoints()->size() > 0) {
       Mat picture;
-      drawKeypoints(*image->mat_color(), *image->get_keypoints(), picture);
+      drawKeypoints(*image->mat_color(), *image->keypoints(), picture);
       ui->cvImageWidget->showImage(picture);
     } else
       ui->cvImageWidget->showImage(*image->mat_color());

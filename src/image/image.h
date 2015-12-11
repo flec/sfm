@@ -7,49 +7,56 @@
 
 #include <opencv2/core/mat.hpp>
 #include <map>
-#include <image/camera/imagecamera.h>
 #include "objectPoint/objectpoint.h"
+#include "camera/imagecamera.h"
 
 using namespace cv;
 using namespace std;
 
-
-class Image {
+/**
+ * Struct that represents an image. It all data that is associated with an image.
+ */
+struct Image {
   friend class TestCube;
+
 private:
+  // vector containing keypoints of the features
   vector<KeyPoint> keypoints_;
 
+  // cv::Mat containing the descriptors of the features
+  Mat descriptors_;
+
+  // The image itself in color
   Mat mat_color_;
+
+  // The image itself in gray scaled
   Mat mat_grey_;
 
+  // The name of the image
   string file_name_;
+
+  // Directory that contains the image
   string file_path_;
 
   // map with keypoint index and opject point
   map<int, shared_ptr<ObjectPoint>> object_points_;
 
-  Image() { };
-
+  // Camera that sees this image
   shared_ptr<ImageCamera> camera_;
 
-public:
-  Mat descriptors;
+  Image() { };
 
+public:
+
+  /**
+   * Initialize an image. It will load the image from disk and load its content to mat_color_ and mat_grey_
+   *
+   * file_path    Path and name to the image
+   * load_color   Load mat_grey AND mat_color
+   */
   Image(string const &file_path, bool const load_color = true);
 
   ~Image();
-
-  Mat *mat_color() { return (mat_color_.data != NULL) ? &mat_color_ : &mat_grey_; }
-
-  Mat *mat_grey() { return &mat_grey_; }
-
-  string file_name() const { return file_name_; }
-
-  string file_path() const { return file_path_; }
-
-  vector<KeyPoint> *get_keypoints() { return &keypoints_; }
-
-  Mat *get_descriptors() { return &descriptors; }
 
   map<int, shared_ptr<ObjectPoint>> *object_points() { return &object_points_; };
 
@@ -59,9 +66,23 @@ public:
 
   shared_ptr<ObjectPoint> getObjectPoint(int keypointIndex);
 
-  shared_ptr<ImageCamera> camera(){return camera_;};
+  shared_ptr<ImageCamera> camera() { return camera_; };
 
   void clearObjectPointsAndCamera();
+
+  // Getters/Setters
+
+  Mat *mat_color() { return (mat_color_.data != NULL) ? &mat_color_ : &mat_grey_; }
+
+  Mat *mat_grey() { return &mat_grey_; }
+
+  string file_name() const { return file_name_; }
+
+  string file_path() const { return file_path_; }
+
+  vector<KeyPoint> *keypoints() { return &keypoints_; }
+
+  Mat *descriptors() { return &descriptors_; }
 
 };
 

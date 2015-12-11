@@ -32,8 +32,8 @@ void FeatureMatchingTab::updateImage() {
 
     if (matches->matches.size() > 0) {
       Mat picture;
-      drawMatches(*image1->mat_grey(), *image1->get_keypoints(), *image2->mat_grey(),
-                  *image2->get_keypoints(), matches->matches, picture);
+      drawMatches(*image1->mat_grey(), *image1->keypoints(), *image2->mat_grey(),
+                  *image2->keypoints(), matches->matches, picture);
       ui->cvImageWidget->showImage(picture);
     } else
       ui->cvImageWidget->showImage(*image1->mat_grey());

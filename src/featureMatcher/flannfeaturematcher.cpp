@@ -11,11 +11,11 @@ shared_ptr<ImagePair> FlannFeatureMatcher::matchFeatures(shared_ptr<Image> &imag
 
   // convert descriptors to CV_32F, if they are not
   // CV_32F features are required by the flann matcher
-  if (image1->get_descriptors()->type() != CV_32F)
-    image1->get_descriptors()->convertTo(*image1->get_descriptors(), CV_32F);
-  if (image2->get_descriptors()->type() != CV_32F)
-    image2->get_descriptors()->convertTo(*image2->get_descriptors(), CV_32F);
+  if (image1->descriptors()->type() != CV_32F)
+    image1->descriptors()->convertTo(*image1->descriptors(), CV_32F);
+  if (image2->descriptors()->type() != CV_32F)
+    image2->descriptors()->convertTo(*image2->descriptors(), CV_32F);
 
-  matcher.match(*image1->get_descriptors(), *image2->get_descriptors(), image_pair->matches);
+  matcher.match(*image1->descriptors(), *image2->descriptors(), image_pair->matches);
   return image_pair;
 }

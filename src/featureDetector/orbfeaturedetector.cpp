@@ -10,6 +10,6 @@ ORBFeatureDetector::ORBFeatureDetector() : orb(ORB::create(FeatureDetecter::max_
 
 void ORBFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, bool use_provided_keypoints) {
   for (auto image: images) {
-    orb->detectAndCompute(*image->mat_grey(), noArray(), *image->get_keypoints(), *image->get_descriptors(), use_provided_keypoints);
+    orb->detectAndCompute(*image->mat_grey(), noArray(), *image->keypoints(), *image->descriptors(), use_provided_keypoints);
   }
 }
