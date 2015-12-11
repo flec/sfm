@@ -15,7 +15,7 @@ using namespace std;
 
 /*
  * Interface for detecting image features. Responsibility of a FeatureDetecter is to detect and describe features
- * in an image.
+ * in an image. Those features can then be matched between two images @see FeatureMatcher.
  */
 class FeatureDetecter {
 public:

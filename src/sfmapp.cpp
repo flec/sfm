@@ -45,7 +45,7 @@ void SFMApp::matchFeatures() {
 #pragma omp for nowait schedule(static)
     for (int i = 0; i < images.size() - 1; i++) {
       image_pairs_private.push_back(feature_matcher->matchFeatures(images.at(i), images.at(i + 1)));
-      feature_matcher->filterMatches(image_pairs_private.back());
+      //feature_matcher->filterMatches(image_pairs_private.back());
     }
 #pragma omp for schedule(static) ordered
     for (int i = 0; i < omp_get_num_threads(); i++) {

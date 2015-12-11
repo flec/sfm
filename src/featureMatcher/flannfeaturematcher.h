@@ -6,12 +6,18 @@
 #define SFM_FLANNFEATUREMATCHER_H
 
 #include "featurematcher.h"
-#include <opencv2/features2d.hpp>
+#include "opencv2/features2d.hpp"
 
+/**
+ * Implmentation of the flann feature matching algorithm.
+ */
 class FlannFeatureMatcher : public FeatureMatcher{
 private:
   FlannBasedMatcher matcher;
 public:
+  /**
+   * @see FeatureMatcher
+   */
   shared_ptr<ImagePair> matchFeatures(shared_ptr<Image> &image, shared_ptr<Image> &image2);
 };
 
