@@ -31,35 +31,74 @@
 using namespace std;
 
 /*
- * This class provides the overall logic and is either triggered by the GUI or the CLI
+ * This class provides the overall logic and is either triggered by the GUI or the CLI.
+ * It is a singleton and a reference can be gotten by SFMApp::getInstance()
  */
 class SFMApp {
 private:
+  // Reference to the single instance of itself
   static SFMApp *instance;
 
+  // Initialize the FeatureDetecter
 #ifdef USE_CUDA
-  FeatureDetecter *feature_detector = new SURFFeatureDetector(); // init feature detector
+  FeatureDetecter *feature_detector = new SURFFeatureDetector();
 #else
-  FeatureDetecter *feature_detector = new SURFFeatureDetector(); // init feature detector
+  FeatureDetecter *feature_detector = new SURFFeatureDetector();
 #endif
-  FeatureMatcher *feature_matcher = new FlannFeatureMatcher(); // init feature matcher
-  CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();  // camera matrix finder for initial matirx
-  ProjectionMatrixFinder *projectionMatrixFinder = new BasicProjectionMatrixFinder(); // projection matrix finder
+
+  // Initialize the FeatureMatcher
+  FeatureMatcher *feature_matcher = new FlannFeatureMatcher();
+
+  // Initialize the CameraMatrixFinder
+  CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();
+
+  // Initialize the ProjectionMatrixFinder
+  ProjectionMatrixFinder *projectionMatrixFinder = new BasicProjectionMatrixFinder();
+
+  // Initialize the Triangulator
   Triangulator *triangulator = new CVTriangulator();
+
+  // Initialize the PnPSolver
   PnPSolver *pnpSolver = new RANSACPnPSolver();
+
+  // Initialize the BundleAdjuster
   BundleAdjuster *bundleAdjuster = new SSBABundleAdjuster();
+
+  // Initialize the DenseReconstructor
   DenseReconstructor *denseReconstructor = new PatchDenseReconstructor();
 
-  shared_ptr<ImagePair> initial_image_pair; // initial image pair
+  // This is a pointer to the initial image pair. The initial image pair
+  // is the one, for which the camera matrices are calculated at first, and on which, then the whole
+  // SFM reconstruction sets up.
+  shared_ptr<ImagePair> initial_image_pair;
 
-  Mat intrinsic_camera_parameters_;  // intrinsic camera parameters
+  // Intrinsic parameters of the camera. Currently only a camera with the same intrinsic parameters is supported.
+  Mat intrinsic_camera_parameters_;
 
-  vector<shared_ptr<ObjectPoint>> object_points; // 3D points
+  // List of all images
+  // !!! Order is important, as only an image pair of the images next to each other will be built.
+  vector<shared_ptr<Image>> images_;
 
+  // List of all image pairs
+  // !!! Order is important, as image2 in ImagePairA is image2 in ImagePairB.
+  vector<shared_ptr<ImagePair>> image_pairs_;
+
+  // A list containing all calculated 3D points. This list is used to draw the point cloud.
+  vector<shared_ptr<ObjectPoint>> object_points_;
+
+  /**
+   * Private constructor, as it is a singleton, prevent external initialization
+   */
   SFMApp() { };
 
+  /**
+   * Private copy constructor, as it is a singleton, prevent external initialization
+   */
   SFMApp(const SFMApp &) { };
 
+  /**
+   * Private destructor, as it is a singleton, prevent external destruction
+   */
   ~SFMApp() { }
 
   void prepareForInitialTriangulation();
@@ -71,51 +110,79 @@ private:
   void triangulatePoints(shared_ptr<ImagePair> image_pair);
 
 public:
+  /**
+   * Return a reference to the single instance. If it does not yet exist, create it.
+   */
   static SFMApp *getInstance();
 
-  // Images that have been loaded by 'loadImages()'
-  vector<shared_ptr<Image>> images;
-
-  // Pairs of images with the corresponding matches
-  vector<shared_ptr<ImagePair>> image_pairs;
-
-  // Detect features of the loaded images
-  void detectFeatures();
-
-  // Match the features between the loaded images. Each image is matched against each other image.
-  // The resulting image pairs are stored in 'image_pairs'
-  void matchFeatures();
-
-  // Find the initial matrices of an image pair.
-  void findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat &intristic_camera_paramaters);
-
-  // Load images from a directory into 'images'
+  /**
+   * Load all images that are in a certain directory into the images_ vector.
+   *
+   * images_dir   directory that contains the images
+   */
   void loadImages(string const &images_dir);
 
-  // Unload everything
-  void unload();
+  /**
+   * Detect the features of all loaded images. To load the images, see @loadImages()
+   */
+  void detectFeatures();
 
-  Mat *intrinsic_camera_parameters() {
-    return &intrinsic_camera_parameters_;
-  }
+  /**
+   * Match the features of all loaded images. Features must have been calculated first - @see detectFeatures()
+   */
+  void matchFeatures();
 
-  // Triangulates the points of the initial image pair
+  /**
+   * Find the matrices of the initial image pair. Those are the base of the whole SFM reconstruction process.
+   * Features must have been matched first - @see matchFeatures()
+   */
+  void findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat &intristic_camera_paramaters);
+
+  /**
+   * Triangulate the initial image pair - ie the first two images/the first ImagePair.
+   * This relies only on the camera matrices (rotation, translation, essential) that are saved in the ImagePair.
+   */
   void triangulateInitialImagePair();
 
-  // Triangulate the points of the next image pair
+  /**
+   * Triangulated the next ImagePair in order - the next, not yet triangulated, ImagePair in the image_pairs vector.
+   * This is done by solving the PnP problem based on the initially triangulated ImagePair.
+   */
   void triangulateNextImagePair();
 
-  // Remove the last triangulated image pair (camera)
+  /**
+   * Remove the last triangulated camera.
+   * Naturally this function removes as well the object points.
+   */
   void removeLastCamera();
 
-  vector<shared_ptr<ObjectPoint>> *get_object_points() {
-    return &object_points;
-  }
-
+  /**
+   * Optimize the camera position so that the overall mean reprojection error is minimized.
+   */
   void doBundleAdjustment();
 
+  /**
+   * Not yet implemented
+   */
   void doDenseReconstructon();
 
+  /**
+   * Unload everything, so that one can load a new set of images, and start the SFM process with those.
+   */
+  void unload();
+
+
+  //
+  // getters / setters
+  //
+
+  vector<shared_ptr<Image>> *images() {return &images_;}
+
+  vector<shared_ptr<ImagePair>> *image_pairs() {return &image_pairs_;}
+
+  vector<shared_ptr<ObjectPoint>> *object_points() { return &object_points_; }
+
+  Mat *intrinsic_camera_parameters() { return &intrinsic_camera_parameters_; }
 };
 
 

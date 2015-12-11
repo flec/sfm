@@ -32,7 +32,7 @@ void MatrixFindingTab::on_findInitialMatrices_clicked() {
 
 void MatrixFindingTab::updateImagePairs() {
   ui->matchesListWidget->clear();
-  for (auto &featureMatch : sfmapp->image_pairs)
+  for (auto &featureMatch : *sfmapp->image_pairs())
     ui->matchesListWidget->addItem(
         QString((featureMatch->image1->file_name() + " <-> " + featureMatch->image2->file_name()).c_str()));
 
@@ -40,8 +40,8 @@ void MatrixFindingTab::updateImagePairs() {
     ui->matchesListWidget->setCurrentRow(0);
 
   // Read the camera intrinsic matrix from disk, if available
-  if (sfmapp->images.size() > 0) {
-    string instrinsic_parameters_file = sfmapp->images.at(0)->file_path() + "/camera_intrinsic.yaml";
+  if (sfmapp->images()->size() > 0) {
+    string instrinsic_parameters_file = sfmapp->images()->at(0)->file_path() + "/camera_intrinsic.yaml";
     if (FILE *file = fopen(instrinsic_parameters_file.c_str(), "r")) {
       fclose(file);
       Mat_<double> intrinsic_matrix;
@@ -124,8 +124,8 @@ void MatrixFindingTab::updateMatrices() {
 
 shared_ptr<ImagePair> MatrixFindingTab::getCurrentImagePair() {
   if (ui->matchesListWidget->currentRow() >= 0 &&
-      (unsigned) ui->matchesListWidget->currentRow() < sfmapp->image_pairs.size()) {
-    return sfmapp->image_pairs[ui->matchesListWidget->currentRow()];
+      (unsigned) ui->matchesListWidget->currentRow() < sfmapp->image_pairs()->size()) {
+    return (*sfmapp->image_pairs())[ui->matchesListWidget->currentRow()];
   }
   else
     return NULL;
