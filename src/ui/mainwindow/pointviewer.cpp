@@ -2,10 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//
-// Created by joschi on 25.11.15.
-//
-
 #include "pointviewer.h"
 
 void PointViewer::update(vector<shared_ptr<ObjectPoint>> &object_points, vector<shared_ptr<ImageCamera>> &cameras) {

@@ -33,7 +33,7 @@ void CVTriangulator::findPoints3D(shared_ptr<ImagePair> &image_pair, Mat &intrin
                 reprojected_points);
 
   // Only add points with acceptable reproj. error
-  float max_acceptable_reprojection_error = 1;
+  float max_acceptable_reprojection_error = 1.5;
   for (int i = 0; i < mat_points3d.cols; i++) {
     float repojection_error = sqrt(pow(reprojected_points.at(i).x - image_pair->triangulation_points2.at(i).x, 2) +
                                    pow(reprojected_points.at(i).y - image_pair->triangulation_points2.at(i).y, 2));

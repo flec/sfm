@@ -44,6 +44,9 @@ private:
   // Camera that sees this image
   shared_ptr<ImageCamera> camera_;
 
+  /**
+   * Unload image from memory before deconstruction
+   */
   Image() { };
 
 public:

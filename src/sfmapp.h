@@ -38,7 +38,7 @@ private:
   static SFMApp *instance;
 
 #ifdef USE_CUDA
-  FeatureDetecter *feature_detector = new SURFCUDAFeatureDetector(); // init feature detector
+  FeatureDetecter *feature_detector = new SURFFeatureDetector(); // init feature detector
 #else
   FeatureDetecter *feature_detector = new SURFFeatureDetector(); // init feature detector
 #endif
