@@ -8,10 +8,19 @@
 
 #include <memory>
 #include "image/pair/imagepair.h"
-
+/**
+ * Interface for calculating the projection matrix for an image based on camera pose and intrinsic camera parameters
+ */
 class ProjectionMatrixFinder {
 public:
-  virtual void findProjectionMatrix(shared_ptr<ImagePair> &image_pair, Mat &intristic_camera_paramaters) = 0;
+  /**
+   * Calculates the projection matrix for both images in the pair.
+   * The calculation uses the camera pose and intrinsic parameters
+   *
+   * image_pair                   image pair with images containing camera parameters
+   * intrinsic_camera_parameters  intrinsic camera parameters
+   */
+  virtual void findProjectionMatrix(shared_ptr<ImagePair> &image_pair, Mat &intrinsic_camera_parameters) = 0;
 };
 
 #endif //SFM_PROJECTIONMATRIXFINDER_H

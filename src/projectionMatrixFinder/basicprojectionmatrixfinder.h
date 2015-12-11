@@ -7,9 +7,17 @@
 
 #include "projectionmatrixfinder.h"
 
+/**
+ * Implementation of a projection matrix finder.
+ * This finder uses only rotation and translation (pose) of the camera.
+ * Distortion parameters are not used in this implementation.
+ */
 class BasicProjectionMatrixFinder : public ProjectionMatrixFinder {
 public:
-  void findProjectionMatrix(shared_ptr<ImagePair> &image_pair, Mat &intristic_camera_paramaters);
+  /**
+   * @see ProjectionMatrixFinder
+   */
+  void findProjectionMatrix(shared_ptr<ImagePair> &image_pair, Mat &intrinsic_camera_parameters);
 };
 
 #endif //SFM_BASICPROJECTIONMATRIXFINDER_H

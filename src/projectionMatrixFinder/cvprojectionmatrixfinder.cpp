@@ -7,14 +7,19 @@
 #include <iostream>
 
 void CvProjectionMatrixFinder::findProjectionMatrix(shared_ptr<ImagePair> &image_pair,
-                                                    Mat &intristic_camera_paramaters) {
+                                                    Mat &intrinsic_camera_parameters) {
 
-  Mat D1 = Mat::zeros(1, 5, CV_64F);
-  Mat D2 = Mat::zeros(1, 5, CV_64F);
-  Mat Q;
-  Size imgSize = image_pair->image1->mat_grey()->size();
-  stereoRectify(intristic_camera_paramaters, D1, intristic_camera_paramaters, D2,
-                imgSize, image_pair->rotation, image_pair->translation,
-                image_pair->rotation_rect_img1, image_pair->rotation_rect_img2,
-                image_pair->projection_img1, image_pair->projection_img2, Q);
+  Mat distortion_coefficients1 = Mat::zeros(1, 5, CV_64F);
+  Mat distortion_coefficients2 = Mat::zeros(1, 5, CV_64F);
+  Mat q;
+  Mat rotation_rectified1;
+  Mat rotation_rectified2;
+  Size image_size = image_pair->image1->mat_grey()->size();
+
+  // calculate projection matrix using openCV function
+  stereoRectify(intrinsic_camera_parameters, distortion_coefficients1, intrinsic_camera_parameters,
+                distortion_coefficients2,
+                image_size, image_pair->rotation, image_pair->translation,
+                rotation_rectified1, rotation_rectified2,
+                image_pair->projection_img1, image_pair->projection_img2, q);
 }
