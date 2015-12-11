@@ -22,9 +22,6 @@ void ImagePair::clearMatrices() {
   translation.release();
   essential.release();
 
-  projection_img1.release();
-  projection_img2.release();
-
   triangulation_points1.clear();
   triangulation_points2.clear();
 

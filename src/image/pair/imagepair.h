@@ -7,9 +7,12 @@
 
 #include <memory>
 #include <vector>
-#include "image/image.h"
+#include "opencv2/core/cvdef.h"
+#include "opencv2/core/core.hpp"
 #include <map>
+#include "image/image.h"
 
+using namespace cv;
 using namespace std;
 
 /*
@@ -37,12 +40,6 @@ public:
 
   // The essential matrix that relates the corresponding points of the two images
   Mat_<double> essential;
-
-  // Projection matrix
-  Mat_<float> projection_img1;
-
-  // Projection matrix of image1
-  Mat_<float> projection_img2;
 
   // Points for triangulation
   vector<Point2f> triangulation_points1;

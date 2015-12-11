@@ -21,5 +21,5 @@ void CvProjectionMatrixFinder::findProjectionMatrix(shared_ptr<ImagePair> &image
                 distortion_coefficients2,
                 image_size, image_pair->rotation, image_pair->translation,
                 rotation_rectified1, rotation_rectified2,
-                image_pair->projection_img1, image_pair->projection_img2, q);
+                *image_pair->image1->camera()->projection(), *image_pair->image2->camera()->projection(), q);
 }

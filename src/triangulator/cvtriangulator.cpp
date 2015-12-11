@@ -10,11 +10,12 @@
 using namespace std;
 using namespace cv;
 
-void CVTriangulator::findPoints3D(shared_ptr<ImagePair> &image_pair, Mat &intrinsic_camera_parameters, map<int, Point3f> &map_points3D) {
+void CVTriangulator::findPoints3D(shared_ptr<ImagePair> &image_pair, Mat &intrinsic_camera_parameters,
+                                  map<int, Point3f> &map_points3D) {
   Mat mat_points3d;
   vector<Point3f> points3D;
-  triangulatePoints(image_pair->projection_img1, image_pair->projection_img2,
-                    image_pair->triangulation_points1, image_pair->triangulation_points2, mat_points3d);
+  triangulatePoints(*image_pair->image1->camera()->projection(), *image_pair->image2->camera()->projection(),
+  image_pair->triangulation_points1, image_pair->triangulation_points2, mat_points3d);
 
   // Since it's homogenous (x, y, z, w) coord, divide by w to get (x, y, z, 1)
   mat_points3d.row(0) = (mat_points3d.row(0) / mat_points3d.row(3)) + 0;
@@ -39,11 +40,13 @@ void CVTriangulator::findPoints3D(shared_ptr<ImagePair> &image_pair, Mat &intrin
                                    pow(reprojected_points.at(i).y - image_pair->triangulation_points2.at(i).y, 2));
 
     if (repojection_error < max_acceptable_reprojection_error)
-      map_points3D[i] = Point3f(mat_points3d.at<float>(0, i), mat_points3d.at<float>(1, i), mat_points3d.at<float>(2, i));
+      map_points3D[i] = Point3f(mat_points3d.at<float>(0, i), mat_points3d.at<float>(1, i),
+                                mat_points3d.at<float>(2, i));
   }
 
 #ifdef DEBUG
-  printf("Filtered out %lu bad objects points (reprojection error > %f), kept %lu pairs.\n", points3D.size()-map_points3D.size(), max_acceptable_reprojection_error,
+  printf("Filtered out %lu bad objects points (reprojection error > %f), kept %lu pairs.\n",
+         points3D.size() - map_points3D.size(), max_acceptable_reprojection_error,
          map_points3D.size());
 #endif
 }

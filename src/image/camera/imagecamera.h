@@ -13,6 +13,9 @@ using namespace cv;
 
 struct ImageCamera {
 private:
+  // Projection matrix
+  Mat_<float> projection_;
+
   // extrinsic matrix with camera rotation and translation [R|t]
   Mat_<double> extrinsic_;
 
@@ -27,6 +30,9 @@ private:
   static Mat_<double> rotate_x_axis_180;
 
 public:
+
+
+  Mat_<float> *projection() {return &projection_;}
 
   Mat_<double> *extrinsic() { return &extrinsic_; }
 

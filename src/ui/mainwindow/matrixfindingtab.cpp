@@ -76,9 +76,11 @@ void MatrixFindingTab::updateMatrices() {
     UIUtil::insert_mat_in_qtable(
         image_pair->translation.data != NULL ? image_pair->translation : zeros31, *ui->translationMatrixImgPair);
     UIUtil::insert_mat_in_qtable(
-        image_pair->projection_img1.data != NULL ? image_pair->projection_img1 : zeros33, *ui->prjMatrix1);
+        image_pair->image1->camera()->projection()->data != NULL ? *image_pair->image1->camera()->projection() : zeros33,
+        *ui->prjMatrix1);
     UIUtil::insert_mat_in_qtable(
-        image_pair->projection_img2.data != NULL ? image_pair->projection_img2 : zeros33, *ui->prjMatrix2);
+        image_pair->image2->camera()->projection()->data != NULL ? *image_pair->image2->camera()->projection() : zeros33,
+        *ui->prjMatrix2);
 
 
     if (image_pair->image1->camera()->extrinsic_rotation().data != NULL) {
