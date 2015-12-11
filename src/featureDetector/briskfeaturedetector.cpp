@@ -9,6 +9,6 @@ BRISKFeatureDetector::BRISKFeatureDetector() : brisk(BRISK::create()) {
 
 void BRISKFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, bool use_provided_keypoints) {
   for (auto image: images) {
-    brisk->detectAndCompute(*image->mat_grey(), noArray(), *image->get_keypoints(), *image->get_descriptors(), use_provided_keypoints);
+    brisk->detectAndCompute(*image->mat_grey(), noArray(), *image->keypoints(), *image->descriptors(), use_provided_keypoints);
   }
 }

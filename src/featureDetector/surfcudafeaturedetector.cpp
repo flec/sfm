@@ -29,8 +29,8 @@ void SURFCUDAFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, 
     surf_cuda(img_GPU, GpuMat(), keypoints_GPU, descriptors_GPU, use_provided_keypoints);
 
     // download results from GPU
-    surf_cuda.downloadKeypoints(keypoints_GPU, *images.at(i)->get_keypoints());
-    Mat(descriptors_GPU).copyTo(*images.at(i)->get_descriptors());
+    surf_cuda.downloadKeypoints(keypoints_GPU, *images.at(i)->keypoints());
+    Mat(descriptors_GPU).copyTo(*images.at(i)->descriptors());
   }
 }
 

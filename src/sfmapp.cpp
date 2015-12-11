@@ -149,8 +149,8 @@ void SFMApp::prepareForTriangulation(shared_ptr<ImagePair> image_pair) {
   cameraMatrixFinder->findCameraMatrix(image_pair, intrinsic_camera_parameters_);
 
   // separate points into those for PnP solving and those for triangulation
-  vector<KeyPoint> *keypoints1 = image_pair->image1->get_keypoints();
-  vector<KeyPoint> *keypoints2 = image_pair->image2->get_keypoints();
+  vector<KeyPoint> *keypoints1 = image_pair->image1->keypoints();
+  vector<KeyPoint> *keypoints2 = image_pair->image2->keypoints();
   for (auto match:image_pair->matches) {
     shared_ptr<ObjectPoint> objectPoint = image_pair->image1->getObjectPoint(match.queryIdx);
     if (objectPoint) {
