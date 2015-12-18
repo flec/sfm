@@ -22,7 +22,7 @@ vector<shared_ptr<Image>> ImageLoader::loadImagesFromDir(string const &dir_name)
     {
       vector<shared_ptr<Image>> images_private;
 #pragma omp for nowait schedule(static)
-      for (int i = 0; i < files.size() - 1; i++) {
+      for (int i = 0; i < files.size(); i++) {
         try {
           shared_ptr<Image> image(new Image(dir_name + files.at(i)));
           images_private.push_back(image);
