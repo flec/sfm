@@ -9,15 +9,29 @@
 
 using namespace std;
 
-#ifndef _WIN32
-const char FILE_SEPARATOR = '/';
-#else
+#ifdef _WIN32
 const char FILE_SEPARATOR= '\\';
+#else
+const char FILE_SEPARATOR = '/';
 #endif
 
+/**
+ * Utility functions for file operations
+ */
 class FileUtil {
 public:
+  /**
+   * Returns the path without file name from entire file path
+   * s        entire file path
+   * returns  path without file name
+   */
   static string getPathName(const string &s);
+
+  /**
+   * Returns file name from entire path
+   * s        entire path
+   * returns  file name
+   */
   static string getFileName(const string &s);
 };
 

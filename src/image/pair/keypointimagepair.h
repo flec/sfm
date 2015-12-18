@@ -34,6 +34,8 @@ public:
   KeyPointImagePair();
   /**
    * Constructor that initializes all fields
+   * key_point_index  index of the key point in the image
+   * image            corresponding image where the key point can be found by index
    */
   KeyPointImagePair(int key_point_index, shared_ptr<Image> image);
   /**

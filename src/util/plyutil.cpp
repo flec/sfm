@@ -5,12 +5,12 @@
 #include <iomanip>
 #include "plyutil.h"
 
-void PlyUtil::write(const string &fileName, const Mat &points3Dh) {
+void PlyUtil::write(const string &file_name, const Mat &points3Dh) {
 
-  ofstream file(fileName.c_str());
+  ofstream file(file_name.c_str());
 
   if (!file) {
-    cerr << "Error opening output file: " << fileName << "!" << endl;
+    cerr << "Error opening output file: " << file_name << "!" << endl;
     exit(1);
   }
 
@@ -35,7 +35,7 @@ void PlyUtil::write(const string &fileName, const Mat &points3Dh) {
 
 }
 
-void PlyUtil::write(const string &fileName, const vector<shared_ptr<ObjectPoint>> &objectPoints) {
+void PlyUtil::write(const string &fileName, const vector<shared_ptr<ObjectPoint>> &object_points) {
   ofstream file(fileName.c_str());
 
   if (!file) {
@@ -45,7 +45,7 @@ void PlyUtil::write(const string &fileName, const vector<shared_ptr<ObjectPoint>
 
   file << "ply" << endl;
   file << "format ascii 1.0" << endl;
-  file << "element vertex " << objectPoints.size() << endl;
+  file << "element vertex " << object_points.size() << endl;
   file << "property float x" << endl;
   file << "property float y" << endl;
   file << "property float z" << endl;
@@ -55,8 +55,8 @@ void PlyUtil::write(const string &fileName, const vector<shared_ptr<ObjectPoint>
 
   file << fixed << setprecision(8);
 
-  for (auto objectPoint:objectPoints) {
-    Point3f *coords = objectPoint->coordinates();
+  for (auto object_point:object_points) {
+    Point3f *coords = object_point->coordinates();
     file << coords->x << " " << coords->y << " " << coords->z << endl;
   }
 

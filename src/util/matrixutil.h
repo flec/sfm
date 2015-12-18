@@ -10,8 +10,16 @@
 using namespace cv;
 using namespace std;
 
+/**
+ * Utility functions for matrix operations
+ */
 class MatrixUtil {
 public:
+  /**
+   * Returns a matrix of euler angles from a 3x3 rotation matrix
+   * r        3x3 rotation matrix
+   * returns  3x1 matrix with euler angles
+   */
   static Mat_<double> getEulerAnglesByRotationMatrix(Mat_<double> &r);
 };
 

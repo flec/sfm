@@ -14,10 +14,26 @@
 using namespace cv;
 using namespace std;
 
+/**
+ * Utility functions for .ply files
+ */
 class PlyUtil {
 public:
-  static void write(const string& fileName, const Mat& points3Dh);
-  static void write(const string& fileName, const vector<shared_ptr<ObjectPoint>> &objectPoints);
+  /**
+   * Writes 3D points to a file with the given name
+   *
+   * file_name  file path including path
+   * points3Dh  homogeneous 3D points
+   */
+  static void write(const string &file_name, const Mat &points3Dh);
+
+  /**
+   * Writes 3D points to a file with the given name
+   *
+   * file_name      file path including path
+   * object_points  3d points
+   */
+  static void write(const string &fileName, const vector<shared_ptr<ObjectPoint>> &object_points);
 };
 
 
