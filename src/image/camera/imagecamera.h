@@ -33,6 +33,8 @@ private:
   // Rotation matrix used to rotate a point by 180 degrees around the X-axis
   static Mat_<double> rotate_x_axis_180;
 
+  void updateProjectionMatrix();
+
 public:
 
   /**

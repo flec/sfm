@@ -15,7 +15,6 @@
 #include "featureDetector/surffeaturedetector.h"
 #include "featureDetector/surfcudafeaturedetector.h"
 #include "featureDetector/briskfeaturedetector.h"
-#include "projectionMatrixFinder/cvprojectionmatrixfinder.h"
 #include "projectionMatrixFinder/basicprojectionmatrixfinder.h"
 #include "image/pair/imagepair.h"
 #include "featureDetector/featuredetector.h"
@@ -183,6 +182,8 @@ public:
   vector<shared_ptr<ObjectPoint>> *object_points() { return &object_points_; }
 
   Mat *intrinsic_camera_parameters() { return &intrinsic_camera_parameters_; }
+
+  ProjectionMatrixFinder *projection_matrix_finder() { return projection_matrix_finder_;}
 };
 
 

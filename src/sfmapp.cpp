@@ -60,8 +60,6 @@ void SFMApp::findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat 
   // set rotation and translation on images
   initial_image_pair->image1->camera()->set_extrinsic();
   initial_image_pair->image2->camera()->set_extrinsic(initial_image_pair->rotation, initial_image_pair->translation);
-  // find projection matrix
-  projection_matrix_finder_->findProjectionMatrix(initial_image_pair, intristic_camera_paramaters);
 }
 
 void SFMApp::triangulateInitialImagePair() {
@@ -159,9 +157,6 @@ void SFMApp::prepareForTriangulation(shared_ptr<ImagePair> image_pair) {
 
   // solve PnP
   pnp_solver_->solve(image_pair, intrinsic_camera_parameters_);
-
-  // find projection matrices
-  projection_matrix_finder_->findProjectionMatrix(image_pair, intrinsic_camera_parameters_);
 }
 
 void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {

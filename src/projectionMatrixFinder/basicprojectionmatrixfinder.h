@@ -17,7 +17,8 @@ public:
   /**
    * @see ProjectionMatrixFinder
    */
-  void findProjectionMatrix(shared_ptr<ImagePair> &image_pair, Mat &intrinsic_camera_parameters);
+  Mat findProjectionMatrix(Mat &intrinsic_camera_parameters,
+                                                        Mat &extrinsic_camera_parameters);
 };
 
 #endif //SFM_BASICPROJECTIONMATRIXFINDER_H
