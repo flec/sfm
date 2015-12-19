@@ -21,13 +21,13 @@ void SFMApp::loadImages(string const &images_dir) {
 void SFMApp::unload() {
   images_.clear();
   image_pairs_.clear();
-  initial_image_pair = NULL;
+  initial_image_pair_ = NULL;
 }
 
 void SFMApp::detectFeatures() {
   image_pairs_.clear();
   object_points_.clear();
-  feature_detector->detectFeatures(images_);
+  feature_detector_->detectFeatures(images_);
 }
 
 void SFMApp::matchFeatures() {
@@ -40,7 +40,7 @@ void SFMApp::matchFeatures() {
     vector<shared_ptr<ImagePair>> image_pairs_private;
 #pragma omp for nowait schedule(static)
     for (int i = 0; i < images_.size() - 1; i++) {
-      image_pairs_private.push_back(feature_matcher->matchFeatures(images_.at(i), images_.at(i + 1)));
+      image_pairs_private.push_back(feature_matcher_->matchFeatures(images_.at(i), images_.at(i + 1)));
       // filtering matches can turn out bad, if we have very very good matches that are used as a reference.
       //feature_matcher->filterMatches(image_pairs_private.back());
     }
@@ -53,15 +53,15 @@ void SFMApp::matchFeatures() {
 }
 
 void SFMApp::findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat &intristic_camera_paramaters) {
-  this->initial_image_pair = initial_image_pair;
+  this->initial_image_pair_ = initial_image_pair;
   intrinsic_camera_parameters_ = intristic_camera_paramaters;
   // find camera matrix
-  cameraMatrixFinder->findCameraMatrix(initial_image_pair, intristic_camera_paramaters);
+  camera_matrix_finder_->findCameraMatrix(initial_image_pair, intristic_camera_paramaters);
   // set rotation and translation on images
   initial_image_pair->image1->camera()->set_extrinsic();
   initial_image_pair->image2->camera()->set_extrinsic(initial_image_pair->rotation, initial_image_pair->translation);
   // find projection matrix
-  projectionMatrixFinder->findProjectionMatrix(initial_image_pair, intristic_camera_paramaters);
+  projection_matrix_finder_->findProjectionMatrix(initial_image_pair, intristic_camera_paramaters);
 }
 
 void SFMApp::triangulateInitialImagePair() {
@@ -70,7 +70,7 @@ void SFMApp::triangulateInitialImagePair() {
 
   // clear the matrices except for the initial image pair
   for (auto image_pair:image_pairs_)
-    if (image_pair != initial_image_pair) {
+    if (image_pair != initial_image_pair_) {
       // only clear camera two, as
       // a) we don't clear camera two of the initial image pair
       // b) camera one is camera two on prev. image pair
@@ -79,7 +79,7 @@ void SFMApp::triangulateInitialImagePair() {
     }
 
   prepareForInitialTriangulation();
-  triangulatePoints(initial_image_pair);
+  triangulatePoints(initial_image_pair_);
 }
 
 void SFMApp::triangulateNextImagePair() {
@@ -135,13 +135,13 @@ void SFMApp::removeLastCamera() {
 }
 
 void SFMApp::prepareForInitialTriangulation() {
-  initial_image_pair->getMatches(initial_image_pair->triangulation_points1,
-                                 initial_image_pair->triangulation_points2);
+  initial_image_pair_->getMatches(initial_image_pair_->triangulation_points1,
+                                 initial_image_pair_->triangulation_points2);
 }
 
 void SFMApp::prepareForTriangulation(shared_ptr<ImagePair> image_pair) {
   // find camera matrix and remove outliner matches
-  cameraMatrixFinder->findCameraMatrix(image_pair, intrinsic_camera_parameters_);
+  camera_matrix_finder_->findCameraMatrix(image_pair, intrinsic_camera_parameters_);
 
   // separate points into those for PnP solving and those for triangulation
   vector<KeyPoint> *keypoints1 = image_pair->image1->keypoints();
@@ -158,15 +158,15 @@ void SFMApp::prepareForTriangulation(shared_ptr<ImagePair> image_pair) {
   }
 
   // solve PnP
-  pnpSolver->solve(image_pair, intrinsic_camera_parameters_);
+  pnp_solver_->solve(image_pair, intrinsic_camera_parameters_);
 
   // find projection matrices
-  projectionMatrixFinder->findProjectionMatrix(image_pair, intrinsic_camera_parameters_);
+  projection_matrix_finder_->findProjectionMatrix(image_pair, intrinsic_camera_parameters_);
 }
 
 void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
   map<int, Point3f> map_points3D;
-  triangulator->findPoints3D(image_pair, intrinsic_camera_parameters_, map_points3D);
+  triangulator_->findPoints3D(image_pair, intrinsic_camera_parameters_, map_points3D);
 
   // create object points
   int c = 0;
@@ -193,9 +193,9 @@ void SFMApp::triangulatePoints(shared_ptr<ImagePair> image_pair) {
 }
 
 void SFMApp::doBundleAdjustment() {
-  bundleAdjuster->adjust(intrinsic_camera_parameters_, object_points_, images_);
+  bundle_adjuster_->adjust(intrinsic_camera_parameters_, object_points_, images_);
 }
 
 void SFMApp::doDenseReconstructon() {
-  denseReconstructor->reconstruct(image_pairs_);
+  dense_reconstructor_->reconstruct(image_pairs_);
 }

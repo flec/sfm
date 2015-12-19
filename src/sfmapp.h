@@ -41,36 +41,36 @@ private:
 
   // Initialize the FeatureDetecter
 #ifdef USE_CUDA
-  FeatureDetecter *feature_detector = new SURFCUDAFeatureDetector();
+  FeatureDetecter *feature_detector_ = new SURFCUDAFeatureDetector();
 #else
-  FeatureDetecter *feature_detector = new SURFFeatureDetector();
+  FeatureDetecter *feature_detector_ = new SURFFeatureDetector();
 #endif
 
   // Initialize the FeatureMatcher
-  FeatureMatcher *feature_matcher = new FlannFeatureMatcher();
+  FeatureMatcher *feature_matcher_ = new FlannFeatureMatcher();
 
   // Initialize the CameraMatrixFinder
-  CameraMatrixFinder *cameraMatrixFinder = new RANSACCameraMatrixFinder();
+  CameraMatrixFinder *camera_matrix_finder_ = new RANSACCameraMatrixFinder();
 
   // Initialize the ProjectionMatrixFinder
-  ProjectionMatrixFinder *projectionMatrixFinder = new BasicProjectionMatrixFinder();
+  ProjectionMatrixFinder *projection_matrix_finder_ = new BasicProjectionMatrixFinder();
 
   // Initialize the Triangulator
-  Triangulator *triangulator = new CVTriangulator();
+  Triangulator *triangulator_ = new CVTriangulator();
 
   // Initialize the PnPSolver
-  PnPSolver *pnpSolver = new RANSACPnPSolver();
+  PnPSolver *pnp_solver_ = new RANSACPnPSolver();
 
   // Initialize the BundleAdjuster
-  BundleAdjuster *bundleAdjuster = new SSBABundleAdjuster();
+  BundleAdjuster *bundle_adjuster_ = new SSBABundleAdjuster();
 
   // Initialize the DenseReconstructor
-  DenseReconstructor *denseReconstructor = new PatchDenseReconstructor();
+  DenseReconstructor *dense_reconstructor_ = new PatchDenseReconstructor();
 
   // This is a pointer to the initial image pair. The initial image pair
   // is the one, for which the camera matrices are calculated at first, and on which, then the whole
   // SFM reconstruction sets up.
-  shared_ptr<ImagePair> initial_image_pair;
+  shared_ptr<ImagePair> initial_image_pair_;
 
   // Intrinsic parameters of the camera. Currently only a camera with the same intrinsic parameters is supported.
   Mat intrinsic_camera_parameters_;
