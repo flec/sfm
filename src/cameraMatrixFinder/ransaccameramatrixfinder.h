@@ -9,7 +9,7 @@
 
 class RANSACCameraMatrixFinder : public CameraMatrixFinder{
 public:
-  void findCameraMatrix(shared_ptr<ImagePair> &image_pair, Mat& intristic_camera_paramaters);
+  void findCameraMatrix(shared_ptr<ImagePair> &image_pair, Mat &intrinsic_camera_parameters);
 };
 
 
