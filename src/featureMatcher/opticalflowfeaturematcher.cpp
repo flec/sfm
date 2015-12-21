@@ -7,6 +7,10 @@
 #include <opencv2/features2d.hpp>
 #include "opticalflowfeaturematcher.h"
 
+const float OpticalFlowFeatureMatcher::MAX_OPTICAL_FLOW_ERROR = 12.0;
+const float OpticalFlowFeatureMatcher::MAX_DISTANCE_TO_KEYPOINT = 2.0;
+const float OpticalFlowFeatureMatcher::MAX_NEIGHBOR_DISTANCE_RATIO = 0.7;
+
 shared_ptr<ImagePair> OpticalFlowFeatureMatcher::matchFeatures(shared_ptr<Image> &image1, shared_ptr<Image> &image2) {
   shared_ptr<ImagePair> image_pair(new ImagePair());
   image_pair->image1 = image1;
@@ -46,7 +50,7 @@ void OpticalFlowFeatureMatcher::filterPoints(const vector<Point2f> &points, cons
                                              Mat &good_points, vector<int> &good_points_indices) {
   vector<Point2f> vec_good_points;
   for (unsigned int i = 0; i < points.size(); i++) {
-    if (status[i] && error[i] < 12.0) {
+    if (status[i] && error[i] < MAX_OPTICAL_FLOW_ERROR) {
       good_points_indices.push_back(i);
       vec_good_points.push_back(points.at(i));
     }
@@ -65,14 +69,15 @@ void OpticalFlowFeatureMatcher::findMatches(const shared_ptr<Image> &image, cons
   // find key points in specified radius
   BFMatcher matcher(CV_L2);
   vector<vector<DMatch>> nearest_neighbors;
-  matcher.radiusMatch(points, features, nearest_neighbors, 2.0f);
+  matcher.radiusMatch(points, features, nearest_neighbors, MAX_DISTANCE_TO_KEYPOINT);
 
   // filter neighbors
   set<int> found;
   for (auto nn_matches : nearest_neighbors) {
     // use match if there is only one or the first and the second are not to close
     if (nn_matches.size() == 1 ||
-               (nn_matches.size() > 1 && (nn_matches.at(0).distance / nn_matches.at(1).distance) < 0.7)) {
+        (nn_matches.size() > 1 &&
+         (nn_matches.at(0).distance / nn_matches.at(1).distance) < MAX_NEIGHBOR_DISTANCE_RATIO)) {
       DMatch match = nn_matches.at(0);
       // add match if not already matched to another point
       if (found.find(match.trainIdx) == found.end()) {

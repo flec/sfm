@@ -13,6 +13,21 @@
 class OpticalFlowFeatureMatcher : public FeatureMatcher {
 private:
   /**
+   * Maximum error for points
+   */
+  static const float MAX_OPTICAL_FLOW_ERROR;
+
+  /**
+   * Maximum distance a point can have to a key point to be matched to it
+   */
+  static const float MAX_DISTANCE_TO_KEYPOINT;
+
+  /**
+   * Maximum distance ratio that the two closest key points to the point can have that has been detected using optical flow.
+   */
+  static const float MAX_NEIGHBOR_DISTANCE_RATIO;
+
+  /**
    * Extracts the key points from the image and converts them to Point2f
    *
    * image    image where the key points should be extracted from
