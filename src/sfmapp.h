@@ -20,6 +20,7 @@
 #include "featureDetector/featuredetector.h"
 #include "featureMatcher/featurematcher.h"
 #include "featureMatcher/flannfeaturematcher.h"
+#include "featureMatcher/opticalflowfeaturematcher.h"
 #include "image/objectPoint/objectpoint.h"
 #include "triangulator/cvtriangulator.h"
 #include "pnpSolver/ransacpnpsolver.h"
