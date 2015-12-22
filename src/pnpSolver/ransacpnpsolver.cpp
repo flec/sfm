@@ -20,7 +20,7 @@ void RANSACPnPSolver::solve(shared_ptr<ImagePair> &image_pair, Mat &intristic_ca
 
   // estimate pose of camera in second image
   solvePnPRansac(image_pair->pnp_object_points, image_pair->pnp_image_points, intristic_camera_paramaters,
-                 noArray(), rvec, tvec, true, 100, 2.0, 0.99, noArray(), SOLVEPNP_EPNP);
+                 noArray(), rvec, tvec, true, 100, 2.0, 0.99, noArray());
 
   // convert rotation to 3x3 matrix
   Rodrigues(rvec, rot);
