@@ -46,7 +46,7 @@ void CVTriangulator::findPoints3D(shared_ptr<ImagePair> &image_pair, Mat &intrin
   }
 
 #ifdef DEBUG
-  printf("Filtered out %lu bad objects points (reprojection error > %f), kept %lu pairs.\n",
+  printf("CVTriangulator: Filtered out %lu bad objects points (reprojection error > %f), kept %lu pairs.\n",
          points3D.size() - map_points3D.size(), MAX_REPROJECTION_ERROR,
          map_points3D.size());
 #endif

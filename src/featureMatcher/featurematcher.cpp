@@ -30,8 +30,9 @@ void FeatureMatcher::filterMatches(shared_ptr<ImagePair> &image_pair, double min
   }
 
 #ifdef DEBUG
-  printf("FeatureMatcher: Filtered out %lu bad pairs, kept %lu pairs.\n", matches_before - image_pair->matches.size(),
-         image_pair->matches.size());
+  printf("FeatureMatcher: Filtered out %lu bad pairs, kept %lu pairs (%s vs %s).\n",
+         matches_before - image_pair->matches.size(),
+         image_pair->matches.size(), image_pair->image1->file_name().c_str(), image_pair->image2->file_name().c_str());
 #endif
 
 }

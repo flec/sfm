@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #include <opencv2/calib3d.hpp>
+#include <iostream>
 #include "ransacpnpsolver.h"
 
 void RANSACPnPSolver::solve(shared_ptr<ImagePair> &image_pair, Mat &intristic_camera_paramaters) {
@@ -17,6 +18,11 @@ void RANSACPnPSolver::solve(shared_ptr<ImagePair> &image_pair, Mat &intristic_ca
   // convert estimate for use in solvePnPRansac
   Rodrigues(rot_estimate, rvec);
   tvec = trans_estimate;
+
+  if (image_pair->pnp_object_points.size() < 3) {
+    cerr << "Aborting PnP solving (less than 3 points given). Likely bad things to come" << endl;
+    return;
+  }
 
   // estimate pose of camera in second image
   solvePnPRansac(image_pair->pnp_object_points, image_pair->pnp_image_points, intristic_camera_paramaters,

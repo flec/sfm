@@ -6,6 +6,7 @@
 
 void CameraMatrixFinder::removeOutlinerMatches(shared_ptr<ImagePair> &image_pair, Mat &inliners) {
   int count = 0;
+  unsigned long initial_size = image_pair->matches.size();
   auto i = begin(image_pair->matches);
   while (i != end(image_pair->matches)) {
     if (inliners.at<char>(count++) == 0) {
@@ -14,4 +15,8 @@ void CameraMatrixFinder::removeOutlinerMatches(shared_ptr<ImagePair> &image_pair
     else
       ++i;
   }
+
+  printf("CameraMatrixFinder: kept %lu inliner matches of %lu matches (%s vs %s). \n", image_pair->matches.size(),
+         initial_size, image_pair->image1->file_name().c_str(),
+         image_pair->image2->file_name().c_str());
 }

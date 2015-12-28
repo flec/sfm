@@ -32,7 +32,7 @@ void PointViewer::draw() {
     glEnd();
   }
 
-  // Draw the camera
+  // Draw the camera center points
   glBegin(GL_POINTS);
   glPointSize(20.0);
   glColor3f(1, 1, 1);
@@ -41,6 +41,44 @@ void PointViewer::draw() {
                camera->gl_translation().at<double>(2));
   }
   glEnd();
+
+  // draw the camera frames
+  for (auto camera : cameras) {
+    GLdouble mat_rot_trans[16];
+
+    // Get rotation of camera
+    Mat_<double> position_rotation = camera->gl_rotation();
+    for (int col = 0; col < 3; col++)
+      for (int row = 0; row < 3; row++)
+        mat_rot_trans[col * 4 + row] = position_rotation(row, col);
+
+    // Get translation of camera
+    Mat_<double> position_translation = camera->gl_translation();
+    mat_rot_trans[12] = position_translation(0);
+    mat_rot_trans[13] = position_translation(1);
+    mat_rot_trans[14] = position_translation(2);
+    mat_rot_trans[15] = 1;
+
+
+    glPushMatrix();
+    glMultMatrixd(mat_rot_trans);
+    glBegin(GL_TRIANGLE_FAN);
+
+    glColor3f(1, 0, 0);
+    glVertex3f(0, 0, 0);
+    glVertex3f(camera_size, -camera_size, camera_size);
+    glVertex3f(-camera_size, -camera_size, camera_size);
+    glVertex3f(-camera_size, camera_size, camera_size);
+    glVertex3f(camera_size, camera_size, camera_size);
+    glVertex3f(camera_size, -camera_size, camera_size);
+//    glVertex3f(camera_size, -camera_size, -camera_size);
+//    glVertex3f(-camera_size, -camera_size, -camera_size);
+//    glVertex3f(-camera_size, camera_size, -camera_size);
+//    glVertex3f(camera_size, camera_size, -camera_size);
+//    glVertex3f(camera_size, -camera_size, -camera_size);
+    glEnd();
+    glPopMatrix();
+  }
 }
 
 // Constructor must call the base class constructor.

@@ -42,7 +42,7 @@ void SFMApp::matchFeatures() {
     for (int i = 0; i < images_.size() - 1; i++) {
       image_pairs_private.push_back(feature_matcher_->matchFeatures(images_.at(i), images_.at(i + 1)));
       // filtering matches can turn out bad, if we have very very good matches that are used as a reference.
-      // feature_matcher_->filterMatches(image_pairs_private.back());
+      feature_matcher_->filterMatches(image_pairs_private.back());
     }
 #pragma omp for schedule(static) ordered
     for (int i = 0; i < omp_get_num_threads(); i++) {
@@ -71,7 +71,7 @@ void SFMApp::triangulateInitialImagePair() {
     if (image_pair != initial_image_pair_) {
       // only clear camera two, as
       // a) we don't clear camera two of the initial image pair
-      // b) camera one is camera two on prev. image pair
+      // b) camera one is camera two on prev. image pair, and thus cleared
       image_pair->image2->clearObjectPointsAndCamera();
       image_pair->clearMatrices();
     }

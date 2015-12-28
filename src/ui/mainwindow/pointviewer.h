@@ -32,6 +32,7 @@ private:
   SFMApp *sfmapp;
   vector<shared_ptr<ObjectPoint>> visible_object_points;
   vector<shared_ptr<ImageCamera>> cameras;
+  float camera_size = .1;
 };
 
 
