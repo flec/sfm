@@ -12,12 +12,12 @@ CVImageWidget::CVImageWidget(QWidget *parent)
     : QWidget(parent)
 {
   _tmp = cv::Mat(1,1, CV_8UC3);
+  src = cv::Mat(1,1, CV_8UC3);
   refreshImage();
 }
 
 void CVImageWidget::showImage(const cv::Mat& image)
 {
-  cv::Mat src;
   // Convert the image to the RGB888 format
   switch (image.type()) {
     case CV_8UC1:
@@ -47,8 +47,7 @@ void CVImageWidget::resizeEvent ( QResizeEvent * event )
   cv::Mat dst;
   if(event->size().width() != 0 && event->size().height() != 0)
   {
-    cv::resize(_tmp, dst, cv::Size(event->size().width(), event->size().height()), 0, 0, cv::INTER_CUBIC);
-    _tmp = dst;
+    cv::resize(src, _tmp, cv::Size(event->size().width(), event->size().height()), 0, 0, cv::INTER_CUBIC);
     refreshImage();
   }
 }

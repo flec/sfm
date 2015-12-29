@@ -48,6 +48,7 @@ public:
   void showImage(const cv::Mat& image);
 
   QImage _qimage;
+  cv::Mat src;
   cv::Mat _tmp;
 
 protected:

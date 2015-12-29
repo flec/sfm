@@ -22,14 +22,6 @@ public:
   /**
    * Writes 3D points to a file with the given name
    *
-   * file_name  file path including path
-   * points3Dh  homogeneous 3D points
-   */
-  static void write(const string &file_name, const Mat &points3Dh);
-
-  /**
-   * Writes 3D points to a file with the given name
-   *
    * file_name      file path including path
    * object_points  3d points
    */
