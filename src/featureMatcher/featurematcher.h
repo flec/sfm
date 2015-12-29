@@ -40,7 +40,7 @@ public:
    * image_pair       Filter matches of this ImagePair
    * min_dist_factor  Factor for computing the maximum allowed distance.
    */
-  void filterMatches(shared_ptr<ImagePair> &image_pair, double min_dist_factor = 6);
+  void filterMatches(shared_ptr<ImagePair> &image_pair, double min_dist_factor = 6.5);
 
 };
 
