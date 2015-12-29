@@ -14,14 +14,11 @@ void PointViewer::update(vector<shared_ptr<ObjectPoint>> &object_points, vector<
 }
 
 void PointViewer::draw() {
-  // Draw the ambient light
-  float pos[4] = {1.0, 0.5, 1.0, 0.0};
-  glLightfv(GL_LIGHT0, GL_POSITION, pos);
-  drawLight(GL_LIGHT0);
+  glDisable(GL_LIGHTING);
 
   // Draw the points
   if (visible_object_points.size() > 0) {
-    glPointSize(2.0);
+    glPointSize(3.0);
     glBegin(GL_POINTS);
 
     for (auto object_point : visible_object_points) {
@@ -32,25 +29,17 @@ void PointViewer::draw() {
     glEnd();
   }
 
-  // Draw the camera center points
-  glBegin(GL_POINTS);
-  glPointSize(20.0);
-  glColor3f(1, 1, 1);
-  for (auto camera : cameras) {
-    glVertex3d(camera->gl_translation().at<double>(0), camera->gl_translation().at<double>(1),
-               camera->gl_translation().at<double>(2));
-  }
-  glEnd();
-
   // draw the camera frames
   for (auto camera : cameras) {
     GLdouble mat_rot_trans[16];
 
     // Get rotation of camera
     Mat_<double> position_rotation = camera->gl_rotation();
-    for (int col = 0; col < 3; col++)
+    for (int col = 0; col < 3; col++) {
       for (int row = 0; row < 3; row++)
         mat_rot_trans[col * 4 + row] = position_rotation(row, col);
+      mat_rot_trans[col * 4 + 3] = 0;
+    }
 
     // Get translation of camera
     Mat_<double> position_translation = camera->gl_translation();
@@ -59,27 +48,34 @@ void PointViewer::draw() {
     mat_rot_trans[14] = position_translation(2);
     mat_rot_trans[15] = 1;
 
-
+    // draw camera
     glPushMatrix();
     glMultMatrixd(mat_rot_trans);
     glBegin(GL_TRIANGLE_FAN);
-
-    glColor3f(0, 1, 0);
-    glVertex3f(0, 0, 0);
-    glVertex3f(camera_size, -camera_size, camera_size);
-    glVertex3f(-camera_size, -camera_size, camera_size);
     glColor3f(1, 0, 0);
-    glVertex3f(-camera_size, camera_size, camera_size);
-    glVertex3f(camera_size, camera_size, camera_size);
-    glVertex3f(camera_size, -camera_size, camera_size);
+    glVertex3f(0, 0, 0);
+    glColor3f(0, 1, 0);
+    glVertex3f(camera_size, -camera_size, 2*camera_size);
+    glVertex3f(-camera_size, -camera_size, 2*camera_size);
+    glVertex3f(-camera_size, camera_size, 2*camera_size);
+    glVertex3f(camera_size, camera_size, 2*camera_size);
+    glVertex3f(camera_size, -camera_size, 2*camera_size);
     glEnd();
+
+    // draw line out of camera
+    glColor3f(1.0, 1.0, 1.0);
+    glLineWidth(3);
+    glBegin(GL_LINES);
+    glVertex3f(0.0, 0.0, -.5*camera_size);
+    glVertex3f(0, 0, camera_size*5);
+    glEnd();
+
     glPopMatrix();
   }
 }
 
 // Constructor must call the base class constructor.
 PointViewer::PointViewer(QWidget *parent) : QGLViewer(parent), sfmapp(SFMApp::getInstance()) {
-  glEnable(GL_LIGHT0);
   qglviewer::Vec camera_position(0, 0, 40);
   camera()->setPosition(camera_position);
   camera()->lookAt(sceneCenter());
