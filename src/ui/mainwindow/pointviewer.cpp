@@ -64,18 +64,14 @@ void PointViewer::draw() {
     glMultMatrixd(mat_rot_trans);
     glBegin(GL_TRIANGLE_FAN);
 
-    glColor3f(1, 0, 0);
+    glColor3f(0, 1, 0);
     glVertex3f(0, 0, 0);
     glVertex3f(camera_size, -camera_size, camera_size);
     glVertex3f(-camera_size, -camera_size, camera_size);
+    glColor3f(1, 0, 0);
     glVertex3f(-camera_size, camera_size, camera_size);
     glVertex3f(camera_size, camera_size, camera_size);
     glVertex3f(camera_size, -camera_size, camera_size);
-//    glVertex3f(camera_size, -camera_size, -camera_size);
-//    glVertex3f(-camera_size, -camera_size, -camera_size);
-//    glVertex3f(-camera_size, camera_size, -camera_size);
-//    glVertex3f(camera_size, camera_size, -camera_size);
-//    glVertex3f(camera_size, -camera_size, -camera_size);
     glEnd();
     glPopMatrix();
   }
