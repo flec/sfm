@@ -5,10 +5,10 @@
 #include <QtWidgets/qfiledialog.h>
 #include <iostream>
 #include <QtWidgets/qlistview.h>
+#include "util/plyutil.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "ui/widgets/cvimagedialog.h"
-
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -53,11 +53,24 @@ void MainWindow::on_actionTest_it_all_triggered() {
   ui->featureMatchingTab->on_matchFeatures_clicked();
   ui->matrixFindingTab->on_findInitialMatrices_clicked();
   ui->triangulationTab->on_runInitialTriangulation_clicked();
-  //ui->triangulationTab->on_runNextTriangulation_clicked();
-  //ui->tabWidget->setCurrentIndex(3);
-  //system("meshlab /tmp/initialPoints.ply &");
+  ui->tabWidget->setCurrentIndex(3);
 }
 
 void MainWindow::on_actionTriangulation_QGLViewer_Help_triggered() {
   ui->triangulationTab->showHelp();
+}
+
+void MainWindow::on_actionExport_pointcloud_triggered() {
+  QString selected_filter;
+  QString file_name = QFileDialog::getSaveFileName(this, tr("Export point cloud"), "", PLY_FILES, &selected_filter);
+
+  if (file_name.isNull())
+    return;
+
+  QFileInfo file(file_name);
+  if (file.suffix().isEmpty())
+    file_name.append(".ply");
+
+  QByteArray path = file_name.toLocal8Bit();
+  PlyUtil::write(std::string(path.constData(), path.length()), *sfmapp->object_points());
 }

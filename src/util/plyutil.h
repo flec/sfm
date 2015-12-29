@@ -33,7 +33,7 @@ public:
    * file_name      file path including path
    * object_points  3d points
    */
-  static void write(const string &fileName, const vector<shared_ptr<ObjectPoint>> &object_points);
+  static void write(const string &file_name, const vector<shared_ptr<ObjectPoint>> &object_points);
 };
 
 

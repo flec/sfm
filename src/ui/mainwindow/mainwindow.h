@@ -5,6 +5,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#define PLY_FILES "PLY files (*.ply)"
+
 #include <QMainWindow>
 #include <sfmapp.h>
 #include "featuredetectiontab.h"
@@ -33,6 +35,8 @@ private slots:
   void on_actionTest_it_all_triggered();
 
   void on_actionTriangulation_QGLViewer_Help_triggered();
+
+  void on_actionExport_pointcloud_triggered();
 
 signals:
   void imagesUpdated();

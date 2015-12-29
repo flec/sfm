@@ -49,6 +49,9 @@ void PlyUtil::write(const string &fileName, const vector<shared_ptr<ObjectPoint>
   file << "property float x" << endl;
   file << "property float y" << endl;
   file << "property float z" << endl;
+  file << "property uchar red" << endl;
+  file << "property uchar green" << endl;
+  file << "property uchar blue" << endl;
   //file << "element face " << triangleNum << endl;
   //file << "property list uchar int vertex_index" << endl;
   file << "end_header" << endl;
@@ -56,8 +59,10 @@ void PlyUtil::write(const string &fileName, const vector<shared_ptr<ObjectPoint>
   file << fixed << setprecision(8);
 
   for (auto object_point:object_points) {
-    Point3f *coords = object_point->coordinates();
-    file << coords->x << " " << coords->y << " " << coords->z << endl;
+    Point3f *coords = object_point->gl_coordinates();
+    Point3f color = object_point->color();
+    file << coords->x << " " << coords->y << " " << coords->z <<
+    " " << (int) (color.x * 255) << " " << (int) (color.y * 255) << " " << (int) (color.z * 255) << endl;
   }
 
 }
