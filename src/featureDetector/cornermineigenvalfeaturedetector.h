@@ -1,6 +1,6 @@
-//
-// Created by marco on 01.01.16.
-//
+// Copyright 2015 Marco Fuellemann & Janosch Rohdewald.  All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
 #ifndef SFM_CORNERMINEIGENVALFEATUREDETECTOR_H
 #define SFM_CORNERMINEIGENVALFEATUREDETECTOR_H
@@ -12,6 +12,14 @@
  * Implementation of the corner minimum eigen value feature detector
  */
 class CornerMinEigenValFeatureDetector : public FeatureDetecter {
+private:
+  /**
+   * Detector parameters
+   */
+  static const int MAX_CORNERS;
+  static const double QUALITY_LEVEL;
+  static const double MIN_DISTANCE;
+
 public:
 
   /**
