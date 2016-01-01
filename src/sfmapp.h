@@ -15,6 +15,7 @@
 #include "featureDetector/surffeaturedetector.h"
 #include "featureDetector/surfcudafeaturedetector.h"
 #include "featureDetector/briskfeaturedetector.h"
+#include "featureDetector/cornermineigenvalfeaturedetector.h"
 #include "projectionMatrixFinder/basicprojectionmatrixfinder.h"
 #include "image/pair/imagepair.h"
 #include "featureMatcher/flannfeaturematcher.h"
