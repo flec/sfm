@@ -60,6 +60,14 @@ public:
   Image(string const &file_path, bool const load_color = true);
 
   /**
+   * Initialize an image that has already been loaded. From the colored image a greyscale image will be created as well.
+   *
+   * file_path  Files name used as identifier
+   * image      The image as Mat
+   */
+  Image(const string &file_path, Mat image);
+
+  /**
    * Unload image from memory before deconstruction
    */
   ~Image();

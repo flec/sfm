@@ -74,3 +74,12 @@ void MainWindow::on_actionExport_pointcloud_triggered() {
   QByteArray path = file_name.toLocal8Bit();
   PlyUtil::write(std::string(path.constData(), path.length()), *sfmapp->object_points());
 }
+
+void MainWindow::on_actionLoad_Video_triggered()
+{
+  QString images_dir = QFileDialog::getOpenFileName(this, tr("Choose video file"), "");
+  QByteArray path = images_dir.toLocal8Bit();
+  sfmapp->loadVideo(std::string(path.constData(), path.length()));
+
+  emit imagesUpdated();
+}

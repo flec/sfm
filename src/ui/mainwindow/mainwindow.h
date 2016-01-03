@@ -38,6 +38,8 @@ private slots:
 
   void on_actionExport_pointcloud_triggered();
 
+  void on_actionLoad_Video_triggered();
+
 signals:
   void imagesUpdated();
   void imagePairsUpdated();

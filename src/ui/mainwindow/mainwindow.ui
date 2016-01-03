@@ -55,7 +55,7 @@
      <x>0</x>
      <y>0</y>
      <width>939</width>
-     <height>35</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -63,6 +63,7 @@
      <string>File</string>
     </property>
     <addaction name="actionLoad_images"/>
+    <addaction name="actionLoad_Video"/>
     <addaction name="actionUnload_Images"/>
     <addaction name="actionExport_pointcloud"/>
     <addaction name="separator"/>
@@ -124,6 +125,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionLoad_Video">
+   <property name="text">
+    <string>Load Video</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+O</string>
    </property>
   </action>
  </widget>

@@ -123,6 +123,13 @@ public:
   void loadImages(string const &images_dir);
 
   /**
+   * Loads the frames form a video file
+   *
+   * file_name  Videos file name
+   */
+  void loadVideo(const string &file_name);
+
+  /**
    * Detect the features of all loaded images. To load the images, see @loadImages()
    */
   void detectFeatures();

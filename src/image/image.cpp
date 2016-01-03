@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include "util/fileutil.h"
 #include "image.h"
 #include "imageloadexception.h"
@@ -21,6 +22,17 @@ Image::Image(string const &file_path, bool const load_color) : camera_(shared_pt
 
   if (load_color)
     this->mat_color_ = imread(file_path, IMREAD_COLOR);
+}
+
+Image::Image(const string &file_path, Mat image) : camera_(shared_ptr<ImageCamera>(new ImageCamera())) {
+#ifdef DEBUG
+  printf("Creating image %s\n", file_path.c_str());
+#endif
+  this->file_path_ = FileUtil::getPathName(file_path);
+  this->file_name_ = FileUtil::getFileName(file_path);
+
+  image.copyTo(this->mat_color_);
+  cvtColor(image, this->mat_grey_, COLOR_BGR2GRAY);
 }
 
 Image::~Image() {

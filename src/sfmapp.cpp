@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #include "image/imageloader.h"
+#include "image/videoloader.h"
 #include "sfmapp.h"
 #include <omp.h>
 
@@ -16,6 +17,10 @@ SFMApp *SFMApp::getInstance() {
 
 void SFMApp::loadImages(string const &images_dir) {
   images_ = ImageLoader::loadImagesFromDir(images_dir);
+}
+
+void SFMApp::loadVideo(const string &file_name) {
+  images_ = VideoLoader::loadVideoFrames(file_name);
 }
 
 void SFMApp::unload() {
