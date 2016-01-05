@@ -20,7 +20,7 @@ using namespace std;
 class FeatureDetecter {
 public:
   // Detect a maximum of max_features, if supported by the implementing feature detector.
-  const static int max_features = 5000;
+  const static int max_features = 30000;
 
   /**
    * Detect the features for each image. The result being keypoints and descriptors are save into the Image itself.

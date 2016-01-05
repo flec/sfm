@@ -10,7 +10,7 @@
 using namespace cv;
 using namespace std;
 /**
- * Implementation of the perspective-n-point solver using a RANSAC approach to minimize outliners
+ * Implementation of the perspective-n-point solver using a RANSAC approach to minimize outliers
  */
 class RANSACPnPSolver : public PnPSolver {
 public:

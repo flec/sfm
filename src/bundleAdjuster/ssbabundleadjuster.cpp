@@ -14,7 +14,7 @@ void SSBABundleAdjuster::adjust(Mat intrinsic_camera_params, vector<shared_ptr<O
   // prepare data for bundle adjustment
   Matrix3x3d k = convertIntrinsicCameraParams(intrinsic_camera_params);
   Matrix3x3d k_normalized = normalizeIntrinsicCameraParams(k);
-  double const inliner_threshold = 2.0 / fabs(k[0][0]);
+  double const inlier_threshold = 2.0 / fabs(k[0][0]);
   StdDistortionFunction distortion;
   vector<Vector3d> object_points_ssba = convertObjectPoints(object_points);
   vector<CameraMatrix> cams = getCameras(images, k);
@@ -24,7 +24,7 @@ void SSBABundleAdjuster::adjust(Mat intrinsic_camera_params, vector<shared_ptr<O
   getCorrespondences(object_points, k, measurements, correspondingView, correspondingPoint);
 
   // create optimizer
-  CommonInternalsMetricBundleOptimizer optimizer(V3D::FULL_BUNDLE_FOCAL_LENGTH_PP, inliner_threshold, k_normalized,
+  CommonInternalsMetricBundleOptimizer optimizer(V3D::FULL_BUNDLE_FOCAL_LENGTH_PP, inlier_threshold, k_normalized,
                                                  distortion, cams,
                                                  object_points_ssba, measurements, correspondingView,
                                                  correspondingPoint);

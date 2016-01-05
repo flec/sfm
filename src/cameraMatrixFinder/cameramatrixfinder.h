@@ -35,14 +35,14 @@ public:
 
 protected:
   /**
-   * After the calculation of the essential matrix between two images, one has several outliners of feature matches,
+   * After the calculation of the essential matrix between two images, one has several outliers of feature matches,
    * that don't agree to that matrix. They need to be removed, to be consistent.
    *
    * image_pair   The ImagePair
-   * inliners     1D cv::Mat<char> containing 1 if the match at index i is an inliner, otherwise it shall contain 0. If
+   * inliers     1D cv::Mat<char> containing 1 if the match at index i is an inlier, otherwise it shall contain 0. If
    *              index i has a value of 0, the match at index i will be removed from the ImagePait.
    */
-  void removeOutlinerMatches(shared_ptr<ImagePair> &image_pair, Mat &inliners);
+  void removeOutlierMatches(shared_ptr<ImagePair> &image_pair, Mat &inliers);
 };
 
 #endif // SFM_CAMERAMATRIXFINDER_H

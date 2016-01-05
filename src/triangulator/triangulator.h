@@ -15,11 +15,11 @@ class Triangulator {
 public:
   /**
    * Triangulates the specified points for triangulation in both images of the pair to obtain 3D points.
-   * If outliners are removed the map returned does only contain indices with inliners.
+   * If outliers are removed the map returned does only contain indices with inliers.
    *
    * image_pair                   pair of images that should be triangulated
    * intrinsic_camera_parameters  intrinsic camera parameters
-   * map_points3D                 output: map with triangulated inliner 3D points where the key corresponds to the indices in vector of points for triangulation
+   * map_points3D                 output: map with triangulated inlier 3D points where the key corresponds to the indices in vector of points for triangulation
    */
   virtual void findPoints3D(shared_ptr <ImagePair> &image_pair, Mat &intrinsic_camera_parameters, map<int, Point3f> &map_points3D) = 0;
 

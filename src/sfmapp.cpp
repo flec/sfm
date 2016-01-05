@@ -143,7 +143,7 @@ void SFMApp::prepareForInitialTriangulation() {
 }
 
 void SFMApp::prepareForTriangulation(shared_ptr<ImagePair> image_pair) {
-  // find camera matrix and remove outliner matches
+  // find camera matrix and remove outlier matches
   camera_matrix_finder_->findCameraMatrix(image_pair, intrinsic_camera_parameters_);
 
   // separate points into those for PnP solving and those for triangulation
