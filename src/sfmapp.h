@@ -146,19 +146,19 @@ public:
   void findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat &intristic_camera_paramaters);
 
   /**
-   * Triangulate the initial image pair - ie the first two images/the first ImagePair.
+   * Reconstruct the initial image pair - ie the first two images/the first ImagePair.
    * This relies only on the camera matrices (rotation, translation, essential) that are saved in the ImagePair.
    */
-  void triangulateInitialImagePair();
+  void reconstructInitialImagePair();
 
   /**
-   * Triangulated the next ImagePair in order - the next, not yet triangulated, ImagePair in the image_pairs vector.
-   * This is done by solving the PnP problem based on the initially triangulated ImagePair.
+   * Reconstruct the next ImagePair in order - the next, not yet reconstructed, ImagePair in the image_pairs vector.
+   * This is done by solving the PnP problem based on the initially reconstructed ImagePair.
    */
-  void triangulateNextImagePair();
+  void reconstructNextImagePair();
 
   /**
-   * Remove the last triangulated camera.
+   * Remove the last reconstructed camera.
    * Naturally this function removes as well the object points.
    */
   void removeLastCamera();

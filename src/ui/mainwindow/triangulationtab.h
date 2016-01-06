@@ -22,15 +22,16 @@ public:
 
 public slots:
 
-  void on_runInitialTriangulation_clicked();
+  void on_runInitialReconstruction_clicked();
 
-  void on_runNextTriangulation_clicked();
+  void on_runNextReconstruction_clicked();
 
   void showHelp();
 
   void updateViewer();
 
 private slots:
+
   void on_removeLastCamera_clicked();
 
   void on_doBundleAdjustment_clicked();
@@ -38,6 +39,7 @@ private slots:
   void on_centerPivot_clicked();
 
   void on_denseReconstruct_clicked();
+
 
 private:
   Ui::TriangulationTab *ui;

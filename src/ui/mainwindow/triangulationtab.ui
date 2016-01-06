@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>954</width>
+    <width>993</width>
     <height>437</height>
    </rect>
   </property>
@@ -26,16 +26,16 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="runInitialTriangulation">
+        <widget class="QPushButton" name="runInitialReconstruction">
          <property name="text">
-          <string>Triangulate initial</string>
+          <string>Reconstruct initial</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="runNextTriangulation">
+        <widget class="QPushButton" name="runNextReconstruction">
          <property name="text">
-          <string>Triangulate next</string>
+          <string>Reconstruct next</string>
          </property>
         </widget>
        </item>
@@ -50,13 +50,6 @@
         <widget class="QPushButton" name="doBundleAdjustment">
          <property name="text">
           <string>Bundle adjust</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="denseReconstruct">
-         <property name="text">
-          <string>Dense Reconst.</string>
          </property>
         </widget>
        </item>

@@ -20,7 +20,7 @@
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>3</number>
         </property>
         <widget class="FeatureDetectionTab" name="featureDetectionTab">
          <attribute name="title">
@@ -38,9 +38,9 @@
           <string>Matrix Finding</string>
          </attribute>
         </widget>
-        <widget class="TriangulationTab" name="triangulationTab">
+        <widget class="TriangulationTab" name="reconstructionTab">
          <attribute name="title">
-          <string>Triangulation</string>
+          <string>Reconstruction</string>
          </attribute>
         </widget>
        </widget>
@@ -55,7 +55,7 @@
      <x>0</x>
      <y>0</y>
      <width>939</width>
-     <height>27</height>
+     <height>35</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

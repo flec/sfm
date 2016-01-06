@@ -67,7 +67,7 @@ void SFMApp::findInitialMatrices(shared_ptr<ImagePair> &initial_image_pair, Mat 
   initial_image_pair->image2->camera()->set_extrinsic(initial_image_pair->rotation, initial_image_pair->translation);
 }
 
-void SFMApp::triangulateInitialImagePair() {
+void SFMApp::reconstructInitialImagePair() {
   // Clear the current object points
   object_points_.clear();
 
@@ -85,7 +85,7 @@ void SFMApp::triangulateInitialImagePair() {
   triangulatePoints(initial_image_pair_);
 }
 
-void SFMApp::triangulateNextImagePair() {
+void SFMApp::reconstructNextImagePair() {
   // get the next not yet triangulated image pair in order
   shared_ptr<ImagePair> next_image_pair;
   for (auto image_pair:image_pairs_)

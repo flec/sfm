@@ -23,7 +23,7 @@ public:
    * n          The nth frame that should be loaded
    * returns    A vector containing all loaded Images
    */
-  static vector<shared_ptr<Image>> loadVideoFrames(const string &file_name, const int n = 20);
+  static vector<shared_ptr<Image>> loadVideoFrames(const string &file_name, const int n = 30);
 };
 
 #endif //SFM_VIDEOLOADER_H

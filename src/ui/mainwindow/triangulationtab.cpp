@@ -16,13 +16,13 @@ TriangulationTab::~TriangulationTab() {
   delete ui;
 }
 
-void TriangulationTab::on_runInitialTriangulation_clicked() {
-  sfmapp->triangulateInitialImagePair();
+void TriangulationTab::on_runInitialReconstruction_clicked() {
+  sfmapp->reconstructInitialImagePair();
   updateViewer();
 }
 
-void TriangulationTab::on_runNextTriangulation_clicked() {
-  sfmapp->triangulateNextImagePair();
+void TriangulationTab::on_runNextReconstruction_clicked() {
+  sfmapp->reconstructNextImagePair();
   updateViewer();
 }
 
@@ -57,3 +57,4 @@ void TriangulationTab::on_centerPivot_clicked() {
 void TriangulationTab::on_denseReconstruct_clicked() {
 
 }
+

@@ -52,12 +52,12 @@ void MainWindow::on_actionTest_it_all_triggered() {
   ui->featureDetectionTab->on_detectFeatures_clicked();
   ui->featureMatchingTab->on_matchFeatures_clicked();
   ui->matrixFindingTab->on_findInitialMatrices_clicked();
-  ui->triangulationTab->on_runInitialTriangulation_clicked();
+  ui->reconstructionTab->on_runInitialReconstruction_clicked();
   ui->tabWidget->setCurrentIndex(3);
 }
 
 void MainWindow::on_actionTriangulation_QGLViewer_Help_triggered() {
-  ui->triangulationTab->showHelp();
+  ui->reconstructionTab->showHelp();
 }
 
 void MainWindow::on_actionExport_pointcloud_triggered() {
