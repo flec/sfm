@@ -20,7 +20,7 @@ void SURFCUDAFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, 
 #pragma omp for
   for (int i = 0; i< images.size();++i) {
   #ifdef DEBUG
-    cout<<"Detecting SURF features using GPU on image "<<*images.at(i)->file_name()<<endl;
+    cout<<"Detecting SURF features using GPU on image "<<images.at(i)->file_name()<<endl;
 #endif
     GpuMat keypoints_GPU, descriptors_GPU;
 
