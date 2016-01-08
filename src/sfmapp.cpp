@@ -73,15 +73,17 @@ void SFMApp::reconstructInitialImagePair() {
   // Clear the current object points
   object_points_.clear();
 
+  auto initial_cam2 = initial_image_pair_->image2->camera();
   // clear the matrices except for the initial image pair
   for (auto image_pair:image_pairs_)
     if (image_pair != initial_image_pair_) {
       // only clear camera two, as
-      // a) we don't clear camera two of the initial image pair
-      // b) camera one is camera two on prev. image pair, and thus cleared
+      // a) we don't clear camera one of the initial image pair
+      // b) for all other images camera one is camera two on prev. image pair, and thus cleared
       image_pair->image2->clearObjectPointsAndCamera();
       image_pair->clearMatrices();
     }
+  initial_image_pair_->image2->camera() = initial_cam2;
 
   prepareForInitialTriangulation();
   triangulatePoints(initial_image_pair_);

@@ -10,6 +10,9 @@ KAZEFeatureDetector::KAZEFeatureDetector() : kaze(KAZE::create(false,false, 0.00
 
 void KAZEFeatureDetector::detectFeatures(vector<shared_ptr<Image>> &images, bool use_provided_keypoints) {
   for (auto image: images) {
+#ifdef DEBUG
+    cout<<"Detecting KAZE features on image "<<image->file_name()<<endl;
+#endif
     kaze->detectAndCompute(*image->mat_grey(), noArray(), *image->keypoints(), *image->descriptors(), use_provided_keypoints);
   }
 }

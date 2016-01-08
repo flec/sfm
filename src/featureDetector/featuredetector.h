@@ -9,6 +9,7 @@
 #include "opencv2/core/core.hpp"
 #include "image/image.h"
 #include <memory>
+#include <iostream>
 
 using namespace cv;
 using namespace std;
