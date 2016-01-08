@@ -21,6 +21,13 @@ public:
    * returns  3x1 matrix with euler angles
    */
   static Mat_<double> getEulerAnglesByRotationMatrix(Mat_<double> &r);
+
+  /**
+   * Returns if the matrix is a valid intrinsic camera matrix
+   * intrinsic  3x3 intrinsic matrix
+   * returns    if valid
+   */
+  static bool isValidCameraIntrinsic(const Mat_<double> &intrinsic);
 };
 
 

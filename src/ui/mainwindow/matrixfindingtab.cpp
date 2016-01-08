@@ -4,6 +4,7 @@
 
 #include <opencv2/imgproc.hpp>
 #include <src/ui/widgets/cvimagedialog.h>
+#include <QtWidgets/qmessagebox.h>
 #include "matrixfindingtab.h"
 #include "ui_matrixfindingtab.h"
 #include "ui/uiutil.h"
@@ -24,9 +25,17 @@ void MatrixFindingTab::on_findInitialMatrices_clicked() {
   if (getCurrentImagePair() != NULL) {
     shared_ptr<ImagePair> image_pair = getCurrentImagePair();
     Mat intrinsic_matrix = UIUtil::getMatFromQtable(*ui->intrinsicMatrix);
-    sfmapp->findInitialMatrices(image_pair, intrinsic_matrix);
-    updateMatrices();
-    emit imagePairsUpdated();
+    if (MatrixUtil::isValidCameraIntrinsic(intrinsic_matrix)) {
+      sfmapp->findInitialMatrices(image_pair, intrinsic_matrix);
+      updateMatrices();
+      emit imagePairsUpdated();
+    } else {
+      QMessageBox *msg = new QMessageBox();
+      msg->setAttribute(Qt::WA_DeleteOnClose, true);
+      msg->setWindowTitle("Error");
+      msg->setText("Please provide valid intrinsic camera matrix");
+      msg->exec();
+    }
   }
 }
 

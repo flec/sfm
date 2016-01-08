@@ -17,3 +17,9 @@ Mat_<double> MatrixUtil::getEulerAnglesByRotationMatrix(Mat_<double> &r) {
   Mat_<double> angles2 = (Mat_<double>(3, 1) << Rx2, Ry2, Rz2);
   return angles1;
 }
+
+bool MatrixUtil::isValidCameraIntrinsic(const Mat_<double> &intrinsic) {
+  return intrinsic.cols == 3 && intrinsic.rows == 3 &&
+      intrinsic.at<double>(0,0) != 0 && intrinsic.at<double>(1,1) != 0 &&
+      intrinsic.at<double>(0,2) != 0 && intrinsic.at<double>(1,2) != 0 && intrinsic.at<double>(2,2) == 1;
+}
