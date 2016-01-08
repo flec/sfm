@@ -39,8 +39,8 @@ void ImageCamera::set_extrinsic(const Mat_<double> &rotation, const Mat_<double>
 void ImageCamera::set_extrinsic() {
   extrinsic_ = Mat::eye(3, 4, CV_64FC1);
   updateProjectionMatrix();
-  position_ = extrinsic_;
-  gl_position_ = extrinsic_;
+  position_ = Mat::eye(3, 4, CV_64FC1);
+  gl_position_ = Mat::eye(3, 4, CV_64FC1);
 }
 
 void ImageCamera::updateProjectionMatrix() {
