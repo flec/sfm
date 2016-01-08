@@ -27,6 +27,8 @@
 #include "bundleAdjuster/ssbabundleadjuster.h"
 #include "denseReconstructor/patchdensereconstructor.h"
 #include "denseReconstructor/densereconstructor.h"
+#include "image/camera/parameterloader.h"
+#include "image/imageundistorter.h"
 
 using namespace std;
 
@@ -75,6 +77,9 @@ private:
   // Intrinsic parameters of the camera. Currently only a camera with the same intrinsic parameters is supported.
   Mat intrinsic_camera_parameters_;
 
+  // Cameras distortion coefficients. Currently only a camera with the same distortion coefficients is supported.
+  Mat camera_distortion_coefficients_;
+
   // List of all images
   // !!! Order is important, as only an image pair of the images next to each other will be built.
   vector<shared_ptr<Image>> images_;
@@ -108,6 +113,15 @@ private:
 
   // Triangulates points of an image pair
   void triangulatePoints(shared_ptr<ImagePair> image_pair);
+
+  // Loads camera parameters from files
+  void loadCameraParameters(const string &dir_path);
+
+  // Undistorts images if matrices are available
+  void undistortImages();
+
+  // Loads camera parameters from files and undistorts images
+  void loadParamsAndUndistort();
 
 public:
   /**

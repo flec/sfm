@@ -104,6 +104,10 @@ public:
 
   Mat *mat_grey() { return &mat_grey_; }
 
+  void set_mat_color(Mat image) {image.copyTo(mat_color_);}
+
+  void set_mat_grey(Mat image) {image.copyTo(mat_grey_);}
+
   string file_name() const { return file_name_; }
 
   string file_path() const { return file_path_; }

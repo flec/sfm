@@ -17,10 +17,12 @@ SFMApp *SFMApp::getInstance() {
 
 void SFMApp::loadImages(string const &images_dir) {
   images_ = ImageLoader::loadImagesFromDir(images_dir);
+  loadParamsAndUndistort();
 }
 
 void SFMApp::loadVideo(const string &file_name) {
   images_ = VideoLoader::loadVideoFrames(file_name);
+  loadParamsAndUndistort();
 }
 
 void SFMApp::unload() {
@@ -198,4 +200,21 @@ void SFMApp::doBundleAdjustment() {
 
 void SFMApp::doDenseReconstructon() {
   dense_reconstructor_->reconstruct(image_pairs_);
+}
+
+void SFMApp::loadCameraParameters(const string &dir_path) {
+  ParameterLoader::load(dir_path, intrinsic_camera_parameters_, camera_distortion_coefficients_);
+}
+
+void SFMApp::undistortImages() {
+  if (intrinsic_camera_parameters_.data != NULL && camera_distortion_coefficients_.data != NULL) {
+    ImageUndistorter::undistort(images_, intrinsic_camera_parameters_, camera_distortion_coefficients_);
+  }
+}
+
+void SFMApp::loadParamsAndUndistort() {
+  if (images_.size() > 0) {
+    loadCameraParameters(images_.at(0)->file_path());
+    undistortImages();
+  }
 }
