@@ -16,8 +16,9 @@ void FeatureMatcher::filterMatches(shared_ptr<ImagePair> &image_pair, double min
 
   // erase bad pairs
   auto i = begin(image_pair->matches);
+  auto allowed_dist = max(min_dist_factor * min_dist, .1);
   while (i != end(image_pair->matches)) {
-    if (i->distance < min_dist_factor * min_dist)
+    if (i->distance <= allowed_dist)
       ++i;
     else
       i = image_pair->matches.erase(i);
