@@ -88,7 +88,7 @@ void MatrixFindingTab::updateMatrices() {
 
 
     if (image_pair->image1->camera()->extrinsic_rotation().data != NULL) {
-      Mat_<double> rot = image_pair->image1->camera()->extrinsic_rotation();
+      Mat_<double> rot = image_pair->image1->camera()->position_rotation();
       Mat_<double> angles =
           MatrixUtil::getEulerAnglesByRotationMatrix(rot) / M_PI * 180;
       UIUtil::insertMatInQtable(rot, *ui->rotationMatrixCam1);
@@ -99,7 +99,7 @@ void MatrixFindingTab::updateMatrices() {
     }
 
     if (image_pair->image2->camera()->extrinsic_rotation().data != NULL) {
-      Mat_<double> rot = image_pair->image2->camera()->extrinsic_rotation();
+      Mat_<double> rot = image_pair->image2->camera()->position_rotation();
       Mat_<double> angles =
           MatrixUtil::getEulerAnglesByRotationMatrix(rot) / M_PI * 180;
       UIUtil::insertMatInQtable(rot, *ui->rotationMatrixCam2);
@@ -111,13 +111,13 @@ void MatrixFindingTab::updateMatrices() {
 
 
     {
-      Mat_<double> translation = image_pair->image1->camera()->extrinsic_translation();
+      Mat_<double> translation = image_pair->image1->camera()->position_translation();
       UIUtil::insertMatInQtable(
           translation.data != NULL ? translation
                                    : zeros31, *ui->translationMatrixCam1);
     }
     {
-      Mat_<double> translation = image_pair->image2->camera()->extrinsic_translation();
+      Mat_<double> translation = image_pair->image2->camera()->position_translation();
       UIUtil::insertMatInQtable(
           translation.data != NULL ? translation
                                    : zeros31, *ui->translationMatrixCam2);
