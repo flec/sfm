@@ -40,7 +40,7 @@ void ImageCamera::set_extrinsic() {
   extrinsic_ = Mat::eye(3, 4, CV_64FC1);
   updateProjectionMatrix();
   position_ = Mat::eye(3, 4, CV_64FC1);
-  gl_position_ = Mat::eye(3, 4, CV_64FC1);
+  hconcat(rotate_x_axis_180, Mat::zeros(3, 1, CV_64FC1), gl_position_);
 }
 
 void ImageCamera::updateProjectionMatrix() {
