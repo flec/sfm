@@ -7,7 +7,19 @@ The main logic is in `sfmapp.h` and `sfmapp.cpp`. One can easily interchange fea
 **OPTIONAL**: One can offload feature detection to the graphic card. Thus enable the USE_CUDA CMake option and compile OpenCV with 
  CUDA.
 ### Linux
-1. Build OpenCV with the contrib modules and install it:
+1. Build OpenCV with the contrib modules and install it. Make after cloning the git repos (opencv & opencv_contrib) that you checkout the same version of both repos:
+```bash
+git clone https://github.com/Itseez/opencv_contrib.git
+cd opencv_contrib
+git checkout 3.0.0
+cd ..
+git clone https://github.com/Itseez/opencv.git
+cd opencv
+git checkout 3.0.0
+mkdir build
+cd build
+cmake -DOPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules ..
+```
    <https://github.com/itseez/opencv_contrib#how-to-build-opencv-with-extra-modules>
 
 2. Install the following dependencies:
