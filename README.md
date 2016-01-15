@@ -20,7 +20,8 @@ mkdir build
 cd build
 cmake -DOPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules ..
 ```
-   <https://github.com/itseez/opencv_contrib#how-to-build-opencv-with-extra-modules>
+
+From <https://github.com/itseez/opencv_contrib#how-to-build-opencv-with-extra-modules>
 
 2. Install the following dependencies:
    * libsuitesparse-dev
