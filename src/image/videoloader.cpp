@@ -16,7 +16,7 @@ vector<shared_ptr<Image>> VideoLoader::loadVideoFrames(const string &file_name, 
   }
 
   Mat frame;
-  unsigned int i = 1;
+  unsigned int i = 0;
   while (capture.read(frame)) {
     if (i % n == 0) {
       char index[10];
