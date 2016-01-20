@@ -31,6 +31,7 @@ cmake -DOPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules ..
 mkdir build
 cd build
 cmake ..
+make
 ```
 
 ## Usage
