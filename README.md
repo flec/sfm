@@ -2,6 +2,7 @@
 This repository contains the code created in the scope of the Bachelor Thesis by nordewal and flec. 
 
 The goal of this application was mainly educational. It gives one a good insight and starting point into the Structure from Motion domain. Using the GUI one can easily follow the pipeline used for SfM:
+
 1. Detect and describe features of each image
 2. Create image pair and match features
 3. Compute rotation and translation (extrinsic parameters) for the first image pair
