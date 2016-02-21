@@ -1,4 +1,15 @@
 # Structure from Motion
+This repository contains the code created in the scope of the Bachelor Thesis by nordewal and flec. 
+
+The goal of this application was mainly educational. It gives one a good insight and starting point into the Structure from Motion domain. Using the GUI one can easily follow the pipeline used for SfM:
+1. Detect and describe features of each image
+2. Create image pair and match features
+3. Compute rotation and translation (extrinsic parameters) for the first image pair
+4. Create a point cloud for the first image pair.
+5. Add more points to the point cloud using PnP and triangulation.
+6. Minimize the errors in the point cloud using bundle adjustment.
+
+This application can only handle images that are already in the correct sequence (eg. video), as it only compares image A to B and image B to C. But not image A to C. The application can load images as well as videos.
 
 The main logic is in `sfmapp.h` and `sfmapp.cpp`. One can easily interchange feature detectors and so on in the `sfmapp.h` file.
 
@@ -36,7 +47,9 @@ make
 
 ## Usage
 ### Datasets
-For sake of comfort, one sample datasets is already provided in the datasets folder.
+For sake of comfort, two datasets are already provided in the datasets folder:
+* house: Created for this project
+* fountain: Created by the EPFL: http://cvlabwww.epfl.ch/data/multiview/denseMVS.html
 ### Camera intrinsic parameters
 To avoid specifying the camera intrinsic parameters on every run in the GUI, one can define those in a file called 
 `camera_intrinsic.yaml`, which must be in the same folder as the images. Replace `fx`, `fy`, `cx` and `cy` accordingly.
