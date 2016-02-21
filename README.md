@@ -1,7 +1,7 @@
 # Structure from Motion
-This repository contains the code created in the scope of the Bachelor Thesis by nordewal and flec. 
+An easy understandle Structure from Motion (SfM) application wirrten in C++ using OpenCV, Qt and OpenGL. 
 
-The goal of this application was mainly educational. It gives one a good insight and starting point into the Structure from Motion domain. Using the GUI one can easily follow the pipeline used for SfM:
+The goal of this application was mainly educational (Bachelor Thesis by nordewal/flec). It gives one a good insight and starting point into the Structure from Motion domain. Using the GUI one can easily follow the pipeline used for SfM:
 
 1. Detect and describe features of each image
 2. Create image pair and match features
