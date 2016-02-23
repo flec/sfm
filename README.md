@@ -1,4 +1,4 @@
-# Structure from Motion
+# Structure from Motion using OpenCV
 An easy understandle Structure from Motion (SfM) application wirrten in C++ using OpenCV, Qt and OpenGL. 
 
 The goal of this application was mainly educational (Bachelor Thesis by nordewal/flec). It gives one a good insight and starting point into the Structure from Motion domain. Using the GUI one can easily follow the pipeline used for SfM:
